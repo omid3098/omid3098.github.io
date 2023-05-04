@@ -43,3 +43,14 @@ This work is published under [MIT][mit] License.
 [use-template]: https://github.com/cotes2020/chirpy-starter/generate
 [CD]: https://en.wikipedia.org/wiki/Continuous_deployment
 [mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+
+
+## To show the theme files run:
+```shell
+bundle show jekyll-theme-chirpy
+```
+
+## To run the site locally run:
+```shell
+bundle exec jekyll serve --livereload
+```
