@@ -2,7 +2,7 @@
 # the default layout is 'page'
 # best icon for resume is fas fa-file-alt
 icon: fas fa-file-alt
-order: 0
+order: 1
 ---
 
 Passionate about video games, game development, and technical challenges. Expert in Unity3D, C#, and 3D modeling with extensive experience in game programming, tool development, and technical artistry.
