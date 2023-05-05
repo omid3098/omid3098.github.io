@@ -37,15 +37,26 @@
   margin-left: 0;
   margin-right: 0;
 }
-
 .timeline-icon {
   position: absolute;
   left: 50%;
   width: 20px;
   height: 20px;
   margin-left: -10px;
+  margin-top: 0px;
   border-radius: 50%;
   background: #018f69;
+}
+
+.timeline-icon-shadow {
+  position: absolute;
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  margin-left: -13px;
+  margin-top: 0px;
+  border-radius: 50%;
+  background: #242424;
 }
 
 .timeline-item:nth-child(odd) .tag:after {
@@ -58,10 +69,12 @@
 }
 
 .timeline h3 {
-  font-size: 20px;
-  float: left;
-  position: relative;
-  left: 32%;
+  font-size: 24px;
+  color: #8a8a8a;
+  display: flex;
+  justify-content: left;
+  margin-left: 30px;
+  margin-bottom: 5px;
 }
 
 .timeline p {
@@ -75,4 +88,14 @@
   height: auto;
   margin-bottom: 10px;
   border-radius: 30px;
+}
+
+// timeline date
+.timeline-date {
+  font-size: 14px;
+  color: #8a8a8a;
+  display: flex;
+  justify-content: left;
+  margin-left: 30px;
+  margin-bottom: 5px;
 }
