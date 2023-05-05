@@ -1,5 +1,5 @@
 # Omid Saadat
-[info@omid-saadat.com](mailto:info@omid-saadat.com) | [omid-saadat.com](https://omid-saadat.com) |  [linkedin.com/in/omidsaadat]( linkedin.com/in/omidsaadat) | +90 546 1881779 | Istanbul, Turkey
+[info@omid-saadat.com](mailto:info@omid-saadat.com) | [omid-saadat.com](https://omid-saadat.com) |  [linkedin.com/in/omidsaadat]( linkedin.com/in/omidsaadat) 
 
 Passionate about video games, game development, and technical challenges. Expert in Unity3D, C#, and 3D modeling with extensive experience in game programming, tool development, and technical artistry.
 ## Skills:
