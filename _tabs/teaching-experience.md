@@ -2,7 +2,7 @@
 # the default layout is 'page'
 # best icon for teaching experience is fas fa-chalkboard-teacher
 icon: fas fa-chalkboard-teacher
-order: 2
+order: 3
 ---
 
 - Game Development Mentor at XTiming Academy on [IGDA](https://igda.peoplegrove.com/v2/) – 2022
