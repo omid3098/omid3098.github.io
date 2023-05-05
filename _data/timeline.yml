@@ -1,0 +1,15 @@
+# - title: Now ...
+- title: As a technical Artist
+- date: 2018-2019
+  description: "This is the description of event 1."
+  image: "https://web.archive.org/web/20220108020116im_/https://omid-saadat.com/wp-content/uploads/2019/01/Joko.jpg"
+  url: "#"
+- title: As a programmer
+- date: 2018-2019
+  description: "This is the description of event 1."
+  image: "https://web.archive.org/web/20220108020116im_/https://omid-saadat.com/wp-content/uploads/2019/01/Joko.jpg"
+  url: "#"
+- date: 2017-2018
+  description: "This is the description of event 2."
+  image: "https://web.archive.org/web/20220108013302im_/https://omid-saadat.com/wp-content/uploads/2019/01/Gambeet.jpg"
+  url: "#"

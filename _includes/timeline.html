@@ -1,0 +1,20 @@
+<!-- an empty space to space from top -->
+<div class="mb-4"></div>
+
+<div class="timeline">
+  {% for event in site.data.timeline %}
+  <div class="timeline-item">
+    <div class="timeline-icon"></div>
+    <div class="timeline-item-content">
+      {% if event.title %}
+        <h3>{{ event.title }}</h3>
+      {% endif %}
+      {% if event.image %}
+      <a href="{{ event.url }}" target="_blank" rel="noopener">
+        <img src="{{ event.image }}" alt="{{ event.title }}" />
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
