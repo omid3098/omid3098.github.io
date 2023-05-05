@@ -1,14 +1,5 @@
----
-# the default layout is 'page'
-# best icon for resume is fas fa-file-alt
-icon: fas fa-file-alt
-order: 2
----
-
-<!-- A button to download resume -->
-<a href="/assets/Resume.pdf" class="btn btn-outline-secondary" role="button">
-  <i class="fas fa-download"></i> Download
-</a>
+# Omid Saadat
+[info@omid-saadat.com](mailto:info@omid-saadat.com) | [omid-saadat.com](https://omid-saadat.com) |  [linkedin.com/in/omidsaadat]( linkedin.com/in/omidsaadat) | +90 546 1881779 | Istanbul, Turkey
 
 Passionate about video games, game development, and technical challenges. Expert in Unity3D, C#, and 3D modeling with extensive experience in game programming, tool development, and technical artistry.
 ## Skills:
@@ -119,5 +110,3 @@ Karaj Islamic Azad University (KIAU), 2006-2010 - Bachelor of Engineering, Compu
   - Board games: Catan, Saboteur, Carcassonne
   - Anime: One Piece, Naruto, Black Clover
   - Music: Folklore, Pop, Jazz
-
-{% pdf "/assets/Resume.pdf" no_link width=100% height=900px %}
