@@ -28,7 +28,7 @@ order: 6
   <div style="width: 5%"></div>
 
   <!-- Add a button for each social media -->
-  <a href="https://www.linkedin.com/in/omidsaadat/" class="btn btn-outline-secondary" role="button">
+  <a href="https://www.linkedin.com/in/omidsaadat" class="btn btn-outline-secondary" role="button">
     <i class="fab fa-linkedin"></i> LinkedIn
   </a>
 </div>
