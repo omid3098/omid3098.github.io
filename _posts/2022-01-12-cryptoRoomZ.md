@@ -1,7 +1,7 @@
 ---
 title: CryptoRoomZ
 date: 2022-01-12
-categories: [games, projects]
+categories: [projects, games]
 tags: [unity3d, project, programming, technical-artist, blockchain]
 ---
 
