@@ -51,8 +51,14 @@ All videos and screenshots are rendered in Unity3D:
 
 <!-- mp4 videos with play button to show assets\img\games\cryptoroomz\video\tv-room.mp4 and assets\img\games\cryptoroomz\video\game-room.mp4 with the same width and height -->
 <div class="text-center">
+  <div> Water drop, DOF, PostProcessing, Materials </div>
+  <video width="100%" loop autoplay>
+    <source src="/assets/img/games/cryptoroomz/video/water-drop.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div style="height: 20px"></div>
   <div> Vertex animation for window curtain: </div>
-  <video width="60%" loop autoplay>
+  <video width="100%" loop autoplay>
     <source src="/assets/img/games/cryptoroomz/video/window.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
