@@ -11,8 +11,18 @@
         <h3>{{ event.title }}</h3>
       {% endif %}
       {% if event.image %}
+        <!-- if the event.url is not "" then the image is clickable and redirects to the url. else, the image is not clickable -->
+        {% if event.url !="" %}
+          <a href="{{ event.url }}" rel="noopener">
+            <img src="{{ event.image }}" alt="image" />
+          </a>
+        {% else %}
+          <img src="{{ event.image }}" alt="image" />
+        {% endif %}
+
+
       <!-- <a href="{{ event.url }}" rel="noopener"> -->
-        <img src="{{ event.image }}" alt="image" />
+        <!-- <img src="{{ event.image }}" alt="image" /> -->
       <!-- </a> -->
       <!-- event date and event description in one row -->
       <div class="timeline-date">{{ event.date }} {% if event.description !="" %} | {{ event.description }} {% endif %}</div>
