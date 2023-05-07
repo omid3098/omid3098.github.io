@@ -33,16 +33,13 @@ All videos and screenshots are rendered in Unity3D:
 <!-- A grid to show 4 images -->
 <div class="text-center">
   <div class="row">
-    <div class="col-md-3">
-      <img src="/assets/img/games/cryptoroomz/gif/all-roomz.gif" alt="Screenshot 1" width="256px" height="256px">
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <img src="/assets/img/games/cryptoroomz/gif/bath.gif" alt="Screenshot 2" width="256px" height="256px">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <img src="/assets/img/games/cryptoroomz/gif/bed03.gif" alt="Screenshot 2" width="256px" height="256px">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <img src="/assets/img/games/cryptoroomz/gif/outdoor.gif" alt="Screenshot 2" width="256px" height="256px">
     </div>
   </div>
