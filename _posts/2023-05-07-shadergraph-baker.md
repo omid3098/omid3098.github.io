@@ -1,7 +1,9 @@
 ---
 layout: post
 title: Design and Bake texures in Unity - The ShaderGraph Baker
-date: 2023-05-07 21:29 +0300
+date: 2022-07-05 21:29 +0300
+categories: [projects, opensource]
+tags: [unity3d, project, programming, technical-artist, github, shadergraph, shader, shadergraph-baker, procedural, texture, bake, baking, substance derigner]
 ---
 ![Header](/assets/img/blog/shadergraph-baker/header.png)
 # The idea:
