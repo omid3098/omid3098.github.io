@@ -18,7 +18,7 @@ tags: [unity3d, project, programming, technical-artist, blockchain]
     CryptoRoomZ
   </div>
 </h2>
-CryptoRoomZ was a blockchain-based point and click adventure game made with Unity3D by LeMoonade Games. I was the lead programmer and technical artist of the project.
+CryptoRoomZ was a blockchain-based point and click adventure game made with Unity3D by LeMoonade Games. I was technical artist and the lead programmer of the project.
 
 <!-- Official trailer on Youtube -->
 <div class="text-center">
@@ -50,17 +50,52 @@ All videos and screenshots are rendered in Unity3D:
 <div style="height: 50px"></div>
 
 <!-- mp4 videos with play button to show assets\img\games\cryptoroomz\video\tv-room.mp4 and assets\img\games\cryptoroomz\video\game-room.mp4 with the same width and height -->
-<div>
+<div class="text-center">
+  <div> Vertex animation for window curtain: </div>
+  <video width="60%" loop autoplay>
+    <source src="/assets/img/games/cryptoroomz/video/window.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div style="height: 20px"></div>
+  <div> PostProcessing, DOF, Lighting and Particles: </div>
   <video width="100%" loop autoplay>
     <source src="/assets/img/games/cryptoroomz/video/tv-room.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div style="height: 20px"></div>
+  <div> Animated shader blink, Texture Sheet, Linear Fog: </div>
   <video width="100%" loop autoplay>
     <source src="/assets/img/games/cryptoroomz/video/game-room.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
+
+## Other Videos:
+<div class="text-center">
+  <div style="height: 5px"></div>
+  <video width="60%" loop autoplay>
+    <source src="/assets/img/games/cryptoroomz/02-Bath01.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div style="height: 5px"></div>
+  <video width="60%" loop autoplay>
+    <source src="/assets/img/games/cryptoroomz/03-RoomMain.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <video width="60%" loop autoplay>
+    <source src="/assets/img/games/cryptoroomz/01-Tv Room.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <video width="60%" loop autoplay>
+    <source src="/assets/img/games/cryptoroomz/05-Bed03.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <video width="60%" loop autoplay>
+    <source src="/assets/img/games/cryptoroomz/04-OutdoorHouseFront.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
 
 <!-- To make the videos loop, add loop attribute to the video tag like this: -->
 <!-- <video width="100%" controls loop> -->
