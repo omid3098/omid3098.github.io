@@ -11,6 +11,11 @@
   image: "assets/img/blog/shadergraph-baker/dynamic-tile.gif"
   url: "/posts/shadergraph-baker"
 
+- date: 2022
+  description: "Glass Shaders"
+  image: "/assets/img/blog/glass%20shaders/glass-shaders-banner.png"
+  url: "/posts/glass-shaders"
+
 - title: As a programmer
 
 - date: 2018-2019
