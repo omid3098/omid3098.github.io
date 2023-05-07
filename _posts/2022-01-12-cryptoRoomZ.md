@@ -54,16 +54,19 @@ All videos and screenshots are rendered in Unity3D:
 
 <!-- mp4 videos with play button to show assets\img\games\cryptoroomz\video\tv-room.mp4 and assets\img\games\cryptoroomz\video\game-room.mp4 with the same width and height -->
 <div>
-  <video width="100%" controls>
+  <video width="100%" controls loop autoplay>
     <source src="/assets/img/games/cryptoroomz/video/tv-room.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div style="height: 20px"></div>
-  <video width="100%" controls>
+  <video width="100%" controls loop autoplay>
     <source src="/assets/img/games/cryptoroomz/video/game-room.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
+
+<!-- To make the videos loop, add loop attribute to the video tag like this: -->
+<!-- <video width="100%" controls loop> -->
 
 
 <!-- <div class="text-center">
