@@ -5,13 +5,12 @@ Passionate about video games, game development, and technical challenges. Expert
 ## Skills:
 ### Programming Languages:
   - C# (.Net Core/Standard, Mono)
-  - Python
+  - Python (Tool development, Batch processing, LLMs, Diffusers)
   - JavaScript
 
 ### Main Development Tools:
-  - Unity3D
   - VsCode
-  - Tree.js
+  - Unity3D
   - Git, SVN
 
 ### DCC Tools:
@@ -21,6 +20,7 @@ Passionate about video games, game development, and technical challenges. Expert
 ## Other Skills:
   - Shader and tool programming (build pipeline, asset management, level editor, etc.)
   - Game architecture and design patterns (MVC, Entity Component System, DDD)
+  - Experience in using Large Language Models and Diffusers for AI-driven code and asset generation in game development
   - Test-driven programming, unit testing, integration testing
   - Automated build pipeline, CI/CD with GitLab Runner and Jenkins
 
