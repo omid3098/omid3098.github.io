@@ -21,15 +21,15 @@
 - date: 2018-2019
   description: ""
   image: "/assets/img/games/Joko.jpg"
-  url: "posts/joko"
+  url: "/posts/joko"
 - date: 2017-2018
   description: ""
   image: "/assets/img/games/Gambeet.jpg"
-  url: "posts/gambeet"
+  url: "/posts/gambeet"
 - date: 2015-2017
   description: ""
   image: "/assets/img/games/Shahrzad.jpg"
-  url: "posts/shahrzad"
+  url: "/posts/shahrzad"
 - date: 2016
   description: ""
   image: "/assets/img/games/Chic.jpg"
@@ -37,7 +37,7 @@
 - date: 2014-2015
   description: ""
   image: "/assets/img/games/Memoranda.jpg"
-  url: "posts/memoranda"
+  url: "/posts/memoranda"
 
 - title: As a 3D Generalist
 
