@@ -19,7 +19,8 @@
         {% else %}
           <img src="{{ event.image }}" alt="image"/>
         {% endif %}
-      <div class="timeline-date">{{ event.date }} {% if event.description !="" %} | {{ event.description }} {% endif %}  {% if event.url !="" %} <b> | </b> <a  href="{{event.url}}" rel="noopener">  Read More ...</a> {% endif %} </div>
+      <div class="timeline-date">{{ event.date }} {% if event.description !="" %} | {{ event.description }} {% endif %} </div>
+      {% if event.url !="" %} <a  href="{{event.url}}" rel="noopener">  Read More ...</a> {% endif %}
          <!-- <a  href="{{event.url}}" rel="noopener">   - Read More...</a> -->
       <!-- </div> -->
       {% endif %}
