@@ -22,4 +22,4 @@ The story is inspired by various Haruki Murakami short stories that describe a s
 </div>
 <!-- space -->
 <div style="height: 50px"></div>
-Get more info about the game at [KickStarter](https://www.kickstarter.com/projects/dysconnections/memoranda).
+Get more info about the game at [KickStarter](https://www.kickstarter.com/projects/dysconnections/memoranda)
