@@ -54,3 +54,8 @@ bundle show jekyll-theme-chirpy
 ```shell
 bundle exec jekyll serve --livereload
 ```
+
+## To Create a new blog post run:
+```shell
+bundle exec jekyll post "My New Post"
+```

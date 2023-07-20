@@ -2,6 +2,8 @@
 layout: post
 title: Memoranda
 date: 2015-05-11 11:38 +0300
+categories: [Games]
+tags: [unity, c#, game, memoranda]
 ---
 ![Shahrzad](/assets/img/games/Memoranda.jpg)
 
