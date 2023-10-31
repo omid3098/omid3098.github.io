@@ -1,6 +1,11 @@
 # - title: Now ...
 - title: As a technical Artist
 
+- date: 2023
+  description: "Open Flowmap - A Unity plugin for creating flowmap textures"
+  image: "assets/img/blog/open-flowmap/open-flowmap.gif"
+  url: "/posts/open-flowmap"
+
 - date: 2022-2023
   description: "Copyright ©Disney ©Gameloft"
   image: "assets/img/games/dmk.jpg"
