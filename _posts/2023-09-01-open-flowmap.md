@@ -55,6 +55,8 @@ Now how can I create a flowmap in Unity from my current scene? There are some go
 
 ### Open Flowmap
 
+![Open Flowmap](/assets/img/blog/open-flowmap/open-flowmap2.gif)
+
 After reading many article about the topic, and checking many source codes I have implemented a CPU version of the Navier-Stokes equation in Unity. It will create a 2d simulation of the fluid and will generate a flowmap texture for you.
 You can define the size of the simulation, the number of iterations and the speed of the simulation.
 
