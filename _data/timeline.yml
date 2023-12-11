@@ -3,17 +3,17 @@
 
 - date: 2023
   description: "Open Flowmap - A Unity plugin for creating flowmap textures"
-  image: "assets/img/blog/open-flowmap/open-flowmap2.gif"
+  image: "/assets/img/blog/open-flowmap/open-flowmap2.gif"
   url: "/posts/open-flowmap"
 
 - date: 2022-2023
   description: "Copyright ©Disney ©Gameloft"
-  image: "assets/img/games/dmk.jpg"
+  image: "/assets/img/games/dmk.jpg"
   url: ""
 
 - date: 2022
   description: "Shader Graph Baker"
-  image: "assets/img/blog/shadergraph-baker/dynamic-tile.gif"
+  image: "/assets/img/blog/shadergraph-baker/dynamic-tile.gif"
   url: "/posts/shadergraph-baker"
 
 - date: 2022
@@ -25,37 +25,37 @@
 
 - date: 2018-2019
   description: ""
-  image: "assets/img/games/Joko.jpg"
-  url: "posts/joko"
+  image: "/assets/img/games/Joko.jpg"
+  url: "/posts/joko"
 - date: 2017-2018
   description: ""
-  image: "assets/img/games/Gambeet.jpg"
-  url: "posts/gambeet"
+  image: "/assets/img/games/Gambeet.jpg"
+  url: "/posts/gambeet"
 - date: 2015-2017
   description: ""
-  image: "assets/img/games/Shahrzad.jpg"
-  url: "posts/shahrzad"
+  image: "/assets/img/games/Shahrzad.jpg"
+  url: "/posts/shahrzad"
 - date: 2016
   description: ""
-  image: "assets/img/games/Chic.jpg"
+  image: "/assets/img/games/Chic.jpg"
   url: ""
 - date: 2014-2015
   description: ""
-  image: "assets/img/games/Memoranda.jpg"
-  url: "posts/memoranda"
+  image: "/assets/img/games/Memoranda.jpg"
+  url: "/posts/memoranda"
 
 - title: As a 3D Generalist
 
 - date: 2014
   description: ""
-  image: "assets/img/games/Architecture.jpg"
+  image: "/assets/img/games/Architecture.jpg"
   url: ""
 - date: 2012-2014
   description: ""
-  image: "assets/img/games/Shexel.jpg"
+  image: "/assets/img/games/Shexel.jpg"
   url: ""
 - date: 2007-2012
   description: ""
-  image: "assets/img/games/DeathStatue.jpg"
+  image: "/assets/img/games/DeathStatue.jpg"
   url: ""
 
