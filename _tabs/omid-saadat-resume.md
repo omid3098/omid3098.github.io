@@ -25,6 +25,13 @@ Passionate about video games, game development, and technical challenges. Expert
   - Automated build pipeline, CI/CD with GitLab Runner and Jenkins
 
 ## Experience:
+<!-- Ubisoft -->
+### Senior Technical Artist at Ubisoft Blue Byte [01-2024 - Present][Dusseldorf/Germany]
+- Developed shaders for MR/VR projects in Unity.
+- Actively participated in rapid prototyping and development of multiple projects. 
+
+
+
 <!-- GameLoft -->
 ### Freelance Technical Artist at Gameloft Toronto [07-2022 - 04-2023][Istanbul/Turkey]
 - Optimized art pipeline for increased development speed supporting both legacy in-house engine and Unity
