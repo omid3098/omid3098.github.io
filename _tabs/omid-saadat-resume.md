@@ -2,35 +2,20 @@
 [info@omid-saadat.com](mailto:info@omid-saadat.com) | [omid-saadat.com](https://omid-saadat.com) |  [linkedin.com/in/omidsaadat]( https://linkedin.com/in/omidsaadat) 
 
 Passionate about video games, game development, and technical challenges. Expert in Unity3D, C#, and 3D modeling with extensive experience in game programming, tool development, and technical artistry.
-## Skills:
-### Programming Languages:
-  - C# (.Net Core/Standard, Mono)
-  - Python (Tool development, Batch processing, LLMs, Diffusers)
-  - JavaScript
 
-### Main Development Tools:
-  - VsCode
-  - Unity3D
-  - Git, SVN
-
-### DCC Tools:
-  - 3D Studio Max, Maya, Blender, ZBrush
-  - Photoshop, GIMP
-
-## Other Skills:
-  - Shader and tool programming (build pipeline, asset management, level editor, etc.)
-  - Game architecture and design patterns (MVC, Entity Component System, DDD)
-  - Experience in using Large Language Models and Diffusers for AI-driven code and asset generation in game development
-  - Test-driven programming, unit testing, integration testing
-  - Automated build pipeline, CI/CD with GitLab Runner and Jenkins
+## Capabilities & Experiences:
+- Shader Programming: Node-based and Code-based
+- Tool Development: Stand-alone, Editor Extensions, and In-Game Tools
+- Procedural Generation: Textures, Meshes, Levels, etc.
+- VFX, Simulation and Particle Systems
+- Game Architecture & Design Patterns: MVC, ECS, DDD
+- Automated Build Pipelines & CI/CD: GitLab Runner and Jenkins
 
 ## Experience:
 <!-- Ubisoft -->
 ### Senior Technical Artist at Ubisoft Blue Byte [01-2024 - Present][Dusseldorf/Germany]
 - Developed shaders for MR/VR projects in Unity.
-- Actively participated in rapid prototyping and development of multiple projects. 
-
-
+- Actively participated in rapid prototyping and development of multiple projects.
 
 <!-- GameLoft -->
 ### Freelance Technical Artist at Gameloft Toronto [07-2022 - 04-2023][Istanbul/Turkey]
