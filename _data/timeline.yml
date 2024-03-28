@@ -1,5 +1,15 @@
 # - title: Now ...
-- title: As a technical Artist
+- title: As a Technical Artist
+
+- date: 2024
+  description: "Ubisoft Blue Byte - Senior Technical Artist"
+  image: "/assets/img/games/ubisoft-bluebyte.jpg"
+  url: ""
+
+- date: 2023-2024
+  description: "Asset Management in Game Development with QuVery"
+  image: "/assets/img/blog/quvery/QuVery-Banner.png"
+  url: "/posts/quvery"
 
 - date: 2023
   description: "Open Flowmap - A Unity plugin for creating flowmap textures"
@@ -58,4 +68,3 @@
   description: ""
   image: "/assets/img/games/DeathStatue.jpg"
   url: ""
-
