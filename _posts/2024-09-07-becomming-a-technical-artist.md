@@ -28,13 +28,11 @@ Each of these areas has its own challenges, and you can start by picking the one
 
 When you're just starting out in technical art, it's completely normal to not know exactly what you want to do. In fact, that’s part of the journey! Don’t be afraid to experiment with different areas and see what clicks. Maybe you think shader writing is your thing, but after trying it out, you realize tool development is where you shine. The key is to enjoy the process and be open to changing direction if needed. It’s all about finding what makes you excited to learn every day.
 
-1. **Shader Writing**: If shaders catch your eye but you’re worried about the math, don’t stress! Start small with basic concepts like vectors and lighting. You don’t need to be a math genius to get going, you'll pick it up along the way. Focus on enjoying the creative part of it. You may find these resources helpful:
+1. **Shader Writing**: If shaders catch your eye but you’re worried about the math, don’t stress! Start small with basic concepts like vectors and lighting. You don’t need to be a math genius to get going, you'll pick it up along the way. Focus on enjoying the creative part of it. Remember, programming languages like HLSL are just tools; understanding the logic behind them is what really matters. These resources might be a good places to begin.
 
    - Freya Holmer’s [Math for Game Devs (YouTube Series)](https://youtube.com/playlist?list=PLImQaTpSAdsD88wprTConznD1OY1EfK_V&si=0Yv4grmZ4HvgiVhN)
    - Freya Holmer’s [Shaders for Game Devs (YouTube Series)](https://youtube.com/playlist?list=PLImQaTpSAdsCnJon-Eir92SZMl7tPBS4Z&si=syaBY1hvaY9QF1wq)
    - [The Book of Shaders](https://thebookofshaders.com/) by Patricio Gonzalez Vivo & Jen Lowe
-
-Are perfect places to begin. Remember, programming languages like HLSL are just tools; understanding the logic behind them is what really matters.
 
 2. **Tool Development**: If you love solving problems and making workflows easier, Python will be your best friend. There’s a special kind of satisfaction in building a small tool that saves tons of time for others. Don’t worry if it seems complex at first. Start with tiny scripts and gradually move toward bigger projects. Tool creation is not just about coding; it's about making life easier for everyone on the team, and that's deeply rewarding.
 
