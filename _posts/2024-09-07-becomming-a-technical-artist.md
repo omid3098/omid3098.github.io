@@ -33,6 +33,7 @@ When you're just starting out in technical art, it's completely normal to not kn
    - Freya Holmer’s [Math for Game Devs (YouTube Series)](https://youtube.com/playlist?list=PLImQaTpSAdsD88wprTConznD1OY1EfK_V&si=0Yv4grmZ4HvgiVhN)
    - Freya Holmer’s [Shaders for Game Devs (YouTube Series)](https://youtube.com/playlist?list=PLImQaTpSAdsCnJon-Eir92SZMl7tPBS4Z&si=syaBY1hvaY9QF1wq)
    - [The Book of Shaders](https://thebookofshaders.com/) by Patricio Gonzalez Vivo & Jen Lowe
+   - [Ben Cloward's Youtube Channel](https://www.youtube.com/@BenCloward) - He has a lot of great shader tutorials that are beginner-friendly for Unity and Unreal Engine.
 
 2. **Tool Development**: If you love solving problems and making workflows easier, Python will be your best friend. There’s a special kind of satisfaction in building a small tool that saves tons of time for others. Don’t worry if it seems complex at first. Start with tiny scripts and gradually move toward bigger projects. Tool creation is not just about coding; it's about making life easier for everyone on the team, and that's deeply rewarding.
 
