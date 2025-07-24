@@ -44,18 +44,34 @@ This work is published under [MIT][mit] License.
 [CD]: https://en.wikipedia.org/wiki/Continuous_deployment
 [mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
 
-
 ## To show the theme files run:
+
 ```shell
 bundle show jekyll-theme-chirpy
 ```
 
 ## To run the site locally run:
+
 ```shell
 bundle exec jekyll serve --livereload
 ```
 
 ## To Create a new blog post run:
+
 ```shell
 bundle exec jekyll post "My New Post"
+```
+
+## To update the resume PDF run:
+
+First install the Python requirements:
+
+```shell
+pip install -r requirements.txt
+```
+
+Then run the conversion script:
+
+```shell
+python python/convert_resume_to_pdf.py
 ```
