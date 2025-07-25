@@ -2,7 +2,7 @@
 
 [info@omid-saadat.com](mailto:info@omid-saadat.com) | [omid-saadat.com](https://omid-saadat.com) | [linkedin.com/in/omidsaadat](https://linkedin.com/in/omidsaadat) | [github.com/omid3098](https://github.com/omid3098)
 
-Senior Technical Artist with 17+ years of experience driving technical excellence and team development across AAA and mobile game production. Proven track record of taking ownership in leadership roles, mentoring teams, establishing pipelines for 50+ developers, and delivering complex technical solutions that save production time.
+Process–Driven Technical Artist and Cross-Team Coordinator with 17+ years of experience driving technical excellence and team development across AAA and mobile game production. Proven track record of taking ownership in leadership roles, mentoring teams, establishing pipelines for 50+ developers, and delivering complex technical solutions that save production time.
 
 ## Technical Expertise:
 
@@ -13,6 +13,7 @@ Senior Technical Artist with 17+ years of experience driving technical excellenc
 - Procedural Generation: Textures, Meshes, Levels, and Content Automation
 - VFX & Simulation: Particle Systems, Physics Simulation, and Visual Effects
 - Performance Optimization: Profiling, Asset Optimization, and Runtime Performance
+- AI Integration: Text-to-Text (automation reports), Text-to-Image, Image-to-Image, Video/Audio models for pipeline optimization
 
 **Technical Leadership:**
 
@@ -21,11 +22,25 @@ Senior Technical Artist with 17+ years of experience driving technical excellenc
 - Automated Build Pipelines & CI/CD: Github Actions, GitLab Runner, Jenkins, and Deployment Systems
 - Cross-Platform Development: Unity3D, Unreal Engine, Godot and In-house Engines
 
+**Production & Process Leadership:**
+
+- Agile/Scrum pipeline design, resource & budget forecasting
+- Stakeholder engagement: translating creative requirements, managing scope, ROI presentations
+- Cross-team coordination: aligning artists, engineers & producers for efficient workflows
+- AI-Driven Automation: Implementing AI models for content generation, quality assurance, and pipeline optimization
+
+**Scalability & Performance Strategy:**
+
+- Large-scale pipeline maintenance for 50+ team members across studios
+- Profiling tools, LOD strategies, asset optimization for cross-platform delivery
+- Strategic roadmap development for technical art pipelines
+
 ## Leadership Impact & Key Achievements:
 
-- **Stepped into Leadership**: Took full responsibility for all technical art disciplines during lead absence at Ubisoft
+- **Stepped into Leadership**: Took full responsibility for all technical art disciplines
 - **Team Development**: Trained and mentored technical artists, conducted teams of 20+ developers and artists
 - **Process Innovation**: Designed pipelines saving up to 99.96% of artist time by developing tools to handle a 1 day task in 10 seconds
+- **AI Pipeline Integration**: Leveraged AI models (text-to-image, image-to-image) for rapid prototyping and automated content generation in production workflows
 - **Standards Establishment**: Created comprehensive art pipeline documentation for 50+ team members
 - **Cross-Studio Coordination**: Facilitated communication between multiple studios in co-development environment
 - **Technical Ownership**: Led FarCry franchise vehicle pipeline architecture and implementation
@@ -101,11 +116,6 @@ Senior Technical Artist with 17+ years of experience driving technical excellenc
 - **Effectively implemented** procedural workflows to convert designed levels into JSON format and read them in Unity to increase development speed
 - **Worked closely** with other teams, including game design, art, back-end, and test, to consider game performance, stability, and maintainability
 
-### Iran Game Development Institute [10-2017 – 10-2018][Part-Time][Tehran/Iran]
-
-- **Taught Unity game engine** to beginner-level students
-- **Taught the best architectures** and features to use with the Unity game engine in advanced game development courses to intermediate students
-
 ### Game Programmer At Pooyegaam [08-2017 – 07-2018][Tehran/Iran]
 
 - **Technically managed** development process in a highly challenging online pet game, reporting and presenting regular progress to the CEO to ensure the project is on the right path
@@ -137,10 +147,11 @@ Senior Technical Artist with 17+ years of experience driving technical excellenc
 
 Karaj Islamic Azad University (KIAU), 2006-2010 - Bachelor of Engineering, Computer Graphics
 
-## Awards & Recognition:
+## Awards & Honors:
 
-- **Industry Mentor** at ADPList platform - [adplist.org/mentors/omid-saadat](https://adplist.org/mentors/omid-saadat)
-- Best Game Award for SATYAR: RETURN TO PARSEH on 2nd Broadcast Engineering Conference, 2007
+- **Instructor** at Iran Game Development Institute [2017-2018][Tehran/Iran]: Taught Unity engine fundamentals and advanced architectures to beginner and intermediate students
+- **Volunteer TechArt Mentor** at ADPList platform - [adplist.org/mentors/omid-saadat](https://adplist.org/mentors/omid-saadat) offering free one-on-one career and technical-art mentoring sessions to aspiring artists and developers
+- **Best Game Award** for SATYAR: RETURN TO PARSEH on 2nd Broadcast Engineering Conference, 2007
 
 ## Interests:
 
