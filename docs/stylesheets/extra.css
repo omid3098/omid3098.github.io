@@ -1,0 +1,80 @@
+/* Transparent header styling */
+.md-header {
+    background-color: transparent !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none !important;
+}
+
+/* Make header semi-transparent when scrolled */
+.md-header[data-md-state="shadow"] {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1), 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .md-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-header[data-md-state="shadow"] {
+    background-color: rgba(40, 44, 52, 0.9) !important;
+}
+
+/* Light theme: Make header content visible on transparent background */
+[data-md-color-scheme="default"] .md-header__title {
+    color: var(--md-primary-fg-color) !important;
+}
+
+[data-md-color-scheme="default"] .md-header__button {
+    color: var(--md-primary-fg-color) !important;
+}
+
+[data-md-color-scheme="default"] .md-nav__button {
+    color: var(--md-primary-fg-color) !important;
+}
+
+[data-md-color-scheme="default"] .md-source {
+    color: var(--md-primary-fg-color) !important;
+}
+
+/* Dark theme: Keep original colors */
+[data-md-color-scheme="slate"] .md-header__title,
+[data-md-color-scheme="slate"] .md-header__button,
+[data-md-color-scheme="slate"] .md-nav__button,
+[data-md-color-scheme="slate"] .md-source {
+    color: inherit;
+}
+
+/* Search bar styling for better visibility */
+[data-md-color-scheme="default"] .md-search__form {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.1rem;
+}
+
+[data-md-color-scheme="default"] .md-search__input {
+    color: var(--md-primary-fg-color) !important;
+}
+
+[data-md-color-scheme="default"] .md-search__input::placeholder {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__form {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.1rem;
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+    color: inherit;
+}
+
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
