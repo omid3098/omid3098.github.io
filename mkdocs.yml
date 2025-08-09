@@ -3,21 +3,9 @@ site_url: https://www.omid-saadat.com
 theme:
   name: material
   palette:
-    # Palette toggle for light mode
-    - media: "(prefers-color-scheme: light)"
-      primary: blue
-      scheme: default
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-
-    # Palette toggle for dark mode
-    - media: "(prefers-color-scheme: dark)"
-      primary: blue
-      scheme: slate
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+    primary: blue
 
 extra_css:
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/godot-background.js

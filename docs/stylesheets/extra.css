@@ -78,3 +78,93 @@
 [data-md-color-scheme="slate"] .md-search__input::placeholder {
     color: rgba(255, 255, 255, 0.6) !important;
 }
+
+/* ---- Godot background integration ---- */
+html,
+body {
+    background: transparent !important;
+}
+
+#godot-bg-wrapper {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    /* Below site chrome */
+    pointer-events: none;
+    /* Allow site interaction; remove if you want interaction with Godot */
+}
+
+#godot-bg-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+#godot-bg-wrapper iframe.loaded {
+    opacity: 1;
+}
+
+/* ---- Footer transparency + copyright color ---- */
+.md-footer,
+.md-footer-meta,
+.md-footer-meta__inner.md-grid {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.md-footer-meta__inner.md-grid {
+    backdrop-filter: blur(6px) saturate(1.1);
+    -webkit-backdrop-filter: blur(6px) saturate(1.1);
+}
+
+/* Remove any semi-transparent overlay the theme might add */
+.md-footer::before {
+    display: none !important;
+}
+
+.md-footer a {
+    color: var(--md-primary-fg-color);
+}
+
+.md-footer .md-copyright {
+    color: var(--md-default-fg-color) !important;
+    opacity: 0.9;
+}
+
+[data-md-color-scheme="slate"] .md-footer .md-copyright {
+    color: var(--md-default-fg-color) !important;
+}
+
+/* Make sure main content stacks above */
+.md-container,
+.md-header,
+.md-footer,
+.md-dialog,
+.md-typeset {
+    position: relative;
+    z-index: 1;
+}
+
+/* Optional: subtle backdrop to enhance readability */
+.md-main__inner,
+.md-typeset pre,
+.md-typeset table {
+    backdrop-filter: blur(4px) saturate(1.2);
+    -webkit-backdrop-filter: blur(4px) saturate(1.2);
+}
+
+/* Respect prefers-reduced-motion: disable fade */
+@media (prefers-reduced-motion: reduce) {
+    #godot-bg-wrapper iframe {
+        transition: none;
+    }
+}
