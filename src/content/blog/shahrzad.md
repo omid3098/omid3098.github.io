@@ -1,0 +1,24 @@
+---
+title: Shahrzad
+date: 2017-01-11
+tags: [unity, c#, game, shahrzad]
+description: "A hidden object game based on 1001 Nights Persian mythical stories."
+---
+![Shahrzad](/assets/img/games/Shahrzad.jpg)
+
+## Role
+- Senior programmer and tool developer.
+
+## About the project:
+Shahrzad is hidden object game based on 1001 nights Persian mythical stories.
+<div class="text-center">
+  <iframe src="https://store.steampowered.com/widget/921740/" frameborder="0" width="646" height="190"></iframe>
+</div>
+
+
+![shahrzad-01](/assets/img/games/shahrzad/shahrzad-01.png)
+![shahrzad-02](/assets/img/games/shahrzad/shahrzad-02.jpg)
+![shahrzad-03](/assets/img/games/shahrzad/shahrzad-03.jpg)
+![shahrzad-04](/assets/img/games/shahrzad/shahrzad-04.jpg)
+![shahrzad-05](/assets/img/games/shahrzad/shahrzad-05.jpg)
+![shahrzad-06](/assets/img/games/shahrzad/shahrzad-06.jpg)

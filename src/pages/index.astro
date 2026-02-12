@@ -1,0 +1,191 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import TheseDays from '../components/TheseDays.svelte';
+import { getCollection } from 'astro:content';
+
+// ── GitHub Activity (build-time) ──
+const GITHUB_USER = 'omid3098';
+const fallbackActivities = [
+  {
+    type: 'repo',
+    text: 'Started <span class="hl">OpenShaderGraph</span> — a node-based shader language that doesn\'t care which engine you\'re using.',
+    meta: 'New project',
+  },
+  {
+    type: 'commit',
+    text: 'Pushed updates to <span class="hl">OpenFlowMap</span> — refactored the flow algorithm and rewrote the docs.',
+    meta: 'Open source',
+  },
+  {
+    type: 'star',
+    text: '<span class="hl">Unity-URP-GlassShader</span> — a simple shader I made because Unity\'s default glass looked terrible.',
+    meta: 'Most popular repo',
+  },
+  {
+    type: 'idea',
+    text: 'Wrote a script to automate <span class="hl">paqet</span> server setup — turned a long manual process into a single command.',
+    meta: 'Automation',
+  },
+];
+
+function mapGitHubEvent(event: any) {
+  const repo = event.repo?.name?.split('/')[1] || event.repo?.name || '';
+  const created = event.created_at;
+  const date = new Date(created);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const meta = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Yesterday' : diffDays < 30 ? `${diffDays} days ago` : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+  switch (event.type) {
+    case 'PushEvent': {
+      const commits = event.payload?.commits || [];
+      const msg = commits[0]?.message?.split('\n')[0] || 'new changes';
+      return { type: 'commit', text: `Pushed to <span class="hl">${repo}</span> — ${msg}`, meta };
+    }
+    case 'CreateEvent': {
+      const ref = event.payload?.ref_type || 'repository';
+      const name = event.payload?.ref;
+      const label = name ? `${ref} <span class="hl">${name}</span> in <span class="hl">${repo}</span>` : `<span class="hl">${repo}</span>`;
+      return { type: 'repo', text: `Created ${label}`, meta };
+    }
+    case 'WatchEvent':
+      return { type: 'star', text: `Starred <span class="hl">${repo}</span>`, meta };
+    case 'ForkEvent': {
+      const forkee = event.payload?.forkee?.full_name || repo;
+      return { type: 'fork', text: `Forked <span class="hl">${forkee}</span>`, meta };
+    }
+    case 'ReleaseEvent': {
+      const tag = event.payload?.release?.tag_name || '';
+      return { type: 'repo', text: `Released <span class="hl">${tag}</span> of <span class="hl">${repo}</span>`, meta };
+    }
+    case 'IssuesEvent': {
+      const action = event.payload?.action || 'opened';
+      const title = event.payload?.issue?.title || '';
+      return { type: 'idea', text: `${action.charAt(0).toUpperCase() + action.slice(1)} issue on <span class="hl">${repo}</span>${title ? ` — ${title}` : ''}`, meta };
+    }
+    case 'PullRequestEvent': {
+      const action = event.payload?.action || 'opened';
+      const title = event.payload?.pull_request?.title || '';
+      return { type: 'commit', text: `${action.charAt(0).toUpperCase() + action.slice(1)} PR on <span class="hl">${repo}</span>${title ? ` — ${title}` : ''}`, meta };
+    }
+    default:
+      return null;
+  }
+}
+
+let activities = fallbackActivities;
+try {
+  const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public`);
+  if (res.ok) {
+    const events = await res.json();
+    const mapped = events.map(mapGitHubEvent).filter(Boolean);
+    // Deduplicate by text (keep first occurrence)
+    const seen = new Set();
+    const unique = mapped.filter((a: any) => {
+      const key = a.text;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    if (unique.length >= 3) {
+      activities = unique.slice(0, 6);
+    }
+  }
+} catch (e) {
+  // Fallback to hardcoded activities
+}
+
+// ── Blog posts (mixed grid) ──
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+const sortedCards = posts
+  .map((post) => ({
+    tag: post.data.tags?.[0] || 'post',
+    title: post.data.title,
+    excerpt: post.data.description || '',
+    meta: post.data.meta || post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' }),
+    wide: post.data.wide || false,
+    order: post.data.order || 0,
+    date: post.data.date,
+    href: `/writing/${post.id}`,
+  }))
+  .sort((a, b) => b.order - a.order || b.date.getTime() - a.date.getTime());
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="hero wrap">
+    <div class="hero-anim">
+      <h1>If something feels too complicated, I'll probably <em>do something about it.</em></h1>
+      <p class="hero-body">
+        In games, that meant building tools so artists could focus on art instead of
+        debugging broken assets. Last week it meant writing a script that turns a
+        30-minute server setup into one command.
+        <strong>The context changes, the instinct doesn't.</strong>
+      </p>
+    </div>
+    <div class="scroll-cue">
+      <div class="scroll-cue-line"></div>
+      scroll
+    </div>
+  </section>
+
+  <!-- These Days -->
+  <div class="wrap">
+    <div class="section-divider"></div>
+    <SectionHeader id="now" label="These days" sub="What I've been working on — pulled from my workshop, not written by hand." />
+    <TheseDays {activities} client:visible />
+    <div class="activity-footer">
+      <span class="activity-sync">From <a href="https://github.com/omid3098" target="_blank">github.com/omid3098</a></span>
+    </div>
+  </div>
+
+  <!-- Work & Writing -->
+  <div class="wrap">
+    <div class="section-divider" style="margin-top: 4rem;"></div>
+    <SectionHeader id="work" label="Work & Writing" />
+    <div class="recent-grid reveal">
+      {sortedCards.map((item) => (
+        <a class={`recent-card ${item.wide ? 'wide' : ''}`} href={item.href}>
+          <div class="card-tag">{item.tag}</div>
+          <div class="card-title">{item.title}</div>
+          <div class="card-excerpt">{item.excerpt}</div>
+          <div class="card-meta">{item.meta}</div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- About Teaser -->
+  <div class="wrap">
+    <div class="section-divider" style="margin-top: 5rem;"></div>
+    <section class="about-section reveal" id="about">
+      <div class="section-label" style="margin-bottom: 2rem;">About</div>
+      <div class="about-layout">
+        <div class="about-photo">
+          <img src="/assets/img/profile-picture.png" alt="Omid Saadat" />
+        </div>
+        <div class="about-content">
+          <p class="about-p">
+            I didn't plan to become a Technical Artist — I just kept ending up
+            in the gap between art and code, and it turned out there was a name for that.
+          </p>
+          <p class="about-p">
+            These days I'm based in Düsseldorf, splitting my time between pipeline tools
+            at Ubisoft and open-source shaders that somehow found an audience.
+            Evenings are for Quran study — verse by verse, in a framework I built myself.
+          </p>
+          <a href="/about" class="about-link">
+            Full about page
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="0" y1="8" x2="12" y2="8" />
+              <polyline points="8,4 12,8 8,12" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const byYear: Record<string, typeof sorted> = {};
+for (const post of sorted) {
+  const year = String(post.data.date.getFullYear());
+  if (!byYear[year]) byYear[year] = [];
+  byYear[year].push(post);
+}
+
+const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<Base title="Writing" description="Ideas, guides, and project write-ups.">
+  <div class="wrap">
+    <div class="page-header">
+      <h1 class="page-title">Writing</h1>
+      <p class="page-description">Ideas, guides, and project write-ups.</p>
+    </div>
+
+    {years.map(year => (
+      <div class="year-group reveal">
+        <div class="year-label">{year}</div>
+        <div class="post-list">
+          {byYear[year].map(post => (
+            <a class="post-item" href={`/writing/${post.id}`}>
+              <span class="post-title">{post.data.title}</span>
+              <span class="post-date">
+                {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</Base>

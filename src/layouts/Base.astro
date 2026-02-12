@@ -1,0 +1,91 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CursorGlow from '../components/CursorGlow.svelte';
+import AmbientOrbs from '../components/AmbientOrbs.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  dir?: string;
+}
+
+const {
+  title = 'Omid Saadat',
+  description = 'Technical Artist. Tool builder. Simplifier of complicated things.',
+  lang = 'en',
+  dir = 'ltr',
+} = Astro.props;
+
+const pageTitle = title === 'Omid Saadat' ? title : `${title} — Omid Saadat`;
+---
+
+<!DOCTYPE html>
+<html lang={lang} dir={dir}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Vazirmatn:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <AmbientOrbs />
+  <CursorGlow client:load />
+  <div class="content">
+    <Nav />
+    <slot />
+    <div class="wrap">
+      <Footer />
+    </div>
+  </div>
+
+  <script>
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Stagger animation for grids/lists
+    function stagger(parentSel: string, childSel: string, delay = 0.08) {
+      const parent = document.querySelector(parentSel);
+      if (!parent) return;
+      const children = parent.querySelectorAll(childSel);
+      const o = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            children.forEach((c, i) => {
+              (c as HTMLElement).style.transitionDelay = (i * delay) + 's';
+              (c as HTMLElement).style.opacity = '1';
+              (c as HTMLElement).style.transform = 'translateY(0)';
+            });
+            o.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      children.forEach(c => {
+        (c as HTMLElement).style.opacity = '0';
+        (c as HTMLElement).style.transform = 'translateY(16px)';
+        (c as HTMLElement).style.transition = 'opacity 0.5s ease, transform 0.5s ease, background 0.35s ease';
+      });
+      o.observe(parent);
+    }
+
+    stagger('.activity-stream', '.activity-item', 0.09);
+    stagger('.recent-grid', '.recent-card', 0.07);
+  </script>
+</body>
+</html>

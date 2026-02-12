@@ -1,0 +1,17 @@
+---
+---
+
+<div class="ambient">
+  <div class="ambient-orb a"></div>
+  <div class="ambient-orb b"></div>
+</div>
+
+<script>
+  const orbs = document.querySelectorAll('.ambient-orb');
+  document.addEventListener('mousemove', e => {
+    const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+    const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+    (orbs[0] as HTMLElement).style.transform = `translate(${cx * 25}px, ${cy * 15}px)`;
+    (orbs[1] as HTMLElement).style.transform = `translate(${cx * -15}px, ${cy * -10}px)`;
+  });
+</script>
