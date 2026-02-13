@@ -2,6 +2,8 @@ backend:
   name: github
   repo: omid3098/omid3098.github.io
   branch: main
+  auth_type: pkce
+  app_id: Ov23li8ApZVW7z0C0wLK
 
 site_url: https://www.omid-saadat.com
 
