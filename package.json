@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/generate-pdf.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -13,5 +13,8 @@
     "astro": "^5.17.1",
     "svelte": "^5.50.2",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.37.2"
   }
 }
