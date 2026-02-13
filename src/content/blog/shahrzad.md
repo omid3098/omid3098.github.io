@@ -3,6 +3,7 @@ title: Shahrzad
 date: 2017-01-11
 tags: [unity, c#, game, shahrzad]
 description: "A hidden object game based on 1001 Nights Persian mythical stories."
+image: "/assets/img/games/Shahrzad.jpg"
 ---
 ![Shahrzad](/assets/img/games/Shahrzad.jpg)
 

@@ -3,6 +3,7 @@ title: CryptoRoomZ
 date: 2022-01-12
 tags: [unity3d, project, programming, technical-artist, blockchain]
 description: "A blockchain-based point-and-click adventure game made with Unity3D."
+image: "/assets/img/games/cryptoroomz/gif/bath.gif"
 ---
 
 <!-- ![cryptoroomz logo](/assets/img/games/cryptoroomz/logo.png) -->
