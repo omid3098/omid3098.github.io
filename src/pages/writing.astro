@@ -51,7 +51,7 @@ const optimizedItems = await Promise.all(
   <div class="content-list">
     {optimizedItems.map((item, i) => (
       <a class={`content-item${i === 0 ? ' featured' : ''}`} href={item.href}>
-        {item.image && <div class="item-bg" style={`background-image: url('${item.image}');`}></div>}
+        {item.image && <div class="item-bg" {...(i === 0 ? { style: `background-image: url('${item.image}');` } : { 'data-bg': item.image })}></div>}
         <div class="item-left">
           <span class="item-tag">{item.tag}</span>
           <span class="item-title" transition:name={`title-${item.href.split('/').pop()}`}>{item.title}</span>

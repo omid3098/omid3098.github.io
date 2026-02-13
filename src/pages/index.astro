@@ -156,7 +156,7 @@ const rest = optimizedItems.slice(1);
 
       {rest.map((item) => (
         <a class="content-item" href={item.href}>
-          {item.image && <div class="item-bg" style={`background-image: url('${item.image}');`}></div>}
+          {item.image && <div class="item-bg" data-bg={item.image}></div>}
           <div class="item-left">
             <span class="item-tag">{item.tag}</span>
             <span class="item-title" transition:name={`title-${item.href.split('/').pop()}`}>{item.title}</span>

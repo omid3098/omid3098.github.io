@@ -4,8 +4,8 @@
   --bg-card: #232328;
   --bg-card-hover: #2a2a30;
   --text: #d2d2d2;
-  --text-muted: #868686;
-  --text-dim: #5a5a5a;
+  --text-muted: #999;
+  --text-dim: #8a8a8a;
   --accent: #6cb4ee;
   --accent-glow: rgba(108, 180, 238, 0.07);
   --border: #2e2e33;
@@ -302,6 +302,7 @@ body {
   transition: color 0.3s ease, background 0.3s ease;
 }
 
+.content-item.featured .item-tag { color: var(--text-muted); }
 .content-item:hover .item-tag { color: var(--accent); background: var(--accent-glow); }
 
 .item-title {
