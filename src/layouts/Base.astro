@@ -1,6 +1,7 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
 import Search from '../components/Search.svelte';
+import ShaderBg from '../components/ShaderBg.svelte';
 import '../styles/global.css';
 
 interface Props {
@@ -42,6 +43,7 @@ const pageTitle = title === 'Omid Saadat' ? title : `${title} — Omid Saadat`;
   <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Vazirmatn:wght@300;400&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <ShaderBg client:only="svelte" />
   <Sidebar activePage={activePage} />
   <Search client:load />
   <main class="main">
