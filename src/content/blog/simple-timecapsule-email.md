@@ -6,6 +6,7 @@ mermaid: true
 description: "Sitting on the balcony, watching the sky. I built a tiny tool to send emails across time."
 order: 8
 meta: "2024"
+image: "/assets/img/blog/future_self_email/gmail_01.png"
 ---
 
 ### Easily send emails to my future self

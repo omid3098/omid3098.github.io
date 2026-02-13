@@ -16,6 +16,7 @@ description: "Every engine has its own shader editor. None talk to each other. I
 order: 10
 wide: true
 meta: "2025"
+image: "/assets/img/blog/openshadergraph/OSG_01.png"
 ---
 
 # The Problem

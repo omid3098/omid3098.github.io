@@ -18,6 +18,7 @@ tags:
 description: "Saw a beautiful water shader on Twitter. Wanted to reverse-engineer the feeling, not just the technique."
 order: 7
 meta: "118 ★ · 2023"
+image: "/assets/img/blog/open-flowmap/open-flowmap.gif"
 ---
 
 ### Idea:

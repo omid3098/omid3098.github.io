@@ -17,6 +17,7 @@ mermaid: true
 description: "Artists kept shipping broken assets. I built a validator that catches problems before they reach the engine."
 order: 9
 meta: "Ubisoft Blue Byte · 2024"
+image: "/assets/img/blog/quvery/QuVery-Banner.png"
 ---
 
 ### Asset Management in Game Development with QuVery

@@ -22,8 +22,8 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
 });
 ---
 
-<Base title={frontmatter.title} lang={lang} dir={dir}>
-  <article class={`wrap ${dir === 'rtl' ? 'rtl' : ''}`}>
+<Base title={frontmatter.title} lang={lang} dir={dir} activePage="writing">
+  <article class={dir === 'rtl' ? 'rtl' : ''}>
     <header class="page-header">
       <h1 class="page-title">{frontmatter.title}</h1>
       <div class="post-meta">
@@ -62,12 +62,12 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
         startOnLoad: false,
         theme: 'dark',
         themeVariables: {
-          primaryColor: '#1E1E1C',
-          primaryTextColor: '#E5E1DB',
-          primaryBorderColor: '#CC7E5A',
-          lineColor: '#5E5A55',
-          secondaryColor: '#171716',
-          tertiaryColor: '#0F0F0E',
+          primaryColor: '#232328',
+          primaryTextColor: '#d2d2d2',
+          primaryBorderColor: '#6cb4ee',
+          lineColor: '#5a5a5a',
+          secondaryColor: '#1b1b1e',
+          tertiaryColor: '#161618',
         }
       });
       await mermaid.run();

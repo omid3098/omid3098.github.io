@@ -1,8 +1,5 @@
 ---
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
-import CursorGlow from '../components/CursorGlow.svelte';
-import AmbientOrbs from '../components/AmbientOrbs.astro';
+import Sidebar from '../components/Sidebar.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -10,6 +7,7 @@ interface Props {
   description?: string;
   lang?: string;
   dir?: string;
+  activePage?: string;
 }
 
 const {
@@ -17,6 +15,7 @@ const {
   description = 'Technical Artist. Tool builder. Simplifier of complicated things.',
   lang = 'en',
   dir = 'ltr',
+  activePage = 'now',
 } = Astro.props;
 
 const pageTitle = title === 'Omid Saadat' ? title : `${title} — Omid Saadat`;
@@ -42,15 +41,21 @@ const pageTitle = title === 'Omid Saadat' ? title : `${title} — Omid Saadat`;
   <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Vazirmatn:wght@300;400&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <AmbientOrbs />
-  <CursorGlow client:load />
-  <div class="content">
-    <Nav />
-    <slot />
-    <div class="wrap">
-      <Footer />
+  <Sidebar activePage={activePage} />
+  <main class="main">
+    <div class="content">
+      <slot />
+      <footer class="main-footer fade-in">
+        <span>&copy; Omid Saadat &middot; Düsseldorf</span>
+        <div class="footer-links">
+          <a href="https://github.com/omid3098" target="_blank">GitHub</a>
+          <a href="https://linkedin.com/in/omidsaadat" target="_blank">LinkedIn</a>
+          <a href="/resume">Resume</a>
+          <a href="mailto:info@omid-saadat.com">Say hello</a>
+        </div>
+      </footer>
     </div>
-  </div>
+  </main>
 
   <script>
     // Scroll reveal
@@ -58,34 +63,6 @@ const pageTitle = title === 'Omid Saadat' ? title : `${title} — Omid Saadat`;
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    // Stagger animation for grids/lists
-    function stagger(parentSel: string, childSel: string, delay = 0.08) {
-      const parent = document.querySelector(parentSel);
-      if (!parent) return;
-      const children = parent.querySelectorAll(childSel);
-      const o = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            children.forEach((c, i) => {
-              (c as HTMLElement).style.transitionDelay = (i * delay) + 's';
-              (c as HTMLElement).style.opacity = '1';
-              (c as HTMLElement).style.transform = 'translateY(0)';
-            });
-            o.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      children.forEach(c => {
-        (c as HTMLElement).style.opacity = '0';
-        (c as HTMLElement).style.transform = 'translateY(16px)';
-        (c as HTMLElement).style.transition = 'opacity 0.5s ease, transform 0.5s ease, background 0.35s ease';
-      });
-      o.observe(parent);
-    }
-
-    stagger('.activity-stream', '.activity-item', 0.09);
-    stagger('.recent-grid', '.recent-card', 0.07);
   </script>
 </body>
 </html>

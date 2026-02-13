@@ -1,74 +1,50 @@
 ---
 import Base from '../layouts/Base.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import TheseDays from '../components/TheseDays.svelte';
 import { getCollection } from 'astro:content';
 
 // ── GitHub Activity (build-time) ──
 const GITHUB_USER = 'omid3098';
 const fallbackActivities = [
-  {
-    type: 'repo',
-    text: 'Started <span class="hl">OpenShaderGraph</span> — a node-based shader language that doesn\'t care which engine you\'re using.',
-    meta: 'New project',
-  },
-  {
-    type: 'commit',
-    text: 'Pushed updates to <span class="hl">OpenFlowMap</span> — refactored the flow algorithm and rewrote the docs.',
-    meta: 'Open source',
-  },
-  {
-    type: 'star',
-    text: '<span class="hl">Unity-URP-GlassShader</span> — a simple shader I made because Unity\'s default glass looked terrible.',
-    meta: 'Most popular repo',
-  },
-  {
-    type: 'idea',
-    text: 'Wrote a script to automate <span class="hl">paqet</span> server setup — turned a long manual process into a single command.',
-    meta: 'Automation',
-  },
+  { text: 'Started <strong>OpenShaderGraph</strong> — a node-based shader language that doesn\'t care which engine you\'re using.' },
+  { text: 'Pushed updates to <strong>OpenFlowMap</strong> — refactored the flow algorithm and rewrote the docs. <span class="stars">118 ★</span>' },
+  { text: '<strong>Glass Shader</strong> crossed 270 stars — a simple shader I made because Unity\'s default glass looked terrible.' },
+  { text: 'Wrote a script to automate <strong>paqet</strong> server setup — turned a long manual process into one command.' },
 ];
 
 function mapGitHubEvent(event: any) {
   const repo = event.repo?.name?.split('/')[1] || event.repo?.name || '';
-  const created = event.created_at;
-  const date = new Date(created);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  const meta = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Yesterday' : diffDays < 30 ? `${diffDays} days ago` : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
   switch (event.type) {
     case 'PushEvent': {
       const commits = event.payload?.commits || [];
       const msg = commits[0]?.message?.split('\n')[0] || 'new changes';
-      return { type: 'commit', text: `Pushed to <span class="hl">${repo}</span> — ${msg}`, meta };
+      return { text: `Pushed to <strong>${repo}</strong> — ${msg}` };
     }
     case 'CreateEvent': {
       const ref = event.payload?.ref_type || 'repository';
       const name = event.payload?.ref;
-      const label = name ? `${ref} <span class="hl">${name}</span> in <span class="hl">${repo}</span>` : `<span class="hl">${repo}</span>`;
-      return { type: 'repo', text: `Created ${label}`, meta };
+      const label = name ? `${ref} <strong>${name}</strong> in <strong>${repo}</strong>` : `<strong>${repo}</strong>`;
+      return { text: `Created ${label}` };
     }
     case 'WatchEvent':
-      return { type: 'star', text: `Starred <span class="hl">${repo}</span>`, meta };
+      return { text: `Starred <strong>${repo}</strong>` };
     case 'ForkEvent': {
       const forkee = event.payload?.forkee?.full_name || repo;
-      return { type: 'fork', text: `Forked <span class="hl">${forkee}</span>`, meta };
+      return { text: `Forked <strong>${forkee}</strong>` };
     }
     case 'ReleaseEvent': {
       const tag = event.payload?.release?.tag_name || '';
-      return { type: 'repo', text: `Released <span class="hl">${tag}</span> of <span class="hl">${repo}</span>`, meta };
+      return { text: `Released <strong>${tag}</strong> of <strong>${repo}</strong>` };
     }
     case 'IssuesEvent': {
       const action = event.payload?.action || 'opened';
       const title = event.payload?.issue?.title || '';
-      return { type: 'idea', text: `${action.charAt(0).toUpperCase() + action.slice(1)} issue on <span class="hl">${repo}</span>${title ? ` — ${title}` : ''}`, meta };
+      return { text: `${action.charAt(0).toUpperCase() + action.slice(1)} issue on <strong>${repo}</strong>${title ? ` — ${title}` : ''}` };
     }
     case 'PullRequestEvent': {
       const action = event.payload?.action || 'opened';
       const title = event.payload?.pull_request?.title || '';
-      return { type: 'commit', text: `${action.charAt(0).toUpperCase() + action.slice(1)} PR on <span class="hl">${repo}</span>${title ? ` — ${title}` : ''}`, meta };
+      return { text: `${action.charAt(0).toUpperCase() + action.slice(1)} PR on <strong>${repo}</strong>${title ? ` — ${title}` : ''}` };
     }
     default:
       return null;
@@ -81,7 +57,6 @@ try {
   if (res.ok) {
     const events = await res.json();
     const mapped = events.map(mapGitHubEvent).filter(Boolean);
-    // Deduplicate by text (keep first occurrence)
     const seen = new Set();
     const unique = mapped.filter((a: any) => {
       const key = a.text;
@@ -97,95 +72,75 @@ try {
   // Fallback to hardcoded activities
 }
 
-// ── Blog posts (mixed grid) ──
+// ── Blog posts (content list) ──
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-const sortedCards = posts
+const sortedItems = posts
   .map((post) => ({
     tag: post.data.tags?.[0] || 'post',
     title: post.data.title,
-    excerpt: post.data.description || '',
-    meta: post.data.meta || post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' }),
-    wide: post.data.wide || false,
+    description: post.data.description || '',
+    meta: post.data.meta || String(post.data.date.getFullYear()),
+    image: post.data.image || '',
     order: post.data.order || 0,
     date: post.data.date,
     href: `/writing/${post.id}`,
   }))
   .sort((a, b) => b.order - a.order || b.date.getTime() - a.date.getTime());
+
+const featured = sortedItems[0];
+const rest = sortedItems.slice(1);
 ---
 
 <Base>
-  <!-- Hero -->
-  <section class="hero wrap">
-    <div class="hero-anim">
-      <h1>If something feels too complicated, I'll probably <em>do something about it.</em></h1>
-      <p class="hero-body">
-        In games, that meant building tools so artists could focus on art instead of
-        debugging broken assets. Last week it meant writing a script that turns a
-        30-minute server setup into one command.
-        <strong>The context changes, the instinct doesn't.</strong>
-      </p>
-    </div>
-    <div class="scroll-cue">
-      <div class="scroll-cue-line"></div>
-      scroll
-    </div>
-  </section>
-
-  <!-- These Days -->
-  <div class="wrap">
-    <div class="section-divider"></div>
-    <SectionHeader id="now" label="These days" sub="What I've been working on — pulled from my workshop, not written by hand." />
-    <TheseDays {activities} client:visible />
-    <div class="activity-footer">
-      <span class="activity-sync">From <a href="https://github.com/omid3098" target="_blank">github.com/omid3098</a></span>
-    </div>
+  <div class="greeting fade-in">
+    <p>
+      If something feels too complicated, I'll <em>probably do something about it.</em>
+      In games, that meant building tools so artists could focus on art instead of
+      debugging broken assets. Last week it meant writing a script that turns a
+      30-minute server setup into one command. The context changes, the instinct doesn't.
+    </p>
   </div>
 
-  <!-- Work & Writing -->
-  <div class="wrap">
-    <div class="section-divider" style="margin-top: 4rem;"></div>
-    <SectionHeader id="work" label="Work & Writing" />
-    <div class="recent-grid reveal">
-      {sortedCards.map((item) => (
-        <a class={`recent-card ${item.wide ? 'wide' : ''}`} href={item.href}>
-          <div class="card-tag">{item.tag}</div>
-          <div class="card-title">{item.title}</div>
-          <div class="card-excerpt">{item.excerpt}</div>
-          <div class="card-meta">{item.meta}</div>
+  <section class="these-days fade-in">
+    <div class="section-label">these days</div>
+    <div class="activity-list">
+      {activities.map((activity) => (
+        <div class="activity-item">
+          <div class="activity-dot"></div>
+          <div class="activity-text" set:html={activity.text} />
+        </div>
+      ))}
+    </div>
+    <div class="activity-source">From <a href="https://github.com/omid3098" target="_blank">github.com/omid3098</a></div>
+  </section>
+
+  <section class="content-section fade-in" id="work">
+    <div class="section-label">work & writing</div>
+    <div class="content-list">
+      {featured && (
+        <a class="content-item featured" href={featured.href}>
+          {featured.image && <div class="item-bg" style={`background-image: url('${featured.image}');`}></div>}
+          <div class="item-left">
+            <span class="item-tag">{featured.tag}</span>
+            <span class="item-title">{featured.title}</span>
+          </div>
+          <div class="item-meta">{featured.meta}</div>
+          {featured.description && <div class="featured-desc">{featured.description}</div>}
+        </a>
+      )}
+
+      {rest.map((item) => (
+        <a class="content-item" href={item.href}>
+          {item.image && <div class="item-bg" style={`background-image: url('${item.image}');`}></div>}
+          <div class="item-left">
+            <span class="item-tag">{item.tag}</span>
+            <span class="item-title">{item.title}</span>
+          </div>
+          <div class="item-meta">{item.meta}</div>
         </a>
       ))}
     </div>
-  </div>
-
-  <!-- About Teaser -->
-  <div class="wrap">
-    <div class="section-divider" style="margin-top: 5rem;"></div>
-    <section class="about-section reveal" id="about">
-      <div class="section-label" style="margin-bottom: 2rem;">About</div>
-      <div class="about-layout">
-        <div class="about-photo">
-          <img src="/assets/img/profile-picture.png" alt="Omid Saadat" />
-        </div>
-        <div class="about-content">
-          <p class="about-p">
-            I didn't plan to become a Technical Artist — I just kept ending up
-            in the gap between art and code, and it turned out there was a name for that.
-          </p>
-          <p class="about-p">
-            These days I'm based in Düsseldorf, splitting my time between pipeline tools
-            at Ubisoft and open-source shaders that somehow found an audience.
-            Evenings are for Quran study — verse by verse, in a framework I built myself.
-          </p>
-          <a href="/about" class="about-link">
-            Full about page
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-              <line x1="0" y1="8" x2="12" y2="8" />
-              <polyline points="8,4 12,8 8,12" />
-            </svg>
-          </a>
-        </div>
-      </div>
-    </section>
-  </div>
+    <a href="/writing" class="see-more">See all work & writing <span class="arrow">&rarr;</span></a>
+  </section>
 </Base>

@@ -5,6 +5,7 @@ tags: [unity3d, project, technical-artist, github, shadergraph, shader, glass, g
 description: "Unity's default glass materials looked terrible. I made two versions — a lightweight one for mobile and a complex one with refraction."
 order: 6
 meta: "270 ★ · 2022"
+image: "/assets/img/blog/glass-shaders/glass-shaders-banner.png"
 ---
 
 ![Glass Shaders](/assets/img/blog/glass%20shaders/glass-shaders-banner.png)

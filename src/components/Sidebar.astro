@@ -1,0 +1,29 @@
+---
+interface Props {
+  activePage?: string;
+}
+
+const { activePage = 'now' } = Astro.props;
+---
+
+<aside class="sidebar">
+  <a href="/" class="sidebar-photo">
+    <img src="/assets/img/profile-picture.png" alt="Omid Saadat" />
+  </a>
+  <div class="sidebar-name">Omid Saadat</div>
+  <div class="sidebar-title">Technical Artist</div>
+  <div class="sidebar-location">Düsseldorf · <span class="persian">امید سعادت</span></div>
+
+  <nav class="sidebar-nav">
+    <a href="/" class={activePage === 'now' ? 'active' : ''}><span class="nav-icon">◉</span> Now</a>
+    <a href="/#work" class={activePage === 'work' ? 'active' : ''}><span class="nav-icon">◫</span> Work</a>
+    <a href="/writing" class={activePage === 'writing' ? 'active' : ''}><span class="nav-icon">✎</span> Writing</a>
+    <a href="/about" class={activePage === 'about' ? 'active' : ''}><span class="nav-icon">○</span> About</a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="https://github.com/omid3098" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/omidsaadat" target="_blank">LinkedIn</a>
+    <a href="mailto:info@omid-saadat.com">Email</a>
+  </div>
+</aside>

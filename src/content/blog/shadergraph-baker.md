@@ -3,6 +3,7 @@ title: Design and Bake texures in Unity - The ShaderGraph Baker
 date: 2022-07-05
 tags: [unity3d, project, programming, technical-artist, github, shadergraph, shader, shadergraph-baker, procedural, texture, bake, baking, substance derigner]
 description: "Design procedural shaders in Unity ShaderGraph and bake them into textures."
+image: "/assets/img/blog/shadergraph-baker/header.png"
 ---
 ![Header](/assets/img/blog/shadergraph-baker/header.png)
 # The idea:
