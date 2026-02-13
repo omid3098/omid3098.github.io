@@ -3,16 +3,19 @@ import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
-const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-const byYear: Record<string, typeof sorted> = {};
-for (const post of sorted) {
-  const year = String(post.data.date.getFullYear());
-  if (!byYear[year]) byYear[year] = [];
-  byYear[year].push(post);
-}
-
-const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
+const sortedItems = posts
+  .map((post) => ({
+    tag: post.data.tags?.[0] || 'post',
+    title: post.data.title,
+    description: post.data.description || '',
+    meta: post.data.meta || String(post.data.date.getFullYear()),
+    image: post.data.image || '',
+    order: post.data.order || 0,
+    date: post.data.date,
+    href: `/writing/${post.id}`,
+  }))
+  .sort((a, b) => b.order - a.order || b.date.getTime() - a.date.getTime());
 ---
 
 <Base title="Writing" description="Ideas, guides, and project write-ups." activePage="writing">
@@ -21,19 +24,17 @@ const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
     <p class="page-description">Ideas, guides, and project write-ups.</p>
   </div>
 
-  {years.map(year => (
-    <div class="year-group reveal">
-      <div class="year-label">{year}</div>
-      <div class="post-list">
-        {byYear[year].map(post => (
-          <a class="post-item" href={`/writing/${post.id}`}>
-            <span class="post-title">{post.data.title}</span>
-            <span class="post-date">
-              {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  ))}
+  <div class="content-list">
+    {sortedItems.map((item, i) => (
+      <a class={`content-item${i === 0 ? ' featured' : ''}`} href={item.href}>
+        {item.image && <div class="item-bg" style={`background-image: url('${item.image}');`}></div>}
+        <div class="item-left">
+          <span class="item-tag">{item.tag}</span>
+          <span class="item-title">{item.title}</span>
+        </div>
+        <div class="item-meta">{item.meta}</div>
+        {i === 0 && item.description && <div class="featured-desc">{item.description}</div>}
+      </a>
+    ))}
+  </div>
 </Base>
