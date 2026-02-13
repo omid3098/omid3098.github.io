@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import profilePicture from '../../public/assets/img/profile-picture.png';
 ---
 
 <Base title="About" description="Technical Artist, tool builder, and simplifier of complicated things." activePage="about">
@@ -9,7 +11,7 @@ import Base from '../layouts/Base.astro';
 
   <div class="about-layout" style="margin-bottom: 3rem;">
     <div class="about-photo" style="width: 200px; height: 200px;">
-      <img src="/assets/img/profile-picture.png" alt="Omid Saadat" />
+      <Image src={profilePicture} alt="Omid Saadat" width={200} height={200} loading="eager" />
     </div>
     <div class="about-content">
       <p class="about-p">

@@ -11,7 +11,7 @@ const { activePage = 'now' } = Astro.props;
 
 <aside class="sidebar">
   <a href="/" class="sidebar-photo">
-    <Image src={profilePicture} alt="Omid Saadat" width={160} height={160} />
+    <Image src={profilePicture} alt="Omid Saadat" width={160} height={160} loading="eager" />
   </a>
   <div class="sidebar-name">Omid Saadat</div>
   <div class="sidebar-title">Technical Artist</div>
