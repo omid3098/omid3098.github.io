@@ -120,7 +120,10 @@ async function generatePDF() {
   console.log('Generating resume PDF...');
 
   const { server, port } = await startServer();
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
 
   await page.goto(`http://127.0.0.1:${port}/resume/index.html`, { waitUntil: 'networkidle0' });

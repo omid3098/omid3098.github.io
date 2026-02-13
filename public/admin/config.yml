@@ -1,0 +1,101 @@
+backend:
+  name: github
+  repo: omid3098/omid3098.github.io
+  branch: main
+
+site_url: https://www.omid-saadat.com
+
+media_folder: public/assets/img
+public_folder: /assets/img
+
+collections:
+  - name: blog
+    label: Blog
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        required: true
+
+      - label: Date
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+        required: true
+
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        default: []
+
+      - label: Description
+        name: description
+        widget: string
+        required: false
+
+      - label: Image
+        name: image
+        widget: image
+        required: false
+        media_folder: /public/assets/img/blog
+        public_folder: /assets/img/blog
+
+      - label: Language
+        name: lang
+        widget: select
+        options:
+          - { label: English, value: en }
+          - { label: Farsi, value: fa }
+        default: en
+        required: false
+
+      - label: Direction
+        name: dir
+        widget: select
+        options:
+          - { label: LTR, value: ltr }
+          - { label: RTL, value: rtl }
+        default: ltr
+        required: false
+
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Mermaid Diagrams
+        name: mermaid
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Order
+        name: order
+        widget: number
+        default: 0
+        value_type: int
+        required: false
+
+      - label: Wide Layout
+        name: wide
+        widget: boolean
+        default: false
+        required: false
+
+      - label: Meta
+        name: meta
+        widget: string
+        required: false
+
+      - label: Body
+        name: body
+        widget: markdown
