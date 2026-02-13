@@ -22,8 +22,13 @@ const { activePage = 'now' } = Astro.props;
   </nav>
 
   <div class="sidebar-footer">
-    <a href="https://github.com/omid3098" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/omidsaadat" target="_blank">LinkedIn</a>
-    <a href="mailto:info@omid-saadat.com">Email</a>
+    <button class="sidebar-search-btn" onclick="window.dispatchEvent(new Event('open-search'))">
+      <span class="nav-icon">⌕</span> Search <kbd>⌘K</kbd>
+    </button>
+    <div class="sidebar-footer-links">
+      <a href="https://github.com/omid3098" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/omidsaadat" target="_blank">LinkedIn</a>
+      <a href="mailto:info@omid-saadat.com">Email</a>
+    </div>
   </div>
 </aside>

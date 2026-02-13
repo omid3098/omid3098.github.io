@@ -1,5 +1,6 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
+import Search from '../components/Search.svelte';
 import '../styles/global.css';
 
 interface Props {
@@ -42,6 +43,7 @@ const pageTitle = title === 'Omid Saadat' ? title : `${title} — Omid Saadat`;
 </head>
 <body>
   <Sidebar activePage={activePage} />
+  <Search client:load />
   <main class="main">
     <div class="content">
       <slot />
