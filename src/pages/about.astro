@@ -7,57 +7,48 @@ import Base from '../layouts/Base.astro';
     <h1 class="page-title">About</h1>
   </div>
 
-  <div class="about-layout" style="margin-bottom: 4rem;">
+  <div class="about-layout" style="margin-bottom: 3rem;">
     <div class="about-photo" style="width: 200px; height: 200px;">
       <img src="/assets/img/profile-picture.png" alt="Omid Saadat" />
     </div>
     <div class="about-content">
       <p class="about-p">
-        I make things simpler for a living. In games, that usually means building
-        tools — validators, shader utilities, automation scripts — so artists can
-        focus on creating instead of debugging. But it's not just a job thing. If I
-        see a process that takes thirty minutes and could take one, I'll probably
-        end up writing something about it.
-      </p>
-      <p class="about-p">
-        I'm currently a Technical Artist at Ubisoft Blue Byte in Düsseldorf, where
-        I build pipeline tools and shader utilities for the art team. Before that,
-        I worked on various game projects where I kept finding myself in the space
-        between art and code.
+        After about seven years as a 3D generalist, I wrote a MaxScript that
+        automated the entire environment pipeline: unwrap uv2, pack, render and bake lightmap,
+        export the level into the engine, all while preserving instances and transforms. The code was messy and far from
+        optimized, but it worked. And the moment I watched it process an entire
+        level without me touching anything, something clicked. That was the first
+        time I felt the satisfaction of programming.
       </p>
     </div>
   </div>
 
   <div class="prose" style="max-width: 680px;">
-    <h2>The in-between</h2>
     <p>
-      I've always been drawn to the gap between disciplines. In games, that gap
-      lives between artists and engineers — and it's where most of the friction
-      happens. Broken assets, misconfigured shaders, pipelines that nobody
-      understands. I build tools to close that gap.
-    </p>
-
-    <h2>Outside of work</h2>
-    <p>
-      I spend my evenings studying the Quran — analyzing it verse by verse
-      with a framework I built myself, and sharing what I find. It's the kind
-      of project that requires patience and precision, which is probably why I
-      enjoy it.
+      In games, the most interesting problems live between artists and engineers.
+      Broken assets, misconfigured shaders, pipelines that nobody fully
+      understands that's where I spend most of my time. I build the tools that
+      close that gap so people can get back to the work they actually care about.
     </p>
     <p>
-      I also maintain a few open-source projects — shaders and tools that started
+      Outside of that, I study the Quran verse by verse, with a framework I
+      built called <a href="https://www.omid-saadat.com/quran_reader/" target="_blank">QuranReader</a>,
+      sharing what I find on <a href="https://www.youtube.com/channel/UCrcVHXrUupOAAa0D77oXQ9g" target="_blank">YouTube</a>
+      in Persian. It requires patience and precision, which is probably why I enjoy it.
+    </p>
+    <p>
+      I also maintain a few open-source projectsو shaders and tools that started
       as personal experiments and found their audience. My
       <a href="https://github.com/omid3098" target="_blank">GitHub</a> is the
       best place to see what I'm working on.
     </p>
-
-    <!-- TODO: Add more personal sections as confirmed by Omid -->
-
-    <h2>Get in touch</h2>
     <p>
-      You can find me on <a href="https://github.com/omid3098" target="_blank">GitHub</a>
-      or reach out via LinkedIn. I'm always happy to chat about tools, shaders,
-      or the space between art and code.
+      If any of technical art, game dev, the Quran, or something else entirely sounds interesting, I'm on: 
+      <br /><a href="https://x.com/omid3098" target="_blank">X</a>
+      <br /><a href="mailto:info@omid-saadat.com">Email</a>
+      <br /><a href="https://t.me/Omid3098" target="_blank">Telegram</a>
+      <br /><a href="https://www.linkedin.com/in/omid-saadat/" target="_blank">LinkedIn</a>
+      <br />Always happy to chat.
     </p>
   </div>
 </Base>
