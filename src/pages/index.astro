@@ -123,7 +123,7 @@ const rest = sortedItems.slice(1);
           {featured.image && <div class="item-bg" style={`background-image: url('${featured.image}');`}></div>}
           <div class="item-left">
             <span class="item-tag">{featured.tag}</span>
-            <span class="item-title">{featured.title}</span>
+            <span class="item-title" transition:name={`title-${featured.href.split('/').pop()}`}>{featured.title}</span>
           </div>
           <div class="item-meta">{featured.meta}</div>
           {featured.description && <div class="featured-desc">{featured.description}</div>}
@@ -135,7 +135,7 @@ const rest = sortedItems.slice(1);
           {item.image && <div class="item-bg" style={`background-image: url('${item.image}');`}></div>}
           <div class="item-left">
             <span class="item-tag">{item.tag}</span>
-            <span class="item-title">{item.title}</span>
+            <span class="item-title" transition:name={`title-${item.href.split('/').pop()}`}>{item.title}</span>
           </div>
           <div class="item-meta">{item.meta}</div>
         </a>

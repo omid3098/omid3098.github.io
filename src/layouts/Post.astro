@@ -10,9 +10,10 @@ interface Props {
     dir?: string;
     mermaid?: boolean;
   };
+  slug?: string;
 }
 
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
 const lang = frontmatter.lang || 'en';
 const dir = frontmatter.dir || 'ltr';
 const dateStr = frontmatter.date.toLocaleDateString('en-US', {
@@ -25,7 +26,7 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
 <Base title={frontmatter.title} lang={lang} dir={dir} activePage="writing">
   <article class={dir === 'rtl' ? 'rtl' : ''}>
     <header class="page-header">
-      <h1 class="page-title">{frontmatter.title}</h1>
+      <h1 class="page-title" transition:name={slug ? `title-${slug}` : undefined}>{frontmatter.title}</h1>
       <div class="post-meta">
         <time>{dateStr}</time>
         {frontmatter.tags && frontmatter.tags.length > 0 && (
@@ -43,7 +44,7 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
   </article>
 
   {frontmatter.mermaid && (
-    <script is:inline type="module">
+    <script is:inline type="module" data-astro-rerun>
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
       // Astro/Shiki renders ```mermaid blocks as:
       //   <pre class="astro-code" data-language="mermaid"><code><span>...</span></code></pre>

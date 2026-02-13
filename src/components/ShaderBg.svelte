@@ -7,6 +7,8 @@
   let mouse = { x: -1, y: -1 };
   let targetMouse = { x: -1, y: -1 };
   let startTime = 0;
+  let pulseStart = 0;
+  const PULSE_DURATION = 1.0;
 
   const VERT = `
     attribute vec2 a_grid;
@@ -15,6 +17,7 @@
     uniform vec2 u_resolution;
     uniform float u_cols;
     uniform float u_rows;
+    uniform float u_pulse;
 
     varying float v_brightness;
 
@@ -36,22 +39,28 @@
       float dist = length(diff);
       float radius = 2.8;
       float influence = smoothstep(radius, 0.0, dist);
-
-      // Sharpen falloff so only dots close to cursor are truly visible
       influence = pow(influence, 3.0);
 
       // Push dots away from cursor
       vec2 dir = dist > 0.001 ? normalize(diff) : vec2(0.0);
       pos += dir * influence * 0.018;
 
-      v_brightness = influence;
+      // Navigation ripple: expanding ring from mouse position
+      float rippleT = 1.0 - u_pulse;
+      float rippleR = rippleT * 3.0;
+      float band = 0.5;
+      float ripple = smoothstep(rippleR - band, rippleR, dist)
+                   * (1.0 - smoothstep(rippleR, rippleR + band, dist));
+      float rippleStrength = ripple * u_pulse;
+
+      float totalBrightness = max(influence, rippleStrength);
+      v_brightness = totalBrightness;
 
       vec2 clip = pos * 2.0 - 1.0;
       gl_Position = vec4(clip, 0.0, 1.0);
 
-      // Dots with no influence get zero size (invisible guaranteed)
       float baseSize = min(u_resolution.x, u_resolution.y) / u_cols * 0.2;
-      gl_PointSize = influence > 0.01 ? baseSize + influence * baseSize * 1.0 : 0.0;
+      gl_PointSize = totalBrightness > 0.01 ? baseSize + totalBrightness * baseSize * 1.0 : 0.0;
     }`;
 
   const FRAG = `
@@ -151,10 +160,14 @@
     mouse.x += (targetMouse.x - mouse.x) * 0.08;
     mouse.y += (targetMouse.y - mouse.y) * 0.08;
 
-    const t = (performance.now() - startTime) / 1000;
+    const now = performance.now();
+    const t = (now - startTime) / 1000;
+    const pulseVal = Math.max(0, 1 - (now - pulseStart) / (PULSE_DURATION * 1000));
+
     gl.uniform1f(gl.getUniformLocation(program, 'u_time'), t);
     gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.height);
     gl.uniform2f(gl.getUniformLocation(program, 'u_mouse'), mouse.x, mouse.y);
+    gl.uniform1f(gl.getUniformLocation(program, 'u_pulse'), pulseVal);
 
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -173,16 +186,22 @@
     targetMouse.y = -1;
   }
 
+  function onNavStart() {
+    pulseStart = performance.now();
+  }
+
   $effect(() => {
     init();
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseleave', onMouseLeave);
+    document.addEventListener('astro:before-preparation', onNavStart);
     return () => {
       destroy();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseleave', onMouseLeave);
+      document.removeEventListener('astro:before-preparation', onNavStart);
     };
   });
 </script>
