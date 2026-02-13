@@ -5,6 +5,8 @@ interface Props {
   frontmatter: {
     title: string;
     date: Date;
+    description?: string;
+    image?: string;
     tags?: string[];
     lang?: string;
     dir?: string;
@@ -23,7 +25,7 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
 });
 ---
 
-<Base title={frontmatter.title} lang={lang} dir={dir} activePage="writing">
+<Base title={frontmatter.title} description={frontmatter.description} image={frontmatter.image} publishedDate={frontmatter.date} tags={frontmatter.tags} lang={lang} dir={dir} activePage="writing" type="article">
   <article class={dir === 'rtl' ? 'rtl' : ''}>
     <header class="page-header">
       <h1 class="page-title" transition:name={slug ? `title-${slug}` : undefined}>{frontmatter.title}</h1>

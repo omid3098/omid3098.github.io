@@ -11,6 +11,10 @@ interface Props {
   lang?: string;
   dir?: string;
   activePage?: string;
+  image?: string;
+  publishedDate?: Date;
+  tags?: string[];
+  type?: 'website' | 'article';
 }
 
 const {
@@ -19,9 +23,36 @@ const {
   lang = 'en',
   dir = 'ltr',
   activePage = 'now',
+  image,
+  publishedDate,
+  tags,
+  type = 'website',
 } = Astro.props;
 
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://www.omid-saadat.com';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/assets/img/profile-picture.png`;
 const pageTitle = title === 'Omid Saadat' ? title : `${title} — Omid Saadat`;
+
+const jsonLd = type === 'article'
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: title,
+      description,
+      image: ogImage,
+      author: { '@type': 'Person', name: 'Omid Saadat', url: siteUrl },
+      ...(publishedDate && { datePublished: publishedDate.toISOString() }),
+      url: canonicalUrl,
+    }
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'Omid Saadat',
+      description,
+      url: siteUrl,
+      author: { '@type': 'Person', name: 'Omid Saadat', url: siteUrl },
+    };
 ---
 
 <!DOCTYPE html>
@@ -31,10 +62,34 @@ const pageTitle = title === 'Omid Saadat' ? title : `${title} — Omid Saadat`;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{pageTitle}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph -->
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:locale" content={lang === 'fa' ? 'fa_IR' : 'en_US'} />
+  {type === 'article' && publishedDate && (
+    <meta property="article:published_time" content={publishedDate.toISOString()} />
+  )}
+  {type === 'article' && tags && tags.map(tag => (
+    <meta property="article:tag" content={tag} />
+  ))}
+
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Omid Saadat" href={`${siteUrl}/rss.xml`} />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png" />
