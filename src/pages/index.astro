@@ -6,70 +6,61 @@ import type { ImageMetadata } from 'astro';
 
 // ── GitHub Activity (build-time) ──
 const GITHUB_USER = 'omid3098';
+const ghUrl = (repo: string) => `https://github.com/${GITHUB_USER}/${repo}`;
+
+// Curated narratives for known repos — the "story" behind each project.
+// When GitHub shows activity on one of these, we surface the story, not the commit.
+const repoNarratives: Record<string, string> = {
+  'OpenShaderGraph': 'Working on <strong>OpenShaderGraph</strong> — a shader language that doesn\'t care which engine you\'re using.',
+  'open-flowmap': 'Refining <strong>Open Flowmap</strong> — a GPU-based flowmap painter for Unity. <span class="stars">118 ★</span>',
+  'GlassShader': 'Maintaining <strong>Glass Shader</strong> — a realistic glass material I made because Unity\'s default looked terrible. <span class="stars">270 ★</span>',
+  'QuranReader': 'Building <strong>QuranReader</strong> — a personal tool for studying the Quran.',
+  'conduit_expose': 'Improving <strong>Conduit Expose</strong> — making local dev servers reachable from anywhere.',
+  'conduit_monitor': 'Working on <strong>Conduit Monitor</strong> — a lightweight uptime checker for my own services.',
+};
+
+// Repos that are just infra noise — skip entirely
+const ignoredRepos = new Set([
+  'omid3098.github.io',
+  'sveltia-cms-auth',
+  'omid-saadat-new',
+]);
+
 const fallbackActivities = [
-  { text: 'Started <strong>OpenShaderGraph</strong> — a node-based shader language that doesn\'t care which engine you\'re using.' },
-  { text: 'Pushed updates to <strong>OpenFlowMap</strong> — refactored the flow algorithm and rewrote the docs. <span class="stars">118 ★</span>' },
-  { text: '<strong>Glass Shader</strong> crossed 270 stars — a simple shader I made because Unity\'s default glass looked terrible.' },
-  { text: 'Wrote a script to automate <strong>paqet</strong> server setup — turned a long manual process into one command.' },
+  { text: repoNarratives['OpenShaderGraph'], url: ghUrl('OpenShaderGraph') },
+  { text: repoNarratives['open-flowmap'], url: ghUrl('open-flowmap') },
+  { text: repoNarratives['GlassShader'], url: ghUrl('GlassShader') },
+  { text: repoNarratives['QuranReader'], url: ghUrl('QuranReader') },
 ];
-
-function mapGitHubEvent(event: any) {
-  const repo = event.repo?.name?.split('/')[1] || event.repo?.name || '';
-
-  switch (event.type) {
-    case 'PushEvent': {
-      const commits = event.payload?.commits || [];
-      const msg = commits[0]?.message?.split('\n')[0] || 'new changes';
-      return { text: `Pushed to <strong>${repo}</strong> — ${msg}` };
-    }
-    case 'CreateEvent': {
-      // Only show new repository creation, skip branch/tag noise
-      const ref = event.payload?.ref_type || 'repository';
-      if (ref !== 'repository') return null;
-      return { text: `Created <strong>${repo}</strong>` };
-    }
-    case 'ForkEvent': {
-      const forkee = event.payload?.forkee?.full_name || repo;
-      return { text: `Forked <strong>${forkee}</strong>` };
-    }
-    case 'ReleaseEvent': {
-      const tag = event.payload?.release?.tag_name || '';
-      return { text: `Released <strong>${tag}</strong> of <strong>${repo}</strong>` };
-    }
-    case 'IssuesEvent': {
-      const action = event.payload?.action || 'opened';
-      const title = event.payload?.issue?.title || '';
-      return { text: `${action.charAt(0).toUpperCase() + action.slice(1)} issue on <strong>${repo}</strong>${title ? ` — ${title}` : ''}` };
-    }
-    case 'PullRequestEvent': {
-      const action = event.payload?.action || 'opened';
-      const title = event.payload?.pull_request?.title || '';
-      return { text: `${action.charAt(0).toUpperCase() + action.slice(1)} PR on <strong>${repo}</strong>${title ? ` — ${title}` : ''}` };
-    }
-    default:
-      return null;
-  }
-}
 
 let activities = fallbackActivities;
 try {
   const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public`);
   if (res.ok) {
     const events = await res.json();
-    const mapped = events.map(mapGitHubEvent).filter(Boolean);
-    const seen = new Set();
-    const unique = mapped.filter((a: any) => {
-      const key = a.text;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-    if (unique.length >= 3) {
-      activities = unique.slice(0, 6);
+    // Find which repos have recent activity, in order
+    const activeRepos: string[] = [];
+    const seen = new Set<string>();
+    for (const event of events) {
+      const repo = event.repo?.name?.split('/')[1] || '';
+      if (!repo || seen.has(repo) || ignoredRepos.has(repo)) continue;
+      seen.add(repo);
+      activeRepos.push(repo);
+    }
+    // Build narrative list: curated stories for known repos, warm fallback for others
+    const narratives = activeRepos
+      .map((repo) => {
+        const url = ghUrl(repo);
+        if (repoNarratives[repo]) return { text: repoNarratives[repo], url };
+        const name = repo.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+        return { text: `Spending some time on <strong>${name}</strong>.`, url };
+      });
+    if (narratives.length >= 3) {
+      activities = narratives.slice(0, 6);
     }
   }
 } catch (e) {
-  // Fallback to hardcoded activities
+  // Fallback to curated activities
 }
 
 // ── Blog posts (content list) ──
@@ -131,16 +122,18 @@ const rest = optimizedItems.slice(1);
   </div>
 
   <section class="these-days fade-in">
-    <div class="section-label">these days</div>
+    <div class="section-header">
+      <div class="section-label">what i'm working on these days</div>
+      <div class="activity-source">From <a href="https://github.com/omid3098" target="_blank">github.com/omid3098</a></div>
+    </div>
     <div class="activity-list">
       {activities.map((activity) => (
-        <div class="activity-item">
+        <a class="activity-item" href={activity.url} target="_blank">
           <div class="activity-dot"></div>
           <div class="activity-text" set:html={activity.text} />
-        </div>
+        </a>
       ))}
     </div>
-    <div class="activity-source">From <a href="https://github.com/omid3098" target="_blank">github.com/omid3098</a></div>
   </section>
 
   <section class="content-section fade-in">

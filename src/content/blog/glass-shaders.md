@@ -1,7 +1,7 @@
 ---
 title: Glass Shaders - Simple and Complex
 date: 2023-05-07
-tags: [unity3d, project, technical-artist, github, shadergraph, shader, glass, glass-shader, glass-shaders]
+tags: [shader, unity3d, project, technical-artist, github, shadergraph, glass, glass-shader, glass-shaders]
 description: "Unity's default glass materials looked terrible. I made two versions — a lightweight one for mobile and a complex one with refraction."
 order: 6
 meta: "270 ★ · 2022"

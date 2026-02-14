@@ -1,7 +1,7 @@
 ---
 title: Memoranda
 date: 2015-05-11
-tags: [unity, c#, game, memoranda]
+tags: [game, unity, c#, memoranda]
 description: "A point-and-click adventure game inspired by Haruki Murakami short stories."
 image: "/assets/img/games/Memoranda.jpg"
 ---

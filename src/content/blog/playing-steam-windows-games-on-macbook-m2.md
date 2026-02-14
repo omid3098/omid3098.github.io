@@ -1,7 +1,7 @@
 ---
 title: Playing Steam Windows games on MacBook M2
 date: 2023-12-11
-tags: [macbook, m2, gaming, steam, windows, My Time at Sandrock]
+tags: [guide, macbook, m2, gaming, steam, windows]
 description: "How I got a Windows Steam game running on MacBook M2 — Parallels vs CrossOver."
 image: "/assets/img/blog/steam-game-mac/Steam-windows-mac-min.png"
 ---

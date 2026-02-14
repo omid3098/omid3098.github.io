@@ -1,7 +1,7 @@
 ---
 title: Hello
 date: 2012-05-04
-tags: [hello]
+tags: [intro]
 description: "The very first post on this site."
 ---
 

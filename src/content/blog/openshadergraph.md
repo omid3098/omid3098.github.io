@@ -3,6 +3,7 @@ title: OpenShaderGraph
 date: 2025-10-07
 tags:
   [
+    tool,
     OpenShaderGraph,
     Shaders,
     technical-artist,

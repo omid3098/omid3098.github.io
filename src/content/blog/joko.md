@@ -1,5 +1,6 @@
 ---
 title: Joko
+tags: [game]
 date: 2019-05-11
 description: "Musical apps that celebrate beautiful instruments through game-based challenges."
 ---

@@ -1,7 +1,7 @@
 ---
 title: Becoming A Technical Artist
 date: 2024-09-07
-tags: [technical artist, career, game development, 3D art]
+tags: [guide, technical artist, career, game development, 3D art]
 description: "A guide for people who like both art and code and don't know there's a job title for that."
 order: 5
 wide: true

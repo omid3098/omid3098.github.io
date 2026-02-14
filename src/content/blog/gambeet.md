@@ -1,7 +1,7 @@
 ---
 title: Gambeet
 date: 2018-01-01
-tags: [unity, c#, game, gambeet]
+tags: [game, unity, c#, gambeet]
 description: "A mobile game built with Unity — one of my earlier game development projects."
 image: "/assets/img/games/gambeet/Hall.png"
 ---

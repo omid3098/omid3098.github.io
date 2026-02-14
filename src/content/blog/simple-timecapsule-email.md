@@ -1,7 +1,7 @@
 ---
 title: Simple TimeCapsule Email
 date: 2024-08-14
-tags: [timecapsule, email, idea, creative, life]
+tags: [idea, timecapsule, email, creative, life]
 mermaid: true
 description: "Sitting on the balcony, watching the sky. I built a tiny tool to send emails across time."
 order: 8

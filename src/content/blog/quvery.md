@@ -3,6 +3,7 @@ title: QuVery
 date: 2023-12-19
 tags:
   [
+    tool,
     project,
     programming,
     technical-artist,
