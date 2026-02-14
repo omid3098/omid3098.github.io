@@ -5,7 +5,7 @@ tags: [idea, ai, technical, gpt4, unity, stable-diffusion, tools]
 description: "A summary of my AI experiments — from GPT4-powered Unity tools to texture generation with Stable Diffusion."
 image: "/assets/img/blog/AI/tea-cup-wide.png"
 ---
-![Shahrzad](/assets/img/blog/AI/tea-cup-wide.png)
+![AI-generated tea cup art](/assets/img/blog/AI/tea-cup-wide.png)
 
 
 

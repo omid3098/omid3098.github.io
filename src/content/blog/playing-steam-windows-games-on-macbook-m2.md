@@ -13,7 +13,7 @@ She could easily play it on her Windows laptop, but I have a MacBook M2. So, I h
 ## Parallels Desktop
 Using Parallels Desktop was my first option. The game ran pretty well, but there was no terrain! 
 
-![No terrain](/assets/img/blog/steam-game-mac/My%20Time%20at%20Sandrock-parallels.png)
+![No terrain](/assets/img/blog/steam-game-mac/my-time-at-sandrock-parallels.png)
 
 Other people had the same issue with [other games using Parallels](https://forum.parallels.com/threads/applications-games-not-working-in-windows-on-arm.356614/). So, I had to find another way.
 
@@ -26,7 +26,7 @@ UTM is a virtual machine for macOS, powered by QEMU, and I LOVE QEMU! It was the
 I could easily install Windows 11 on UTM, installed Steam, and the game. There was no terrain issue, but the game was running at 5-10 FPS! I tried many different settings to use more CPU/GPU power but couldn't get more than that.
 UTM looks pretty stable, but it's not ready for gaming yet.
 
-![UTM-Windows-11](/assets/img/blog/steam-game-mac/UTM-Windows%2011.png)
+![UTM-Windows-11](/assets/img/blog/steam-game-mac/utm-windows-11.png)
 
 ## Wine
 My old friend [Wine](https://www.winehq.org)! I have used Wine to play Heroes of the Storm on my old Linux laptop for many years. Using Lutris, PlayOnLinux, and even manually with raw WineHQ. Finding out that there is a Wine version for M1/M2 brought tears of joy to my eyes.

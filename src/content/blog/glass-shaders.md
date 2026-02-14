@@ -8,7 +8,7 @@ meta: "270 ★ · 2022"
 image: "/assets/img/blog/glass-shaders/glass-shaders-banner.png"
 ---
 
-![Glass Shaders](/assets/img/blog/glass%20shaders/glass-shaders-banner.png)
+![Glass Shaders](/assets/img/blog/glass-shaders/glass-shaders-banner.png)
 
 ## Why?
 Because Unity is not so good with default glass materials and shaders. I have made two glass-shaders. one is a simple glass shader without refraction, suitable for mobile games or simple games. The other one is a more complex shader with refraction, suitable for more complex scenarios.

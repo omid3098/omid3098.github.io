@@ -1,8 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCollection } from 'astro:content';
-import { getImage } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import { getSortedPosts } from '../lib/posts';
 
 // ── GitHub Activity (build-time) ──
 const GITHUB_USER = 'omid3098';
@@ -64,49 +62,7 @@ try {
 }
 
 // ── Blog posts (content list) ──
-const posts = await getCollection('blog', ({ data }) => !data.draft);
-
-const sortedItems = posts
-  .map((post) => ({
-    tag: post.data.tags?.[0] || 'post',
-    title: post.data.title,
-    description: post.data.description || '',
-    meta: post.data.meta || String(post.data.date.getFullYear()),
-    image: post.data.image || '',
-    order: post.data.order || 0,
-    date: post.data.date,
-    href: `/writing/${post.id}`,
-  }))
-  .sort((a, b) => {
-    const aPinned = a.order > 0 ? 1 : 0;
-    const bPinned = b.order > 0 ? 1 : 0;
-    if (aPinned !== bPinned) return bPinned - aPinned;
-    if (aPinned && bPinned) return b.order - a.order;
-    return b.date.getTime() - a.date.getTime();
-  });
-
-// ── Optimize card images ──
-const imageImports = import.meta.glob<{ default: ImageMetadata }>(
-  '../../public/assets/img/**/*.{png,jpg,jpeg}'
-);
-
-async function resolveImage(imagePath: string) {
-  if (!imagePath || imagePath.endsWith('.gif')) return imagePath;
-  const srcPath = imagePath.replace('/assets/img/', '../../public/assets/img/');
-  const loader = imageImports[srcPath];
-  if (!loader) return imagePath;
-  const mod = await loader();
-  const optimized = await getImage({ src: mod.default, width: 800, format: 'webp' });
-  return optimized.src;
-}
-
-const optimizedItems = await Promise.all(
-  sortedItems.map(async (item) => ({
-    ...item,
-    image: await resolveImage(item.image),
-  }))
-);
-
+const optimizedItems = await getSortedPosts();
 const featured = optimizedItems[0];
 const rest = optimizedItems.slice(1);
 ---

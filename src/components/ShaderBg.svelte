@@ -4,6 +4,7 @@
   let program = null;
   let animId = null;
   let pointCount = 0;
+  let uni = {};
   let mouse = { x: -1, y: -1 };
   let targetMouse = { x: -1, y: -1 };
   let startTime = 0;
@@ -201,8 +202,18 @@
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
-    gl.uniform1f(gl.getUniformLocation(program, 'u_cols'), cols);
-    gl.uniform1f(gl.getUniformLocation(program, 'u_rows'), rows);
+    uni = {
+      time: gl.getUniformLocation(program, 'u_time'),
+      resolution: gl.getUniformLocation(program, 'u_resolution'),
+      mouse: gl.getUniformLocation(program, 'u_mouse'),
+      pulse: gl.getUniformLocation(program, 'u_pulse'),
+      hoverRect: gl.getUniformLocation(program, 'u_hoverRect'),
+      hoverStr: gl.getUniformLocation(program, 'u_hoverStr'),
+      cols: gl.getUniformLocation(program, 'u_cols'),
+      rows: gl.getUniformLocation(program, 'u_rows'),
+    };
+    gl.uniform1f(uni.cols, cols);
+    gl.uniform1f(uni.rows, rows);
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -221,6 +232,10 @@
 
   function loop() {
     if (!gl || !program) return;
+    if (document.hidden) {
+      animId = null;
+      return;
+    }
 
     mouse.x += (targetMouse.x - mouse.x) * 0.05;
     mouse.y += (targetMouse.y - mouse.y) * 0.05;
@@ -243,12 +258,12 @@
     const t = (now - startTime) / 1000;
     const pulseVal = Math.max(0, 1 - (now - pulseStart) / (PULSE_DURATION * 1000));
 
-    gl.uniform1f(gl.getUniformLocation(program, 'u_time'), t);
-    gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.height);
-    gl.uniform2f(gl.getUniformLocation(program, 'u_mouse'), mouse.x, mouse.y);
-    gl.uniform1f(gl.getUniformLocation(program, 'u_pulse'), pulseVal);
-    gl.uniform4f(gl.getUniformLocation(program, 'u_hoverRect'), hover.x, hover.y, hover.hw, hover.hh);
-    gl.uniform1f(gl.getUniformLocation(program, 'u_hoverStr'), hover.str);
+    gl.uniform1f(uni.time, t);
+    gl.uniform2f(uni.resolution, canvas.width, canvas.height);
+    gl.uniform2f(uni.mouse, mouse.x, mouse.y);
+    gl.uniform1f(uni.pulse, pulseVal);
+    gl.uniform4f(uni.hoverRect, hover.x, hover.y, hover.hw, hover.hh);
+    gl.uniform1f(uni.hoverStr, hover.str);
 
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -286,18 +301,26 @@
     targetHover.str = 0;
   }
 
+  function onVisibilityChange() {
+    if (!document.hidden && gl && program && animId === null) {
+      loop();
+    }
+  }
+
   $effect(() => {
     init();
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('astro:before-preparation', onNavStart);
+    document.addEventListener('visibilitychange', onVisibilityChange);
     return () => {
       destroy();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseleave', onMouseLeave);
       document.removeEventListener('astro:before-preparation', onNavStart);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   });
 </script>
