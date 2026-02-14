@@ -28,9 +28,9 @@ Using ShaderGraph, I have created two shaders.
 - Tint color
 - Diffuse texture
 - Metalic and smoothness
-- Normal strenght
+- Normal strength
 - Reflection (baked cubemap)
-- Distort strenght
+- Distort strength
 
 
 #### Download from GitHub:

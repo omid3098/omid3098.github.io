@@ -48,7 +48,7 @@ _Image source on [Medium](https://louisgamedev.medium.com/shader-tutorial-flow-m
 
 <!-- lets add image creadits from https://louisgamedev.medium.com/shader-tutorial-flow-map-4410af832a8d -->
 
-Exactely like UV coordinate colors, each color represents a direction.
+Exactly like UV coordinate colors, each color represents a direction.
 
 You can learn more about the flowmap from these sources: [source 1](https://louisgamedev.medium.com/shader-tutorial-flow-map-4410af832a8d), [source 2](https://blender.stackexchange.com/questions/273421/how-to-use-flowmap-texture-for-rotation-instances), [source 3](https://vfxdoc.readthedocs.io/en/latest/articles/flowmaps)
 

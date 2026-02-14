@@ -102,10 +102,11 @@ const jsonLd = type === 'article'
   <ClientRouter />
 </head>
 <body>
+  <a href="#main" class="skip-to-content">Skip to main content</a>
   <ShaderBg client:only="svelte" transition:persist="shader" />
   <Sidebar activePage={activePage} />
   <Search client:load transition:persist="search" />
-  <main class="main" transition:name="content">
+  <main id="main" class="main" transition:name="content">
     <div class="content">
       <slot />
       <footer class="main-footer fade-in">

@@ -44,8 +44,7 @@ All videos and screenshots are rendered in Unity3D:
       <img src="/assets/img/games/cryptoroomz/gif/outdoor.gif" alt="Screenshot 2" width="256px" height="256px">
     </div>
   </div>
-  (Click to enlarge)
-</div>
+  </div>
 
 <!-- Space -->
 <div style="height: 50px"></div>
@@ -53,25 +52,25 @@ All videos and screenshots are rendered in Unity3D:
 <!-- mp4 videos with play button to show assets\img\games\cryptoroomz\video\tv-room.mp4 and assets\img\games\cryptoroomz\video\game-room.mp4 with the same width and height -->
 <div class="text-center">
   <div> Water drop, DOF, PostProcessing, Materials </div>
-  <video width="100%" loop autoplay>
+  <video width="100%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/video/water-drop.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div style="height: 20px"></div>
   <div> Vertex animation for window curtain: </div>
-  <video width="100%" loop autoplay>
+  <video width="100%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/video/window.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div style="height: 20px"></div>
   <div> PostProcessing, DOF, Lighting and Particles: </div>
-  <video width="100%" loop autoplay>
+  <video width="100%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/video/tv-room.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div style="height: 20px"></div>
   <div> Animated shader blink, Texture Sheet, Linear Fog: </div>
-  <video width="100%" loop autoplay>
+  <video width="100%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/video/game-room.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -80,24 +79,24 @@ All videos and screenshots are rendered in Unity3D:
 ## Other Videos:
 <div class="text-center">
   <div style="height: 5px"></div>
-  <video width="60%" loop autoplay>
+  <video width="60%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/02-Bath01.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div style="height: 5px"></div>
-  <video width="60%" loop autoplay>
+  <video width="60%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/03-RoomMain.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <video width="60%" loop autoplay>
+  <video width="60%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/01-tv-room.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <video width="60%" loop autoplay>
+  <video width="60%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/05-Bed03.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <video width="60%" loop autoplay>
+  <video width="60%" style="aspect-ratio: 1/1;" loop autoplay muted>
     <source src="/assets/img/games/cryptoroomz/04-OutdoorHouseFront.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>

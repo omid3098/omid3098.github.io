@@ -148,6 +148,11 @@
     const s = glCtx.createShader(type);
     glCtx.shaderSource(s, src);
     glCtx.compileShader(s);
+    if (!glCtx.getShaderParameter(s, glCtx.COMPILE_STATUS)) {
+      console.error('Shader compile error:', glCtx.getShaderInfoLog(s));
+      glCtx.deleteShader(s);
+      return null;
+    }
     return s;
   }
 
@@ -175,10 +180,15 @@
 
     const vs = compile(gl, gl.VERTEX_SHADER, VERT);
     const fs = compile(gl, gl.FRAGMENT_SHADER, FRAG);
+    if (!vs || !fs) return;
     program = gl.createProgram();
     gl.attachShader(program, vs);
     gl.attachShader(program, fs);
     gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error('Program link error:', gl.getProgramInfoLog(program));
+      return;
+    }
     gl.useProgram(program);
 
     // Generate grid points

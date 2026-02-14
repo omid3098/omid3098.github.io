@@ -18,16 +18,23 @@ const { activePage = 'now' } = Astro.props;
   <div class="sidebar-location">Düsseldorf · <span class="persian">امید سعادت</span></div>
 
   <nav class="sidebar-nav">
-    <a href="/" class={activePage === 'now' ? 'active' : ''}><span class="nav-icon">◉</span> Now</a>
-    <a href="/writing" class={activePage === 'writing' ? 'active' : ''}><span class="nav-icon">✎</span> Writing</a>
-    <a href="/about" class={activePage === 'about' ? 'active' : ''}><span class="nav-icon">○</span> About</a>
-    <a href="/resume" class={activePage === 'resume' ? 'active' : ''}><span class="nav-icon">◧</span> Resume</a>
+    <a href="/" class={activePage === 'now' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">◉</span> Now</a>
+    <a href="/writing" class={activePage === 'writing' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">✎</span> Writing</a>
+    <a href="/about" class={activePage === 'about' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">○</span> About</a>
+    <a href="/resume" class={activePage === 'resume' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">◧</span> Resume</a>
   </nav>
 
   <div class="sidebar-footer">
     <button class="sidebar-search-btn" onclick="window.dispatchEvent(new Event('open-search'))">
-      <span class="nav-icon">⌕</span> Search <kbd>⌘K</kbd>
+      <span class="nav-icon" aria-hidden="true">⌕</span> Search <kbd class="search-kbd"></kbd>
     </button>
+    <script>
+      const kbd = document.querySelector('.search-kbd');
+      if (kbd) {
+        const isMac = /mac/i.test(navigator.userAgent);
+        kbd.textContent = isMac ? '⌘K' : 'Ctrl+K';
+      }
+    </script>
     <div class="sidebar-footer-links">
       <a href="https://github.com/omid3098" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://linkedin.com/in/omidsaadat" target="_blank" rel="noopener noreferrer">LinkedIn</a>
