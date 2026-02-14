@@ -1,12 +1,12 @@
 ---
-title: Design and Bake texures in Unity - The ShaderGraph Baker
+title: Design and Bake textures in Unity - The ShaderGraph Baker
 date: 2022-07-05
 tags: [tool, unity3d, project, programming, technical-artist, github, shadergraph, shader, shadergraph-baker, procedural, texture, bake, baking]
 description: "Design procedural shaders in Unity ShaderGraph and bake them into textures."
 image: "/assets/img/blog/shadergraph-baker/header.png"
 ---
 ![Header](/assets/img/blog/shadergraph-baker/header.png)
-# The idea:
+## The idea:
 Design procedural shaders in ShaderGraph and bake them into textures to use in lightweight shaders.
 ![dynamic-tiles](/assets/img/blog/shadergraph-baker/dynamic-tile.gif)
 

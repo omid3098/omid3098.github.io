@@ -21,11 +21,11 @@ meta: "Ubisoft Blue Byte · 2024"
 image: "/assets/img/blog/quvery/QuVery-Banner.png"
 ---
 
-### Asset Management in Game Development with QuVery
+## Asset Management in Game Development with QuVery
 
 QuVery validates art assets before they are delivered to the technical team or imported into the game engine.
 
-#### Normal Asset Pipeline
+### Normal Asset Pipeline
 
 ```mermaid
 graph LR
@@ -51,7 +51,7 @@ Too many iterations might happen.
 
 ---
 
-#### QuVery Pipeline
+### QuVery Pipeline
 
 ```mermaid
 graph LR
@@ -78,7 +78,7 @@ class D greenRoundRect
 QuVery automatically validates assets and reports issues.
 </p>
 
-### The Challenge in Game Development
+## The Challenge in Game Development
 
 A significant part of the game development process involves repairing and preparing assets to be used in game engines. This process, often considered basic yet crucial, requires a thorough understanding of asset creation rules and principles. Traditionally, these tasks falls on artists and technical art teams, consuming valuable time and resources.
 
@@ -89,7 +89,7 @@ A significant part of the game development process involves repairing and prepar
   - Visible issues needed to be fixed by the technical artist or the artist themselves.
   - Invisible issues will create performance issues later and separate tasks to debug, find and resolve them.
 
-### Introducing QuVery: A Fast and Powerful Solution
+## Introducing QuVery: A Fast and Powerful Solution
 
 <img src="/assets/img/blog/quvery/QuVery-Logo-GUI.png" alt="QuVery" style="max-height: 100px;"/>
 
@@ -101,7 +101,7 @@ QuVery emerges as a specialized tool designed to empower artists and streamline 
 A simple GUI client for QuVery written in Godot.
 </p>
 
-### QuVery: Structure and Functionality
+## QuVery: Structure and Functionality
 
 ```mermaid
 graph LR
@@ -137,20 +137,20 @@ graph LR
 
 The core part of QuVery contains a Rules Engine and an API. The Rules Engine is responsible for running the validation rules and the API is responsible for communicating with the clients. The clients can be a GUI tool or a CI/CD pipeline.
 
-### Beyond a GUI Tool: Integration into CI/CD Pipelines
+## Beyond a GUI Tool: Integration into CI/CD Pipelines
 
 QuVery is not just a GUI tool for artists but also its compatibility with Continuous Integration/Continuous Deployment (CI/CD) pipelines. By integrating QuVery Core into these pipelines, it's possible to validate all existing or new assets in the project repository. This integration ensures a comprehensive quality check across the board, enhancing the overall production process's efficiency and output quality.
 
-### The Impact of QuVery
+## The Impact of QuVery
 
 Implementing QuVery in the game development workflow promises significant benefits. It ensures that most common asset-related issues are resolved before reaching the technical team. This preemptive approach saves time, reduces workload, and optimizes resource allocation. The result is a more streamlined, efficient production process, allowing teams to focus more on creativity and innovation.
 
-### Looking Ahead
+## Looking Ahead
 
 QuVery represents a significant step forward in tackling the often-overlooked challenges of asset management in game development.
 We can easily develop plugins for Blender, Maya, 3ds Max, etc. to integrate QuVery into the artist's workflow and let the artist validate their assets while they are working on them!
 
-### How to get QuVery?
+## How to get QuVery?
 
 There are two parts of QuVery:
 

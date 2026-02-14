@@ -9,7 +9,7 @@ meta: "2024"
 image: "/assets/img/blog/future_self_email/gmail_01.png"
 ---
 
-### Easily send emails to my future self
+## Easily send emails to my future self
 
 I was sitting in balcony smoking, relaxing and watching the jungle and sky thinking about random things like having a personal mail server using own cloud. Out of nowhere, I thought about sending an email to my future self and I have heard there are services that do this. But I thought, can I do it using the gmail or outlook scheduling feature?
 

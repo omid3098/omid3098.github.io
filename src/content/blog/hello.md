@@ -5,7 +5,7 @@ tags: [intro]
 description: "The very first post on this site."
 ---
 
-# Hello!
+## Hello!
 
 Welcome to Omid Saadat's personal website.
 

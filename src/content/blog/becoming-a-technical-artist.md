@@ -8,7 +8,7 @@ wide: true
 meta: "2024"
 ---
 
-### Becoming a Technical Artist: A Comprehensive Guide for Beginners
+## Becoming a Technical Artist: A Comprehensive Guide for Beginners
 
 If you’re interested in both art and programming, becoming a Technical Artist (Tech Artist) could be a perfect fit for you. Tech Artists are the bridge between the creative and technical sides of game development. They find solutions to help artists bring their ideas to life in the most efficient and visually impressive way possible.
 
@@ -26,7 +26,7 @@ Here are some of the things a Tech Artist might work on:
 
 Each of these areas has its own challenges, and you can start by picking the one that interests you the most.
 
-### Where to Start: A Learning Path for Each Area
+## Where to Start: A Learning Path for Each Area
 
 When you're just starting out in technical art, it's completely normal to not know exactly what you want to do. In fact, that’s part of the journey! Don’t be afraid to experiment with different areas and see what clicks. Maybe you think shader writing is your thing, but after trying it out, you realize tool development is where you shine. The key is to enjoy the process and be open to changing direction if needed. It’s all about finding what makes you excited to learn every day.
 
@@ -45,7 +45,7 @@ When you're just starting out in technical art, it's completely normal to not kn
 
 5. **Performance Optimization and Profiling**: If you're the kind of person who enjoys figuring out how to make games run smoother, this could be the most interesting path for you. Optimization is about squeezing every bit of performance out of a game without sacrificing quality. This means understanding a little bit of everything—shaders, rendering, animation, and even memory management. Profiling tools like Unity’s Profiler or Unreal’s Insights can help you track down performance issues. It’s a more advanced topic, but once you get the hang of it, it’s incredibly satisfying to see how much faster your game can run.
 
-### Essential Skills: What You Need to Get Started
+## Essential Skills: What You Need to Get Started
 
 To become a successful Technical Artist, there are a few foundational skills that you’ll need to develop:
 
@@ -56,7 +56,7 @@ To become a successful Technical Artist, there are a few foundational skills tha
 
 - **Languages for Shaders**: If you’re diving into shaders, languages like HLSL, GLSL, or Shader Graph (Unity) will be important to learn. The logic behind shaders is more important than the specific syntax, so don’t worry if one language seems tricky at first.
 
-### Get Involved in Projects Early On
+## Get Involved in Projects Early On
 
 The best way to really understand what a Technical Artist does is by working on real projects. Whether you’re contributing to game jams, small team collaborations, or open source projects, getting hands-on experience is key. Here’s how you can dive in:
 
@@ -68,7 +68,7 @@ The best way to really understand what a Technical Artist does is by working on 
 
 By engaging in these kinds of projects, you not only build a portfolio but also improve your problem-solving skills, get used to teamwork, and gain real-world experience that will be invaluable when entering the industry.
 
-### Conclusion and Further Resources
+## Conclusion and Further Resources
 
 Becoming a Technical Artist is a rewarding journey, but it takes dedication and continuous learning. Don’t be afraid to experiment, make mistakes, and grow along the way. Here are some additional resources that can help you on your journey:
 

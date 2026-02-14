@@ -112,6 +112,7 @@ const rest = optimizedItems.slice(1);
 ---
 
 <Base>
+  <h1 class="sr-only">Omid Saadat — Technical Artist</h1>
   <div class="greeting fade-in">
     <p>
       If something feels too complicated, I'll <em>probably do something about it.</em>
@@ -123,12 +124,12 @@ const rest = optimizedItems.slice(1);
 
   <section class="these-days fade-in">
     <div class="section-header">
-      <div class="section-label">what i'm working on these days</div>
-      <div class="activity-source">From <a href="https://github.com/omid3098" target="_blank">github.com/omid3098</a></div>
+      <h2 class="section-label">what i'm working on these days</h2>
+      <div class="activity-source">From <a href="https://github.com/omid3098" target="_blank" rel="noopener noreferrer">github.com/omid3098</a></div>
     </div>
     <div class="activity-list">
       {activities.map((activity) => (
-        <a class="activity-item" href={activity.url} target="_blank">
+        <a class="activity-item" href={activity.url} target="_blank" rel="noopener noreferrer">
           <div class="activity-dot"></div>
           <div class="activity-text" set:html={activity.text} />
         </a>
@@ -137,7 +138,7 @@ const rest = optimizedItems.slice(1);
   </section>
 
   <section class="content-section fade-in">
-    <div class="section-label">work & writing</div>
+    <h2 class="section-label">work & writing</h2>
     <div class="content-list">
       {featured && (
         <a class="content-item featured" href={featured.href}>

@@ -20,7 +20,7 @@ meta: "2025"
 image: "/assets/img/blog/openshadergraph/OSG_01.png"
 ---
 
-# The Problem
+## The Problem
 
 Some artists or tech artists prefer to use node-based solutions to create shaders. Each engine or software provides their own editors to create shaders only for their own use cases. As a result:
 
@@ -30,7 +30,7 @@ Some artists or tech artists prefer to use node-based solutions to create shader
 - Educational resources and community examples are fragmented by engine.
 - Some engines are not even supported by any node-based editor.
 
-# The Solution
+## The Solution
 
 Lets see what we have in current node-based editors:
 
@@ -52,7 +52,7 @@ _**I may be wrong and it may not solve all the problems, but it's a good start.*
   <img src="https://raw.githubusercontent.com/omid3098/openshadergraph/refs/heads/dev/src/assets/icon.png" alt="Open Shader Graph Logo" style="max-height: 200px;"/>
 </div>
 
-## How does it solve each challenge in the main problem?
+### How does it solve each challenge in the main problem?
 
 - If we can create a common format for the primitives and functions, game engines can use it to create shaders for their own use cases without reinventing the wheel.
 - Users can learn once and use it in any engine. (potentially)
@@ -60,7 +60,7 @@ _**I may be wrong and it may not solve all the problems, but it's a good start.*
 - Educational resources and community examples are now in one place. (I have started to port [Ben Cloward's tutorials](https://youtube.com/playlist?list=PL78XDi0TS4lEBWa2Hpzg2SRC5njCcKydl&si=XMhNrD55fPKmBcGx) for Unreal and Unity to OpenShaderGraph)
 - Engines with no node-based editor can use OpenShaderGraph to create shaders if there is a way to compile the shader to the target engine's format like GLSL, HLSL, etc.
 
-# Getting Started
+## Getting Started
 
 Navigate to [OpenShaderGraph](https://openshadergraph.com) website.
 You will see a very basic shader graph.
