@@ -13,7 +13,7 @@ image: "/assets/img/blog/AI/tea-cup-wide.png"
 In general, I recommend to learn new tools and technologies to solve your problems. And if you are a developer, I recommend you to also learn how to develop things using AI.
 
 ## What things did I do so far?
-- I have improved [AICommand](https://github.com/keijiro/AICommand) repo from (Keijiro)[https://github.com/keijiro] to produce more valid answers using GPT4.
+- I have improved [AICommand](https://github.com/keijiro/AICommand) repo from [Keijiro](https://github.com/keijiro) to produce more valid answers using GPT4.
 - Have developed a Texture generator for Unity using Stable Diffusion:
 <div class="text-center">
 <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7045694709465255936" height="619" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>

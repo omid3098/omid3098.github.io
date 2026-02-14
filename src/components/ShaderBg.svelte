@@ -164,6 +164,7 @@
   function init() {
     if (!canvas) return;
     if (window.innerWidth <= 768) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     // Clean up any previous context (HMR)
     destroy();
