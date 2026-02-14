@@ -1,5 +1,5 @@
 ---
-title: Open FLowmap
+title: Open Flowmap
 date: 2023-09-01
 tags:
   [

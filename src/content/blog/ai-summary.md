@@ -1,5 +1,5 @@
 ---
-title: AI Summery So Far
+title: AI Summary So Far
 date: 2023-07-20
 tags: [ai, technical, gpt4, unity, stable-diffusion, tools]
 description: "A summary of my AI experiments — from GPT4-powered Unity tools to texture generation with Stable Diffusion."

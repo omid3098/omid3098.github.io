@@ -23,13 +23,11 @@ function mapGitHubEvent(event: any) {
       return { text: `Pushed to <strong>${repo}</strong> — ${msg}` };
     }
     case 'CreateEvent': {
+      // Only show new repository creation, skip branch/tag noise
       const ref = event.payload?.ref_type || 'repository';
-      const name = event.payload?.ref;
-      const label = name ? `${ref} <strong>${name}</strong> in <strong>${repo}</strong>` : `<strong>${repo}</strong>`;
-      return { text: `Created ${label}` };
+      if (ref !== 'repository') return null;
+      return { text: `Created <strong>${repo}</strong>` };
     }
-    case 'WatchEvent':
-      return { text: `Starred <strong>${repo}</strong>` };
     case 'ForkEvent': {
       const forkee = event.payload?.forkee?.full_name || repo;
       return { text: `Forked <strong>${forkee}</strong>` };
@@ -127,7 +125,7 @@ const rest = optimizedItems.slice(1);
     <p>
       If something feels too complicated, I'll <em>probably do something about it.</em>
       In games, that meant building tools so artists could focus on art instead of
-      debugging broken assets. Last week it meant writing a script that turns a
+      debugging broken assets. Outside of games, it might mean writing a script that turns a
       30-minute server setup into one command. The context changes, the instinct doesn't.
     </p>
   </div>
