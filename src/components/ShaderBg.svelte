@@ -9,6 +9,11 @@
   let startTime = 0;
   let pulseStart = 0;
   const PULSE_DURATION = 1.0;
+  let hover = { x: 0.5, y: 0.5, hw: 0, hh: 0, str: 0 };
+  let hoverVel = { x: 0, y: 0, hw: 0, hh: 0 };
+  let targetHover = { x: 0.5, y: 0.5, hw: 0, hh: 0, str: 0 };
+  const SPRING = 0.04;
+  const DAMPING = 0.84;
 
   const VERT = `
     attribute vec2 a_grid;
@@ -18,6 +23,8 @@
     uniform float u_cols;
     uniform float u_rows;
     uniform float u_pulse;
+    uniform vec4 u_hoverRect; // centerX, centerY, halfW, halfH
+    uniform float u_hoverStr;
 
     varying float v_brightness;
 
@@ -27,10 +34,30 @@
       vec2 cell = a_grid;
       vec2 pos = cell;
 
-      // Subtle idle drift
+      // Idle drift (layered for organic feel)
       float t = u_time * 0.3;
-      pos.x += sin(cell.y * 6.0 + t) * 0.003;
-      pos.y += cos(cell.x * 6.0 + t * 0.7) * 0.003;
+      pos.x += sin(cell.y * 6.0 + t) * 0.005;
+      pos.y += cos(cell.x * 6.0 + t * 0.7) * 0.005;
+      pos.x += sin(cell.y * 3.0 + t * 1.3) * 0.002;
+      pos.y += cos(cell.x * 4.0 + t * 0.9) * 0.002;
+
+      // Breathing — organic idle pulse (~5s cycle)
+      float breathPhase = u_time * 1.2;
+      vec2 bCenter = vec2(0.5, 0.5);
+      vec2 bDiffRaw = pos - bCenter;
+      vec2 bDiff = bDiffRaw;
+      bDiff.x *= aspect;
+      float bDist = length(bDiff);
+
+      float globalPulse = pow(sin(breathPhase) * 0.5 + 0.5, 1.5);
+      float spatialWave = sin(bDist * 3.0 - breathPhase * 0.7) * 0.5 + 0.5;
+      float breath = globalPulse * 0.65 + spatialWave * 0.35;
+      breath *= smoothstep(2.0, 0.1, bDist);
+      float breathBrightness = breath * 0.15;
+
+      // Breathing displacement — expand/contract from center
+      vec2 breathDir = length(bDiffRaw) > 0.001 ? normalize(bDiffRaw) : vec2(0.0);
+      pos += breathDir * globalPulse * 0.003;
 
       // Mouse influence
       vec2 mPos = u_mouse;
@@ -41,9 +68,10 @@
       float influence = smoothstep(radius, 0.0, dist);
       influence = pow(influence, 3.0);
 
-      // Push dots away from cursor
+      // Push dots away from cursor — suppressed when hovering content
+      float repulsionStr = 1.0 - u_hoverStr;
       vec2 dir = dist > 0.001 ? normalize(diff) : vec2(0.0);
-      pos += dir * influence * 0.018;
+      pos += dir * influence * 0.018 * repulsionStr;
 
       // Navigation ripple: expanding ring from mouse position
       float rippleT = 1.0 - u_pulse;
@@ -53,7 +81,25 @@
                    * (1.0 - smoothstep(rippleR, rippleR + band, dist));
       float rippleStrength = ripple * u_pulse;
 
-      float totalBrightness = max(influence, rippleStrength);
+      // Content hover glow (rectangle SDF)
+      vec2 hPos = pos - u_hoverRect.xy;
+      hPos.x *= aspect;
+      vec2 hHalf = u_hoverRect.zw;
+      hHalf.x *= aspect;
+      vec2 hd = abs(hPos) - hHalf;
+      float rectDist = length(max(hd, 0.0)) + min(max(hd.x, hd.y), 0.0);
+      float rectGlow = 1.0 - smoothstep(0.0, 0.25, rectDist);
+
+      // Attract particles toward nearest rect edge (SDF-based)
+      vec2 nearest = clamp(hPos, -hHalf, hHalf);
+      vec2 toRect = nearest - hPos;
+      toRect.x /= aspect;
+      pos += toRect * rectGlow * u_hoverStr * 0.5;
+
+      // Blend: mouse brightness → rect brightness when hovering
+      float activeBrightness = mix(influence, rectGlow * 1.4, u_hoverStr);
+
+      float totalBrightness = max(max(activeBrightness, rippleStrength), breathBrightness);
       v_brightness = totalBrightness;
 
       vec2 clip = pos * 2.0 - 1.0;
@@ -157,8 +203,22 @@
   function loop() {
     if (!gl || !program) return;
 
-    mouse.x += (targetMouse.x - mouse.x) * 0.08;
-    mouse.y += (targetMouse.y - mouse.y) * 0.08;
+    mouse.x += (targetMouse.x - mouse.x) * 0.05;
+    mouse.y += (targetMouse.y - mouse.y) * 0.05;
+    // Spring physics for elastic hover rect transitions
+    hoverVel.x += (targetHover.x - hover.x) * SPRING;
+    hoverVel.y += (targetHover.y - hover.y) * SPRING;
+    hoverVel.hw += (targetHover.hw - hover.hw) * SPRING;
+    hoverVel.hh += (targetHover.hh - hover.hh) * SPRING;
+    hoverVel.x *= DAMPING;
+    hoverVel.y *= DAMPING;
+    hoverVel.hw *= DAMPING;
+    hoverVel.hh *= DAMPING;
+    hover.x += hoverVel.x;
+    hover.y += hoverVel.y;
+    hover.hw += hoverVel.hw;
+    hover.hh += hoverVel.hh;
+    hover.str += (targetHover.str - hover.str) * 0.07;
 
     const now = performance.now();
     const t = (now - startTime) / 1000;
@@ -168,6 +228,8 @@
     gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.height);
     gl.uniform2f(gl.getUniformLocation(program, 'u_mouse'), mouse.x, mouse.y);
     gl.uniform1f(gl.getUniformLocation(program, 'u_pulse'), pulseVal);
+    gl.uniform4f(gl.getUniformLocation(program, 'u_hoverRect'), hover.x, hover.y, hover.hw, hover.hh);
+    gl.uniform1f(gl.getUniformLocation(program, 'u_hoverStr'), hover.str);
 
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -179,15 +241,30 @@
   function onMouseMove(e) {
     targetMouse.x = e.clientX / window.innerWidth;
     targetMouse.y = 1.0 - e.clientY / window.innerHeight;
+
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const item = el && (el.closest('.content-item') || el.closest('.activity-item'));
+    if (item) {
+      const rect = item.getBoundingClientRect();
+      targetHover.x = (rect.left + rect.width / 2) / window.innerWidth;
+      targetHover.y = 1.0 - (rect.top + rect.height / 2) / window.innerHeight;
+      targetHover.hw = (rect.width / 2) / window.innerWidth;
+      targetHover.hh = (rect.height / 2) / window.innerHeight;
+      targetHover.str = 1;
+    } else {
+      targetHover.str = 0;
+    }
   }
 
   function onMouseLeave() {
     targetMouse.x = -1;
     targetMouse.y = -1;
+    targetHover.str = 0;
   }
 
   function onNavStart() {
     pulseStart = performance.now();
+    targetHover.str = 0;
   }
 
   $effect(() => {
