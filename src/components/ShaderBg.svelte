@@ -27,6 +27,7 @@
     uniform float u_hoverStr;
 
     varying float v_brightness;
+    varying float v_biolum;
 
     void main() {
       float aspect = u_resolution.x / u_resolution.y;
@@ -96,10 +97,25 @@
       toRect.x /= aspect;
       pos += toRect * rectGlow * u_hoverStr * 0.5;
 
+      // Bioluminescence — slow diagonal wave, faded toward content center
+      float bioTime = u_time * 0.18;
+      vec2 bioDir = normalize(vec2(1.0, 0.7));
+      float bioDot = dot(pos, bioDir);
+      float bioWave1 = pow(sin(bioDot * 5.0 - bioTime * 2.0) * 0.5 + 0.5, 3.0);
+      float bioWave2 = pow(sin(bioDot * 3.0 + bioTime * 1.3 + 1.5) * 0.5 + 0.5, 4.0);
+      float bio = bioWave1 * 0.7 + bioWave2 * 0.3;
+
+      // Vignette mask — strong at edges, fades toward content center
+      vec2 edgeDist = abs(pos - 0.5) * 2.0;
+      float vignette = smoothstep(0.3, 1.0, max(edgeDist.x, edgeDist.y));
+
+      float bioBrightness = bio * vignette * 0.8;
+      v_biolum = bio * vignette;
+
       // Blend: mouse brightness → rect brightness when hovering
       float activeBrightness = mix(influence, rectGlow * 1.4, u_hoverStr);
 
-      float totalBrightness = max(max(activeBrightness, rippleStrength), breathBrightness);
+      float totalBrightness = max(max(activeBrightness, rippleStrength), breathBrightness) + bioBrightness;
       v_brightness = totalBrightness;
 
       vec2 clip = pos * 2.0 - 1.0;
@@ -112,13 +128,15 @@
   const FRAG = `
     precision mediump float;
     varying float v_brightness;
+    varying float v_biolum;
 
     void main() {
       float d = length(gl_PointCoord - 0.5) * 2.0;
       float alpha = smoothstep(1.0, 0.4, d);
 
       vec3 accentCol = vec3(0.42, 0.70, 0.93);
-      vec3 col = accentCol;
+      vec3 bioCol = vec3(0.28, 0.82, 0.74);
+      vec3 col = mix(accentCol, bioCol, v_biolum * 1.0);
 
       float finalAlpha = v_brightness * 0.40;
 
