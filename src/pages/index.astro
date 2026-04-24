@@ -4,7 +4,6 @@ import { getSortedPosts } from '../lib/posts';
 
 // ── GitHub Activity (build-time) ──
 const GITHUB_USER = 'omid3098';
-const ghUrl = (repo: string) => `https://github.com/${GITHUB_USER}/${repo}`;
 
 // Curated narratives for known repos — the "story" behind each project.
 // When GitHub shows activity on one of these, we surface the story, not the commit.
@@ -24,11 +23,21 @@ const ignoredRepos = new Set([
   'omid-saadat-new',
 ]);
 
+// Full repo path to narrative mapping for known repos — keyed as "owner/repo"
+const knownRepos: Record<string, string> = {
+  'omid3098/OpenShaderGraph': repoNarratives['OpenShaderGraph'],
+  'omid3098/open-flowmap': repoNarratives['open-flowmap'],
+  'omid3098/GlassShader': repoNarratives['GlassShader'],
+  'omid3098/quran_reader': repoNarratives['quran_reader'],
+  'omid3098/conduit_expose': repoNarratives['conduit_expose'],
+  'omid3098/conduit_monitor': repoNarratives['conduit_monitor'],
+};
+
 const fallbackActivities = [
-  { text: repoNarratives['OpenShaderGraph'], url: ghUrl('OpenShaderGraph') },
-  { text: repoNarratives['open-flowmap'], url: ghUrl('open-flowmap') },
-  { text: repoNarratives['GlassShader'], url: ghUrl('GlassShader') },
-  { text: repoNarratives['quran_reader'], url: ghUrl('quran_reader') },
+  { text: knownRepos['omid3098/OpenShaderGraph'], url: 'https://github.com/omid3098/OpenShaderGraph', date: '' },
+  { text: knownRepos['omid3098/open-flowmap'], url: 'https://github.com/omid3098/open-flowmap', date: '' },
+  { text: knownRepos['omid3098/GlassShader'], url: 'https://github.com/omid3098/GlassShader', date: '' },
+  { text: knownRepos['omid3098/quran_reader'], url: 'https://github.com/omid3098/quran_reader', date: '' },
 ];
 
 let activities = fallbackActivities;
@@ -36,23 +45,95 @@ try {
   const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public`);
   if (res.ok) {
     const events = await res.json();
-    // Find which repos have recent activity, in order
-    const activeRepos: string[] = [];
-    const seen = new Set<string>();
+
+    // Categorize repos by activity type
+    const ownRepos: { fullName: string; date: string }[] = [];
+    const contributingRepos: { fullName: string; date: string }[] = [];
+    const checkingOutRepos: { repo: string; date: string }[] = [];
+    const seenRepo = new Set<string>();
+    const seenContributing = new Set<string>();
+    const seenChecking = new Set<string>();
+
     for (const event of events) {
-      const repo = event.repo?.name?.split('/')[1] || '';
-      if (!repo || seen.has(repo) || ignoredRepos.has(repo)) continue;
-      seen.add(repo);
-      activeRepos.push(repo);
+      const fullName: string = event.repo?.name || '';
+      if (!fullName) continue;
+      const repo = fullName.split('/')[1] || '';
+      if (!repo || ignoredRepos.has(repo)) continue;
+
+      const eventType = event.type || '';
+      const created = event.created_at || '';
+      const isOwn = fullName.startsWith('omid3098/');
+
+      if (isOwn && !seenRepo.has(repo)) {
+        seenRepo.add(repo);
+        ownRepos.push({ fullName, date: created });
+      } else if (!isOwn) {
+        if ((eventType === 'PushEvent' || eventType === 'PullRequestEvent' || eventType === 'PullRequestReviewEvent') && !seenContributing.has(repo)) {
+          seenContributing.add(repo);
+          contributingRepos.push({ fullName, date: created });
+        } else if (!seenChecking.has(repo)) {
+          seenChecking.add(repo);
+          checkingOutRepos.push({ repo, date: created });
+        }
+      }
     }
-    // Build narrative list: curated stories for known repos, warm fallback for others
-    const narratives = activeRepos
-      .map((repo) => {
-        const url = ghUrl(repo);
-        if (repoNarratives[repo]) return { text: repoNarratives[repo], url };
-        const name = repo.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-        return { text: `Spending some time on <strong>${name}</strong>.`, url };
+
+    // Format date helper — relative or short
+    const fmtDate = (iso: string): string => {
+      if (!iso) return '';
+      const d = new Date(iso);
+      const now = new Date();
+      const diffMs = now.getTime() - d.getTime();
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      if (diffDays === 0) return 'today';
+      if (diffDays === 1) return '1d ago';
+      if (diffDays < 30) return `${diffDays}d ago`;
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    };
+
+    // Build narrative list in priority order
+    const narratives: { text: string; url: string; date: string }[] = [];
+
+    // 1. Curated own repos (narratives)
+    for (const { fullName, date } of ownRepos) {
+      if (knownRepos[fullName]) {
+        narratives.push({ text: knownRepos[fullName], url: `https://github.com/${fullName}`, date: fmtDate(date) });
+      }
+    }
+
+    // 2. Other own repos — "Spending some time on"
+    for (const { fullName, date } of ownRepos) {
+      if (knownRepos[fullName]) continue;
+      const repo = fullName.split('/')[1];
+      const name = repo.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+      narratives.push({ text: `Spending some time on <strong>${name}</strong>.`, url: `https://github.com/${fullName}`, date: fmtDate(date) });
+    }
+
+    // 3. Contributing to others
+    for (const { fullName, date } of contributingRepos) {
+      const repo = fullName.split('/')[1];
+      const name = repo.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+      narratives.push({ text: `Contributing to <strong>${name}</strong>.`, url: `https://github.com/${fullName}`, date: fmtDate(date) });
+    }
+
+    // 4. Grouped "checking out" — single item for all watched/starred repos
+    if (checkingOutRepos.length > 0) {
+      // Use the most recent date among checked-out repos
+      const dates = checkingOutRepos.map((c) => c.date).filter(Boolean).sort().reverse();
+      const checkDate = dates.length > 0 ? fmtDate(dates[0]) : '';
+      const names = checkingOutRepos.map(({ repo }) => {
+        const n = repo.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+        return `<strong>${n}</strong>`;
       });
+      const last = names.pop();
+      const combined = names.length > 0 ? `${names.join(', ')} & ${last}` : last;
+      narratives.push({
+        text: `Checking out ${combined}.`,
+        url: `https://github.com/${GITHUB_USER}?tab=stars`,
+        date: checkDate,
+      });
+    }
+
     if (narratives.length >= 3) {
       activities = narratives.slice(0, 6);
     }
@@ -88,6 +169,7 @@ const rest = optimizedItems.slice(1);
         <a class="activity-item" href={activity.url} target="_blank" rel="noopener noreferrer">
           <div class="activity-dot"></div>
           <div class="activity-text" set:html={activity.text} />
+          {activity.date && <span class="activity-date">{activity.date}</span>}
         </a>
       ))}
     </div>
