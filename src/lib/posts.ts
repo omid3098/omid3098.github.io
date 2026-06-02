@@ -41,13 +41,7 @@ export async function getSortedPosts(): Promise<ContentItem[]> {
       date: post.data.date,
       href: `/writing/${post.id}`,
     }))
-    .sort((a, b) => {
-      const aPinned = a.order > 0 ? 1 : 0;
-      const bPinned = b.order > 0 ? 1 : 0;
-      if (aPinned !== bPinned) return bPinned - aPinned;
-      if (aPinned && bPinned) return b.order - a.order;
-      return b.date.getTime() - a.date.getTime();
-    });
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
 
   return Promise.all(
     sortedItems.map(async (item) => ({

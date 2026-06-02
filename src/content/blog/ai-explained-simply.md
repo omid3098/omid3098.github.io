@@ -1,9 +1,10 @@
 ---
-title: AI Explained Simply
+title: AI Explained Simply - 01
 date: 2026-06-01
-tags: [ai]
+tags: [ai, blog]
 description: "A short, simple explanation of AI, LLMs, model types, and the tools that connect to them."
 draft: false
+image: "/assets/img/blog/AI/ai-explained-simply-01/car-dashboard.png"
 ---
 
 **Artificial Intelligence** sounds complicated under the hood, but is not magic, and it is not a real brain. It is a computer program that learned patterns from a lot of examples.
