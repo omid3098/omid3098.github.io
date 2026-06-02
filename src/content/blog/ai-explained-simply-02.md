@@ -92,7 +92,7 @@ When the conversation becomes too long, we to make decisions:
 
 - remove older messages
 - summarize earlier parts of the chat
-- keep some important details and drop others
+- combine methods
 
 This is one reason a chatbot may forget something you clearly said earlier. The message may still be visible on your screen, but it may no longer be included in the context sent to the model. So the model can feel like it remembers, but the real mechanism is context. And because context has a maximum length, a chatbot can forget, lose details, or misunderstand old parts of a long conversation.
 
