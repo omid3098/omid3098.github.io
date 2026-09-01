@@ -9,7 +9,7 @@
   let targetMouse = { x: -1, y: -1 };
   let startTime = 0;
   let pulseStart = 0;
-  const PULSE_DURATION = 1.0;
+  const PULSE_DURATION = 5.0;
   let hover = { x: 0.5, y: 0.5, hw: 0, hh: 0, str: 0 };
   let hoverVel = { x: 0, y: 0, hw: 0, hh: 0 };
   let targetHover = { x: 0.5, y: 0.5, hw: 0, hh: 0, str: 0 };
@@ -54,8 +54,8 @@
       float globalPulse = pow(sin(breathPhase) * 0.5 + 0.5, 1.5);
       float spatialWave = sin(bDist * 3.0 - breathPhase * 0.7) * 0.5 + 0.5;
       float breath = globalPulse * 0.65 + spatialWave * 0.35;
-      breath *= smoothstep(2.0, 0.1, bDist);
-      float breathBrightness = breath * 0.15;
+      breath *= 1.0 - smoothstep(0.1, 2.0, bDist);
+      float breathBrightness = breath * 0.2;
 
       // Breathing displacement — expand/contract from center
       vec2 breathDir = length(bDiffRaw) > 0.001 ? normalize(bDiffRaw) : vec2(0.0);
@@ -66,8 +66,8 @@
       vec2 diff = pos - mPos;
       diff.x *= aspect;
       float dist = length(diff);
-      float radius = 2.8;
-      float influence = smoothstep(radius, 0.0, dist);
+      float radius = 0.65;
+      float influence = 1.0 - smoothstep(0.0, radius, dist);
       influence = pow(influence, 3.0);
 
       // Push dots away from cursor — suppressed when hovering content
@@ -82,6 +82,7 @@
       float ripple = smoothstep(rippleR - band, rippleR, dist)
                    * (1.0 - smoothstep(rippleR, rippleR + band, dist));
       float rippleStrength = ripple * u_pulse;
+      pos += dir * rippleStrength * mix(0.1, 1.0, smoothstep(0.0, 0.015, rippleT)) * 0.015;
 
       // Content hover glow (rectangle SDF)
       vec2 hPos = pos - u_hoverRect.xy;
@@ -110,11 +111,11 @@
       vec2 edgeDist = abs(pos - 0.5) * 2.0;
       float vignette = smoothstep(0.3, 1.0, max(edgeDist.x, edgeDist.y));
 
-      float bioBrightness = bio * vignette * 0.8;
+      float bioBrightness = bio * vignette * 0.3;
       v_biolum = bio * vignette;
 
       // Blend: mouse brightness → rect brightness when hovering
-      float activeBrightness = mix(influence, rectGlow * 1.4, u_hoverStr);
+      float activeBrightness = mix(influence * 0.4, rectGlow * 0.5, u_hoverStr);
 
       float totalBrightness = max(max(activeBrightness, rippleStrength), breathBrightness) + bioBrightness;
       v_brightness = totalBrightness;
@@ -133,7 +134,7 @@
 
     void main() {
       float d = length(gl_PointCoord - 0.5) * 2.0;
-      float alpha = smoothstep(1.0, 0.4, d);
+      float alpha = 1.0 - smoothstep(0.4, 1.0, d);
 
       vec3 accentCol = vec3(0.42, 0.70, 0.93);
       vec3 bioCol = vec3(0.28, 0.82, 0.74);
@@ -321,6 +322,7 @@
     init();
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('click', onNavStart);
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('astro:before-preparation', onNavStart);
     document.addEventListener('visibilitychange', onVisibilityChange);
@@ -328,6 +330,7 @@
       destroy();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('click', onNavStart);
       document.removeEventListener('mouseleave', onMouseLeave);
       document.removeEventListener('astro:before-preparation', onNavStart);
       document.removeEventListener('visibilitychange', onVisibilityChange);
