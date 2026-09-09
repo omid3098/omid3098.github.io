@@ -9,15 +9,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.18",
+    "@astrojs/markdown-remark": "^7.3.1",
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.0",
-    "@astrojs/svelte": "^8.0.5",
-    "astro": "^6.1.9",
+    "@astrojs/svelte": "^9.0.1",
+    "astro": "^7.3.2",
     "svelte": "^5.50.2",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "pagefind": "^1.4.0",
-    "puppeteer": "^24.37.2"
+    "puppeteer": "^25.10.0"
   }
 }

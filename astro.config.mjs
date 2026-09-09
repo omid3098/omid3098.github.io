@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 
 import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
@@ -22,11 +23,12 @@ function rehypeLazyImages() {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.omid-saadat.com',
+  compressHTML: true,
   integrations: [svelte(), sitemap()],
   markdown: {
     shikiConfig: {
       theme: 'github-dark',
     },
-    rehypePlugins: [rehypeLazyImages],
+    processor: unified({ rehypePlugins: [rehypeLazyImages] }),
   },
 });
