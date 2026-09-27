@@ -2,38 +2,49 @@
 
 ## Project Overview
 
-Personal website for Omid Saadat (Technical Artist at Ubisoft Blue Byte, Düsseldorf).
+Personal website for Omid Saadat, Creative Technologist based in Düsseldorf (currently at Ubisoft Blue Byte).
 Rebuilt from Jekyll/Chirpy into Astro + Svelte. The site should feel like meeting a person, not reading a resume.
 
-Live domain: omid-saadat.com
-Visual reference: homepage-v5.html (in project root)
+Live domain: www.omid-saadat.com (public/CNAME)
 
 ## Tech Stack
 
-- **Framework:** Astro 5
+- **Framework:** Astro 7 (static output, ClientRouter view transitions)
 - **Interactive islands:** Svelte 5 (via @astrojs/svelte)
 - **Content:** Markdown in Astro content collections (blog)
 - **Styling:** Single global.css — NO Tailwind, NO component libraries
 - **Fonts:** Literata (serif), DM Sans (sans), Vazirmatn (Farsi) — Google Fonts
-- **Deployment:** Static output, platform TBD (Vercel or Netlify)
+- **Integrations:** @astrojs/sitemap, @astrojs/rss (feed at /rss.xml)
+- **Search:** Pagefind, indexed from `dist/` after the Astro build
+- **Resume PDF:** `scripts/generate-pdf.mjs` renders /resume to `dist/resume.pdf` with Puppeteer
+- **Deployment:** GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys to GitHub Pages on every push to `main`
+- **CMS:** Sveltia CMS at /admin (`public/admin/config.yml`) edits blog posts via GitHub, auth through a Cloudflare worker
+
+`npm run build` runs all three steps (astro build → pagefind → PDF). Puppeteer needs a Chrome install (`npx puppeteer browsers install chrome`).
 
 ## Directory Structure
 
 ```
 src/
-  pages/           → Astro page routes (index, writing, about, resume)
+  pages/           → Astro page routes (index "Now", writing, about, resume, 404, rss.xml.ts)
   pages/writing/   → [...slug].astro for individual blog posts
-  content/blog/    → Markdown blog posts (migrated from Jekyll)
-  components/      → Sidebar.astro (only component)
+  content/blog/    → Markdown blog posts
+  components/      → Sidebar.astro, Search.svelte (Pagefind modal), ShaderBg.svelte (WebGL background)
   layouts/         → Base.astro (sidebar+main), Post.astro (blog posts)
+  lib/posts.ts     → Sorted post list + image resolution for content lists
   styles/          → global.css (single file, all styles)
-public/assets/img/ → All images (migrated from Jekyll)
+public/assets/img/ → All images
+public/admin/      → Sveltia CMS
+public/sw.js       → Kill-switch that unregisters the old Jekyll service worker; keep it
+scripts/           → generate-pdf.mjs (resume PDF)
 ```
 
 ## Layout Architecture
 
-- **Base.astro** — Root layout. Renders Sidebar + `<main>` area with footer. Accepts `activePage` prop for sidebar nav highlighting.
-- **Sidebar.astro** — Fixed 260px left sidebar: profile photo, name, title, location (with Farsi), vertical nav links, footer links (GitHub, LinkedIn, Email).
+- **Base.astro** — Root layout. Renders Sidebar + `<main>` area with footer, plus the persisted ShaderBg and Search islands. Accepts `activePage` prop for sidebar nav highlighting.
+- **Sidebar.astro** — Fixed 260px left sidebar: profile photo, name, "Creative Technologist" title, location (with Farsi), vertical nav links (Now, Writing, About, Resume), search button (⌘K / Ctrl+K), footer links (GitHub, LinkedIn, Email).
+- **ShaderBg.svelte** — Subtle interactive WebGL dot-grid background that reacts to the mouse and hovered items. Keep it quiet.
+- **Search.svelte** — Pagefind search modal, opened by the sidebar button or ⌘K / Ctrl+K.
 - **Post.astro** — Blog post layout wrapping Base.astro. Handles mermaid diagrams and RTL.
 - No separate Nav, Footer, or decorative components. Footer is inline in Base.astro.
 
@@ -53,11 +64,11 @@ The `image` field is used for background images on homepage content list items. 
 - Homepage content list items show background images on right side via `.item-bg` div. Featured item (first) has image always partially visible; others reveal on hover. Images transition grayscale→color with increased brightness.
 - Mobile (≤768px): sidebar collapses to sticky horizontal top bar with backdrop blur. No hamburger menu.
 - No hero section. Greeting is a small serif paragraph at top of content area.
-- No cursor glow, ambient orbs, or card grid. Removed in v5 redesign.
+- No cursor glow, ambient orbs, or card grid. Removed in v5 redesign. The only background effect is ShaderBg.
 
 ## Code Conventions
 
-- NO unnecessary dependencies. The dependency list should stay minimal (astro, svelte, typescript).
+- NO unnecessary dependencies. Keep the list minimal (astro + its integrations, svelte, typescript; pagefind and puppeteer as dev deps).
 - NO CSS frameworks or component libraries.
 - Prefer Astro components for static content. Use Svelte only when client-side interactivity is needed.
 - Keep it flat and simple — avoid premature abstractions.
