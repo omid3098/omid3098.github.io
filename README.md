@@ -7,11 +7,9 @@ Source for [www.omid-saadat.com](https://www.omid-saadat.com), the personal site
 ```sh
 npm install
 npm run dev       # local dev server at localhost:4321
-npm run build     # astro build, Pagefind search index, resume PDF
+npm run build     # astro build, then the Pagefind search index
 npm run preview   # serve the built site
 ```
-
-The build renders the resume PDF with Puppeteer, which needs Chrome: `npx puppeteer browsers install chrome`.
 
 ## Writing
 

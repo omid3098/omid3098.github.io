@@ -684,177 +684,160 @@ body {
   padding: 0 1rem;
 }
 
-/* ===== RESUME PAGE ===== */
-.resume-section {
-  margin-bottom: 3rem;
+/* ===== CAREER PAGE ===== */
+/* A graph of overlapping disciplines (lanes) and places, then one chapter per place */
+.career-shape .section-label { margin-bottom: 1.2rem; }
+
+.career-graph { container-type: inline-size; }
+
+.career-lane,
+.career-axis {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  align-items: center;
 }
 
-.resume-section h2 {
-  font-family: var(--serif);
-  font-size: 1.3rem;
-  color: var(--accent);
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
+.career-lane-label {
+  font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.08em; font-weight: 500;
+  color: var(--text-dim);
 }
 
-/* Timeline container */
-.resume-timeline {
+/* The faint year lines are the track background, so they run through every lane */
+.career-track,
+.career-strip {
   position: relative;
-  padding-left: 1.5rem;
-  border-left: 1px solid var(--border);
+  height: 1.7rem;
+  background: var(--grid);
 }
 
-/* Timeline dot */
-.resume-entry {
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.resume-timeline .resume-entry::before {
+.career-track::before {
   content: '';
-  position: absolute;
-  left: -1.5rem;
-  top: 0.45rem;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
+  position: absolute; left: 0; right: 0;
+  top: 50%; height: 10px; margin-top: -5px;
+  border-radius: 5px;
+  background: rgba(90, 90, 90, 0.12);
+}
+
+.career-bar {
+  position: absolute; top: 50%;
+  height: 10px; margin-top: -5px;
+  border-radius: 5px;
   background: var(--text-dim);
-  transform: translateX(-50%);
-  border: 2px solid var(--bg);
-}
-
-/* Current role highlight */
-.resume-entry.current {
-  padding: 1.2rem;
-  background: var(--bg-card);
-  border-radius: 10px;
-  border-left: 2px solid var(--accent);
-}
-
-.resume-timeline .resume-entry.current::before {
-  background: var(--accent);
-  box-shadow: 0 0 6px var(--accent-glow);
-  width: 9px;
-  height: 9px;
-}
-
-.resume-entry h3 {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text);
-  margin-bottom: 0.6rem;
-}
-
-.resume-entry h3 .meta {
-  font-size: 0.82rem;
-  font-weight: 400;
-  color: var(--text-dim);
-}
-
-.resume-entry .meta {
-  font-size: 0.82rem;
-  color: var(--text-dim);
-  margin-bottom: 0.6rem;
-}
-
-.resume-entry ul {
-  padding-left: 1.2rem;
-}
-
-.resume-entry li {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  margin-bottom: 0.3rem;
-}
-
-/* Collapsed earlier entries (details/summary) */
-.resume-entry details summary {
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 0.5rem 0;
-  transition: color 0.3s ease;
-}
-
-.resume-entry details summary::-webkit-details-marker { display: none; }
-.resume-entry details summary::marker { display: none; content: ''; }
-
-.resume-entry details summary .summary-role {
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  transition: color 0.3s ease;
-}
-
-.resume-entry details summary .summary-meta {
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  flex-shrink: 0;
-  margin-left: 1rem;
-}
-
-.resume-entry details summary:hover .summary-role { color: var(--text); }
-
-.resume-entry details[open] summary .summary-role { color: var(--text); }
-
-.resume-entry details ul {
-  margin-top: 0.5rem;
-  padding-left: 1.2rem;
-}
-
-/* Compact earlier entries: less margin */
-.resume-entry.compact {
-  margin-bottom: 0;
-}
-
-.resume-earlier-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-dim);
-  margin-bottom: 0.8rem;
-  margin-top: 0.5rem;
-}
-
-.resume-header .page-description { max-width: none; }
-
-.resume-contact {
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  line-height: 1.8;
-}
-.resume-contact a {
-  color: var(--accent);
-  text-decoration: none;
+  opacity: 0.55;
   transition: opacity 0.3s ease;
 }
-.resume-contact a:hover { opacity: 0.7; }
-.resume-contact .sep {
-  color: var(--text-dim);
-  margin: 0 0.4rem;
+
+.career-bar:hover { opacity: 0.85; }
+
+/* Ongoing: accent, fading out toward the right edge */
+.career-bar.ongoing {
+  border-radius: 5px 0 0 5px;
+  background: linear-gradient(to right, var(--accent) calc(100% - 3rem), transparent);
+  opacity: 1;
 }
 
-.resume-download-wrapper {
-  text-align: center;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
+.career-lane-places { margin-top: 0.5rem; }
+
+.career-place {
+  position: absolute; top: 0.2rem; bottom: 0.2rem;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; white-space: nowrap;
+  background: var(--bg-card);
+  box-shadow: inset 0 0 0 1px var(--border);
+  font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.08em; font-weight: 500;
+  color: var(--text-muted);
 }
-.resume-download-btn {
-  display: inline-block;
-  padding: 0.6rem 1.6rem;
-  border: 1px solid var(--accent);
+
+.career-place:nth-child(even) { background: var(--bg-card-hover); }
+.career-place:first-child { border-radius: 6px 0 0 6px; }
+.career-place:last-child { border-radius: 0 6px 6px 0; }
+
+/* Narrow graphs have no room for the names inside the segments: list them below instead */
+.career-legend {
+  display: none; flex-wrap: wrap; gap: 0.2rem 1rem;
+  list-style: none; margin-top: 0.4rem;
+  font-size: 0.7rem; color: var(--text-dim);
+}
+
+.career-legend li { display: flex; align-items: center; gap: 0.4rem; }
+
+.career-legend i {
+  width: 14px; height: 8px; border-radius: 2px;
+  background: var(--bg-card);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.career-legend li:nth-child(even) i { background: var(--bg-card-hover); }
+
+@container (max-width: 700px) {
+  .career-place span { display: none; }
+  .career-legend { display: flex; }
+}
+
+.career-ticks { position: relative; grid-column: 2; height: 1.3rem; }
+
+.career-tick {
+  position: absolute; top: 0.2rem;
+  transform: translateX(-50%);
+  font-size: 0.65rem; line-height: 1.2;
+  color: var(--text-dim);
+}
+
+.career-tick.now { transform: translateX(-100%); }
+
+/* On narrow graphs 2025 would run into "now": end its label at its line instead */
+@container (max-width: 500px) {
+  .career-tick:nth-last-child(2) { transform: translateX(-100%); }
+}
+
+.career-chapters { margin-top: 4rem; }
+.career-chapter + .career-chapter { margin-top: 3.2rem; }
+
+.career-chapter-title {
+  font-family: var(--serif); font-size: 1.2rem;
+  font-weight: 400; color: var(--text);
+}
+
+.career-chapter-years {
+  margin-left: 0.7rem;
+  font-family: var(--sans); font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.career-list { list-style: none; margin-top: 0.9rem; }
+
+.career-entry {
+  display: grid;
+  grid-template-columns: 11rem 1fr auto;
+  column-gap: 1.2rem; align-items: baseline;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(46, 46, 51, 0.5);
+}
+
+.career-entry:last-child { border-bottom: none; }
+
+.career-name { font-size: 0.92rem; color: var(--text); }
+.career-role { font-size: 0.88rem; color: var(--text-muted); }
+
+.career-entry-years {
+  font-size: 0.75rem; color: var(--text-dim);
+  text-align: right; white-space: nowrap;
+}
+
+.career-entry a {
   color: var(--accent);
-  text-decoration: none;
-  font-size: 0.85rem;
-  border-radius: 6px;
-  transition: background 0.3s ease, color 0.3s ease;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.3s ease;
 }
-.resume-download-btn:hover {
-  background: var(--accent);
-  color: var(--bg);
+
+.career-entry a:hover { opacity: 0.7; }
+
+.career-note {
+  margin-top: 1rem;
+  font-size: 0.82rem; color: var(--text-muted);
 }
 
 /* ===== ABOUT PAGE ===== */
@@ -934,6 +917,112 @@ body {
   border: 1px solid var(--border);
   pointer-events: none;
 }
+
+/* ===== SHOWREEL ===== */
+/* Media-heavy page: let the content column grow past the 880px reading width */
+.content:has(.showreel) { max-width: 1200px; }
+
+.showreel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 2rem;
+}
+
+.showreel-earlier { margin-top: 4rem; }
+.showreel-earlier .section-label { margin-bottom: 1.2rem; }
+
+.showreel-earlier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem 1.2rem;
+}
+
+.showreel-tile {
+  display: block;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.showreel-tile.hero { grid-column: 1 / -1; }
+
+/* Media sits in a clipped 16:9 box; the caption goes below it */
+.showreel-media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+}
+
+.showreel-media img,
+.showreel-media video {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Clips behave like GIFs: no player UI, and a click or tap always reaches the tile's link */
+.showreel-media video { pointer-events: none; }
+
+.showreel video::-webkit-media-controls,
+.showreel video::-webkit-media-controls-start-playback-button,
+.showreel video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+a.showreel-tile:hover .showreel-media img,
+a.showreel-tile:hover .showreel-media video,
+a.showreel-tile:focus-visible .showreel-media img,
+a.showreel-tile:focus-visible .showreel-media video {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+.showreel-tile:focus-visible { outline-offset: 6px; border-radius: 10px; }
+
+.showreel-info {
+  display: flex; flex-direction: column;
+  align-items: flex-start; gap: 0.35rem;
+  padding-top: 0.9rem;
+}
+
+.showreel-tag {
+  font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 0.15rem 0.45rem;
+  border-radius: 3px; font-weight: 500;
+  color: var(--text-dim); background: rgba(90, 90, 90, 0.12);
+  transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showreel-title {
+  font-family: var(--serif); font-size: 1.05rem;
+  font-weight: 400; line-height: 1.35;
+  color: var(--text);
+  transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showreel-caption {
+  font-size: 0.85rem; line-height: 1.6;
+  color: var(--text-muted);
+}
+
+a.showreel-tile:hover .showreel-title,
+a.showreel-tile:focus-visible .showreel-title { color: var(--accent); }
+
+a.showreel-tile:hover .showreel-tag,
+a.showreel-tile:focus-visible .showreel-tag { color: var(--accent); background: var(--accent-glow); }
+
+.showreel-tile.hero .showreel-title { font-size: 1.35rem; }
+.showreel-tile.hero .showreel-caption { font-size: 0.95rem; max-width: 640px; }
+
+.showreel-earlier-grid .showreel-info { gap: 0.25rem; padding-top: 0.7rem; }
+.showreel-earlier-grid .showreel-title { font-size: 0.92rem; }
+.showreel-earlier-grid .showreel-caption { font-size: 0.78rem; line-height: 1.5; }
+.showreel-earlier-grid .showreel-tag { margin-top: 0.15rem; }
 
 /* ===== ANIMATIONS ===== */
 .fade-in {
@@ -1084,9 +1173,25 @@ body {
   .about-layout { flex-direction: column; gap: 2rem; }
   .about-photo { width: 120px; height: 120px; }
   .post-date { margin-left: 1rem; }
+  .showreel-grid { grid-template-columns: 1fr; }
+  .showreel-earlier-grid { grid-template-columns: repeat(2, 1fr); }
+  .showreel-tile.hero .showreel-title { font-size: 1.15rem; }
   .main-footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
-  .resume-timeline { padding-left: 1.2rem; }
-  .resume-entry.current { padding: 1rem; }
+  .career-lane, .career-axis { grid-template-columns: 1fr; }
+  .career-lane { margin-top: 0.3rem; }
+  .career-lane-places { margin-top: 0.7rem; }
+  .career-track, .career-strip { height: 1.4rem; }
+  .career-ticks { grid-column: 1; }
+  .career-chapters { margin-top: 3rem; }
+  .career-entry { grid-template-columns: 1fr; row-gap: 0.1rem; padding: 0.7rem 0; }
+  .career-entry-years { text-align: left; }
+}
+
+/* Five nav links don't fit beside the name on narrow phones: give them their own row */
+@media (max-width: 560px) {
+  .sidebar { flex-wrap: wrap; row-gap: 0.5rem; }
+  .sidebar-nav { width: 100%; margin-left: 0; justify-content: space-between; }
+  .sidebar-nav a, .sidebar-nav a:hover { padding: 0.35rem 0.4rem; }
 }
 
 /* ===== REDUCED MOTION ===== */

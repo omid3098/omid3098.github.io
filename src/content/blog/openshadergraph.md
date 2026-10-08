@@ -62,7 +62,7 @@ _**I may be wrong and it may not solve all the problems, but it's a good start.*
 
 ## Getting Started
 
-Navigate to [OpenShaderGraph](https://openshadergraph.com) website.
+Run the [OpenShaderGraph](https://github.com/omid3098/openshadergraph) project from GitHub.
 You will see a very basic shader graph.
 
 <div style="display: flex; justify-content: center;">

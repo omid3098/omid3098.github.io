@@ -1,0 +1,247 @@
+---
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { resolveImage } from '../lib/posts';
+
+interface Tile {
+  slug?: string;      // blog post to link to; leave out for a tile without a write-up
+  title?: string;     // linked tiles take the post title instead
+  year?: string;      // linked tiles take the post year instead
+  role?: string;
+  caption: string;
+  image?: string;
+  video?: string;
+  poster?: string;
+  position?: string;  // object-position, to crop away titles baked into the image
+  hero?: boolean;
+}
+
+// Curated list. Linked tiles read title and year from their blog post and are skipped
+// when the post is missing or still a draft, so a draft never produces a broken link.
+const mainTiles: Tile[] = [
+  {
+    slug: 'cryptoroomz', hero: true,
+    video: '/assets/img/games/cryptoroomz/video/water-drop.mp4',
+    poster: '/assets/img/showreel/cryptoroomz.jpg',
+    role: 'Technical artist and lead programmer',
+    caption: 'Interactive 3D rooms for a point-and-click adventure, made in Unity.',
+  },
+  {
+    slug: 'glass-shaders',
+    video: '/assets/video/showreel/glass-shaders.mp4',
+    poster: '/assets/img/showreel/glass-shaders.jpg',
+    caption: 'Two glass shaders for Unity: a light one for mobile and one with refraction.',
+  },
+  {
+    slug: 'open-flowmap',
+    video: '/assets/video/showreel/open-flowmap.mp4',
+    poster: '/assets/img/showreel/open-flowmap.jpg',
+    caption: 'A GPU flowmap painter for Unity, for painting how water and other surfaces flow.',
+  },
+  {
+    slug: 'shadergraph-baker',
+    video: '/assets/video/showreel/shadergraph-baker.mp4',
+    poster: '/assets/img/showreel/shadergraph-baker.jpg',
+    position: 'right center',  // keeps the whole inspector in view
+    caption: 'Design procedural materials in ShaderGraph and bake them into textures.',
+  },
+  {
+    slug: 'openshadergraph',
+    image: '/assets/img/blog/openshadergraph/OSG_01.png',
+    caption: 'A node-based shader editor meant to work across engines.',
+  },
+  {
+    slug: 'quvery',
+    image: '/assets/img/blog/quvery/QuVery-GUI.png',
+    caption: 'A validator that catches broken game art before it reaches the engine.',
+  },
+  {
+    slug: 'ai-summary',
+    image: '/assets/img/blog/AI/tea-cup-wide.png',
+    caption: 'Early experiments: GPT-4 tools inside Unity and textures made with Stable Diffusion.',
+  },
+];
+
+const earlierTiles: Tile[] = [
+  {
+    title: 'Death Statue',
+    image: '/assets/img/games/DeathStatue.jpg', position: 'right center',
+    caption: '3D environment art and baked lighting',
+  },
+  {
+    title: 'Shexel', year: '2012–2015',
+    image: '/assets/img/games/Shexel.jpg', position: 'right center',
+    caption: '3D models, texturing and rendered cinematics',
+  },
+  {
+    title: 'Architecture',
+    image: '/assets/img/games/Architecture.jpg', position: 'right center',
+    caption: 'Architectural modeling and rendering',
+  },
+  {
+    slug: 'shahrzad',
+    video: '/assets/video/showreel/shahrzad.mp4',
+    poster: '/assets/img/showreel/shahrzad.jpg',
+    caption: 'Senior programmer and tool developer',
+  },
+  {
+    slug: 'memoranda',
+    video: '/assets/video/showreel/memoranda.mp4',
+    poster: '/assets/img/showreel/memoranda.jpg',
+    position: 'center top',
+    caption: 'Programmer and tool developer',
+  },
+  { slug: 'gambeet', image: '/assets/img/games/gambeet/Hall.png', caption: 'Programmer' },
+  { slug: 'joko', image: '/assets/img/games/Joko.jpg', position: 'right center', caption: 'Programmer' },
+];
+
+async function buildTiles(tiles: Tile[], imageWidth: number) {
+  const built = await Promise.all(tiles.map(async (tile) => {
+    let { title, year } = tile;
+    let href: string | undefined;
+    if (tile.slug) {
+      const post = await getEntry('blog', tile.slug);
+      if (!post || post.data.draft) return null;
+      title = post.data.title;
+      year = String(post.data.date.getFullYear());
+      href = `/writing/${post.id}`;
+    }
+    const width = tile.hero ? 1400 : imageWidth;
+    return {
+      ...tile,
+      title: title || '',
+      year,
+      href,
+      image: tile.image ? await resolveImage(tile.image, width) : undefined,
+      poster: tile.poster ? await resolveImage(tile.poster, width) : undefined,
+    };
+  }));
+  return built.filter((tile): tile is NonNullable<typeof tile> => tile !== null);
+}
+
+const main = await buildTiles(mainTiles, 1000);
+const earlier = await buildTiles(earlierTiles, 600);
+---
+
+<Base
+  title="Showreel"
+  description="Real-time rendering, shaders, tools and games by Omid Saadat, with a link to the write-up behind each piece."
+  activePage="showreel"
+>
+  <div class="showreel">
+    <div class="page-header">
+      <h1 class="page-title">Showreel</h1>
+      <p class="page-description">Real-time rendering, shaders, tools and games I've built or worked on. Each piece links to its write-up.</p>
+    </div>
+
+    <section class="showreel-grid fade-in">
+      {main.map((tile) => {
+        const Tag = tile.href ? 'a' : 'div';
+        return (
+          <Tag class={`showreel-tile${tile.hero ? ' hero' : ''}`} href={tile.href}>
+            <div class="showreel-media">
+              {tile.video ? (
+                <video
+                  src={tile.video}
+                  poster={tile.poster}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  disablepictureinpicture
+                  disableRemotePlayback
+                  aria-hidden="true"
+                  style={tile.position ? `object-position: ${tile.position};` : undefined}
+                ></video>
+              ) : (
+                <img
+                  src={tile.image}
+                  alt={tile.title}
+                  loading="lazy"
+                  decoding="async"
+                  style={tile.position ? `object-position: ${tile.position};` : undefined}
+                />
+              )}
+            </div>
+            <div class="showreel-info">
+              {(tile.role || tile.year) && <span class="showreel-tag">{[tile.role, tile.year].filter(Boolean).join(' · ')}</span>}
+              <h2 class="showreel-title">{tile.title}</h2>
+              <p class="showreel-caption">{tile.caption}</p>
+            </div>
+          </Tag>
+        );
+      })}
+    </section>
+
+    <section class="showreel-earlier fade-in">
+      <h2 class="section-label">earlier work</h2>
+      <div class="showreel-earlier-grid">
+        {earlier.map((tile) => {
+          const Tag = tile.href ? 'a' : 'div';
+          return (
+            <Tag class="showreel-tile" href={tile.href}>
+              <div class="showreel-media">
+                {tile.video ? (
+                  <video
+                    src={tile.video}
+                    poster={tile.poster}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    disablepictureinpicture
+                    disableRemotePlayback
+                    aria-hidden="true"
+                    style={tile.position ? `object-position: ${tile.position};` : undefined}
+                  ></video>
+                ) : (
+                  <img
+                    src={tile.image}
+                    alt={tile.title}
+                    loading="lazy"
+                    decoding="async"
+                    style={tile.position ? `object-position: ${tile.position};` : undefined}
+                  />
+                )}
+              </div>
+              <div class="showreel-info">
+                <h3 class="showreel-title">{tile.title}</h3>
+                <p class="showreel-caption">{tile.caption}</p>
+                {tile.year && <span class="showreel-tag">{tile.year}</span>}
+              </div>
+            </Tag>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  // The clips act like GIFs: they loop silently and only run while at least a quarter of
+  // them is on screen. With reduced motion nothing plays and the poster stays.
+  document.addEventListener('astro:page-load', () => {
+    const videos = document.querySelectorAll<HTMLVideoElement>('.showreel video');
+    if (!videos.length) return;
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      videos.forEach((video) => {
+        video.removeAttribute('autoplay');
+        video.pause();
+        video.load(); // back to the poster
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.intersectionRatio >= 0.25) video.play().catch(() => {});
+        else video.pause();
+      });
+    }, { threshold: 0.25 });
+    videos.forEach((video) => observer.observe(video));
+  });
+</script>

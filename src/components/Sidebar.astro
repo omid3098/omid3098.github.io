@@ -19,9 +19,10 @@ const { activePage = 'now' } = Astro.props;
 
   <nav class="sidebar-nav">
     <a href="/" class={activePage === 'now' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">◉</span> Now</a>
+    <a href="/showreel" class={activePage === 'showreel' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">▷</span> Showreel</a>
     <a href="/writing" class={activePage === 'writing' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">✎</span> Writing</a>
     <a href="/about" class={activePage === 'about' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">○</span> About</a>
-    <a href="/resume" class={activePage === 'resume' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">◧</span> Resume</a>
+    <a href="/career" class={activePage === 'career' ? 'active' : ''}><span class="nav-icon" aria-hidden="true">◧</span> Career</a>
   </nav>
 
   <div class="sidebar-footer">

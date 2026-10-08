@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npx pagefind --site dist && node scripts/generate-pdf.mjs",
+    "build": "astro build && npx pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -18,7 +18,6 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "pagefind": "^1.4.0",
-    "puppeteer": "^25.10.0"
+    "pagefind": "^1.4.0"
   }
 }

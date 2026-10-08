@@ -17,13 +17,13 @@ const imageImports = import.meta.glob<{ default: ImageMetadata }>(
   '../../public/assets/img/**/*.{png,jpg,jpeg}'
 );
 
-async function resolveImage(imagePath: string) {
+export async function resolveImage(imagePath: string, width = 800) {
   if (!imagePath || imagePath.endsWith('.gif')) return imagePath;
   const srcPath = imagePath.replace('/assets/img/', '../../public/assets/img/');
   const loader = imageImports[srcPath];
   if (!loader) return imagePath;
   const mod = await loader();
-  const optimized = await getImage({ src: mod.default, width: 800, format: 'webp' });
+  const optimized = await getImage({ src: mod.default, width, format: 'webp' });
   return optimized.src;
 }
 

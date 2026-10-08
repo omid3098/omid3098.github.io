@@ -24,6 +24,7 @@ function rehypeLazyImages() {
 export default defineConfig({
   site: 'https://www.omid-saadat.com',
   compressHTML: true,
+  redirects: { '/resume': '/career' },
   integrations: [svelte(), sitemap()],
   markdown: {
     shikiConfig: {
