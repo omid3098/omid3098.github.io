@@ -4,7 +4,7 @@ date: 2026-11-12
 tags: [ai, agents, simulation, clouds, webgl, rendering, technical-artist]
 description: "Saw a beautiful time-lapse of Tehran's sky on X. Asked an AI agent to rebuild it in 3D, the same clouds in the same places."
 meta: "2026"
-image: "/assets/img/blog/tehran-clouds/compare-poster.jpg"
+image: "/assets/img/blog/tehran-clouds/clouds-loop.gif"
 ---
 
 ## Idea:
