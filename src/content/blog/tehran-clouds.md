@@ -16,6 +16,9 @@ image: "/assets/img/blog/tehran-clouds/sky-poster.jpg"
 
 Hadi Nikkhah posted [a time-lapse of the sky over Tehran](https://x.com/hadinik/status/2120201605970821199): 21 seconds of puffy clouds drifting over the city, with the snowy Alborz mountains behind. Their shadows slide across the slopes.
 
+<blockquote class="twitter-tweet" align="center" data-dnt="true" data-theme="dark"><p lang="fa" dir="rtl">این ویدئو تایم لپس رو از آسمون پاک تهران گرفتم، حرکت ابرها خیلی قشنگ بود <a href="https://t.co/4ZMirZ9jb7">pic.twitter.com/4ZMirZ9jb7</a></p>&mdash; 🌳 Hadi (@hadinik) <a href="https://x.com/hadinik/status/2120201605970821199?ref_src=twsrc%5Etfw">November 10, 2026</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 I sent the link to an AI coding agent (Claude Fable 5.2, running in Claude Code on my home PC) with one message:
 
 > I want the most accurate 3D simulation you can build of these moving clouds, so close that nobody can tell the real one from the simulated one. Watch the motion carefully, frame by frame: the different layers, the puffy clouds and the flatter ones, their shadows on the mountains. Show me your power like crazy.
