@@ -58,6 +58,15 @@ Defined in `src/content.config.ts`:
 
 The `image` field is used for background images on homepage content list items. Set to an absolute path like `/assets/img/blog/openshadergraph/OSG_01.png`.
 
+## Writing Posts
+
+Posts go out in Omid's name, so they are written in his voice. Read `src/content/blog/open-flowmap.md` before you write one; it is the reference.
+
+- First person, plain and casual, as he tells a friend what he made: short sections with headings such as "Idea:" or "Where is the camera?", short paragraphs, simple words.
+- A picture after every few paragraphs: a GIF, screenshot, frame or simple drawing of what the text explains, with a short italic caption when needed. Make them from the project's own material.
+- Only what happened and what he said: no feelings, opinions or lessons he did not state.
+- Wrong (Omid, 2026-11-12): a 1,900-word post about the Tehran clouds simulation with one video, bold-lead bullet lists, polished contrasts ("That is not what the agent built") and a closing lesson in his name ("What stays with me is the split of work"). His reply: «عکس های مقاله خیلی کمه. متن مقاله بوی ai slop میده و اصلاً مثل نوشته‌های خودم نیست.»
+
 ## Design Rules
 
 - Dark cool theme with Chirpy-inspired blue accent. Background: #1b1b1e. Text: #d2d2d2. Accent: #6cb4ee (single accent, no secondary colors)

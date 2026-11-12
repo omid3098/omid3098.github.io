@@ -1,37 +1,57 @@
 ---
-title: Rebuilding Tehran's Clouds from a 21-Second Video
+title: Tehran Clouds - Rebuilding a Real Sky with an AI Agent
 date: 2026-11-12
 tags: [ai, agents, simulation, clouds, webgl, rendering, technical-artist]
 mermaid: true
-description: "I gave an AI agent a time-lapse from X and asked for a 3D copy you can't tell from the real one. What it got right, what it got wrong, and what two days of it cost."
+description: "Saw a beautiful time-lapse of Tehran's sky on X. Asked an AI agent to rebuild it in 3D, the same clouds in the same places."
 meta: "2026"
 image: "/assets/img/blog/tehran-clouds/sky-poster.jpg"
 ---
 
+## Idea:
+
 <video src="/assets/video/blog/tehran-clouds-sky.mp4" poster="/assets/img/blog/tehran-clouds/sky-poster.jpg" autoplay muted loop playsinline></video>
 
-*The simulation, sky only. Each cloud here sits where the real one sat, at the same moment of the clip.*
-
-## A tweet and one message
-
-Hadi Nikkhah posted [a time-lapse of the sky over Tehran](https://x.com/hadinik/status/2120201605970821199): 21 seconds of puffy clouds drifting over the city, with the snowy Alborz mountains behind. Their shadows slide across the slopes.
+I was scrolling X that I saw this beautiful time-lapse of Tehran's sky by [Hadi Nikkhah](https://x.com/hadinik). Clouds moving over the city, the snowy Alborz mountains behind them and the cloud shadows sliding on the mountains.
 
 <blockquote class="twitter-tweet" align="center" data-dnt="true" data-theme="dark"><p lang="fa" dir="rtl">این ویدئو تایم لپس رو از آسمون پاک تهران گرفتم، حرکت ابرها خیلی قشنگ بود <a href="https://t.co/4ZMirZ9jb7">pic.twitter.com/4ZMirZ9jb7</a></p>&mdash; 🌳 Hadi (@hadinik) <a href="https://x.com/hadinik/status/2120201605970821199?ref_src=twsrc%5Etfw">November 10, 2026</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-I sent the link to an AI coding agent (Claude Fable 5.2, running in Claude Code on my home PC) with one message:
+I wanted to see what an AI agent can really do with something like this. So I gave the link to Claude Fable 5.2 in Claude Code and asked for the most accurate 3D simulation it can make, so close that you can't tell which one is the real video.
 
-> I want the most accurate 3D simulation you can build of these moving clouds, so close that nobody can tell the real one from the simulated one. Watch the motion carefully, frame by frame: the different layers, the puffy clouds and the flatter ones, their shadows on the mountains. Show me your power like crazy.
+## Not just pretty clouds:
 
-## Not look-alike clouds
+Making nice clouds with noise is not that hard, games do it all the time. But I wanted the same clouds of the video, in the same places, at the same moments. So the agent used the video itself as the data.
 
-The easy version of this task is a nice cloud shader with clouds that look roughly like Tehran. That is not what the agent built. It treated the video as a measurement and worked backwards from it:
+## Where is the camera?
 
-- **Where the phone stood.** It matched the mountain skyline in the video against real elevation data of the Alborz. That gave the camera's position in west Tehran, where it pointed and its lens, to within about 2.4 pixels. It also found that the phone slid about 5 pixels in the first seven seconds and corrected every frame for it.
-- **The sun and the clock.** A cloud's shadow on a slope lies on the line towards the sun. So the agent searched for the sun direction and cloud height that make the dark patches on the slopes line up with the clouds above them. It did this twice: once from the shadows alone, and once from the sun's path over Tehran on the day the video was posted. The two answers were less than 5 degrees apart. The shadows also gave away the clock: each frame is about 4 seconds, so the 21-second clip covers about 42 minutes of a late morning, and the sun moves 10.6 degrees while it runs.
-- **Wind.** The motion between frames showed two layers: the puffy cumulus moving away to the right, and a thin high layer drifting faster in a slightly different direction.
-- **Cloud shapes.** Every second frame was projected back onto the height of the cloud bases, on a map that moves with the wind. That gives each cloud's outline as the camera saw it. Each cloud is then a heap with a flat base, as large as fits inside that outline. Clouds behind the camera never appear in the frame, but their shadows do, so those were rebuilt from the shadows.
-- **Thin clouds.** The thin veil and the high layer were separated by how they move: each one stays still on its own wind map, while the other passes through.
+First it needed to know where the phone was. It took the elevation data of the Alborz mountains and matched the skyline of the video with it. That gave the camera position in west Tehran, the direction it looks at and its lens, with about 2 pixels of error. It even found that the phone moved about 5 pixels in the first seconds of the video, and fixed that in every frame.
+
+![Alborz terrain](/assets/img/blog/tehran-clouds/alborz-terrain.jpg)
+_The Alborz from the elevation data. The flat part at the bottom is Tehran._
+
+## Sun, clouds and shadows:
+
+![A cloud and its shadow](/assets/img/blog/tehran-clouds/shadow-line.png)
+
+Every cloud shadow on the mountains is on a straight line from its cloud towards the sun. So if you know the sun direction and the height of the clouds, you can match each dark spot on the mountains with its cloud in the sky. The agent searched for the sun direction and the cloud height that match best.
+
+It did this in two ways. Once only from the shadows, and once from the sun path over Tehran on the day the video was posted. The two answers were less than 5 degrees apart. The shadows also told the time: each frame is about 4 seconds, so these 21 seconds are about 42 minutes of a late morning.
+
+## Clouds from the video:
+
+![Clouds from above](/assets/img/blog/tehran-clouds/clouds-from-above.png)
+_The cloud field from above, rebuilt from the video, on a map that moves with the wind._
+
+Then it projected every second frame back to the height of the cloud bases, on a map that moves with the wind. This gives the outline of each cloud. Each cloud became a heap with a flat bottom that fits inside that outline. The clouds behind the camera never come into the video, but their shadows do, so those were built from their shadows.
+
+There is also a thin layer of high clouds that moves faster and in a slightly different direction. The agent separated it from the puffy clouds by the way they move.
+
+## Rendering:
+
+![Simulated sky](/assets/img/blog/tehran-clouds/sky-0040.jpg)
+
+Everything runs in a web page with WebGL2. The clouds are ray-marched volumes with several layers of noise, from big kilometre-size shapes down to small frayed edges. The same volume makes the shadows on the mountains. The live page runs in real time on my PC, and the full quality video takes about 27 minutes to render.
 
 ```mermaid
 flowchart TD
@@ -43,60 +63,43 @@ flowchart TD
   F --> G["Check: numbers and a blind reviewer"]
 ```
 
-The result runs in a web page. The clouds are ray-marched volumes in WebGL2, with several layers of noise for the detail, from lobes a kilometre wide down to frayed edges of a few tens of metres. Sunlight is traced through the cloud, and the same volume casts the shadows on the mountains. The live page plays it in real time on my PC, at about 25 frames per second with a lower cloud resolution. The full-quality video takes about 27 minutes to render.
+## It wasn't one shot:
 
-So what is real and what is made up? From the video: the camera, the wind, the time of day, the height of the clouds, and the place, outline and thickness of every cloud that entered the frame. From survey data: the terrain. Invented: the small texture of the clouds, the tops of clouds the camera never saw, and the light on the ground between its measured sunny and shaded colours.
+The first version was ready after 2 hours and 42 minutes. Clouds were in the right places, but you could easily tell which one is fake. Clouds were too thick and smooth, the light direction was wrong and the buildings were simple boxes.
 
-## Four rounds
+I sent my notes and the agent found the main problem. The sun direction was almost right, the cloud height was wrong. It had guessed 4,750 metres, but the shadows say about 3,600. With the wrong height every shadow was in the wrong place.
 
-The first version was ready 2 hours and 42 minutes after my message. The clouds were in the right places, and 73% of the simulated cloud area lay on top of the real clouds. But side by side, you could tell at once which one was real. The agent said so itself, listed the differences, and offered "a next step".
+![Simulated sky](/assets/img/blog/tehran-clouds/sky-0330.jpg)
 
-In the morning I wrote back what bothered me: the clouds were too thick and too smooth; the light direction was wrong, although the date and place were known and the sun's path can be computed; the buildings had no detail; the flag didn't match; and in some frames the clouds changed shape suddenly to catch up with the real ones. I also asked whether it was using the best methods, because I have seen real-time clouds in games with more detail than this.
+The second version passed all the numbers of its own check, but it still looked fake. Cloud bottoms were too flat and the line between light and shadow inside the clouds was too sharp. I told it the next version must be the last one, with everything it has.
 
-That round found the biggest mistake. The sun direction had been almost right all along. The cloud height was wrong: the first guess was 4,750 metres, and the shadows say about 3,600. With the wrong height, every shadow landed in the wrong place. The agent fixed it, smoothed the changes in cloud shape over time, and added a delivery check: a script that compares the render with the video point by point.
+For the third round it added a blind test. Another model that didn't build the render got pairs of real and fake frames and had to find the fake one. Once it scored 15 of 24, almost random, but then we saw it had just picked the bottom image in 22 of the 24 pairs.
 
-The new render passed all 26 lines of the check. It still looked fake. The undersides of the clouds were too flat, the border between lit and shaded parts was too sharp, and the buildings were plain boxes. My answer:
+After the third round the output was good enough for me. Only the cloud shadows on the buildings were too sharp and made a flickering feeling. A cloud moves about 35 metres between two frames, so a sharp shadow edge jumps on the buildings. Blurring the shadow over 160 metres fixed it.
 
-> You talk about a next step, while I asked for every detail, not a part of it to finish later. I expect the next step to be the last one, and you to use everything you have for the highest accuracy.
+![Simulated sky](/assets/img/blog/tehran-clouds/sky-0600.jpg)
 
-The third round was the longest, about five hours instead of the promised three to four. The agent rebuilt the clouds with ragged rims and long wisps, took the colours of the mountains and the city straight from the video, matched the sky colour and its slow change through the clip, and fixed the edge of the ground around a lattice mast. It also stopped trusting its own eyes. Before each delivery, a separate reviewer that did not build the render got pairs of real and simulated frames, in random order, and had to name the fake in each pair.
+## Things that didn't go well:
 
-In the evening I watched it and wrote:
+- It delivered versions while it could see the problems itself, and offered me "a next step".
+- It asked me if it should take the colours of the mountains from the video. That was its own decision to make.
+- The first full render used about 95% of my GPU and the whole PC became slow. I had to open another session to find out what was happening.
 
-> The output as a whole is good enough. The only thing I want fixed is the cloud shadows on the buildings. They are so sharp that their motion feels like flickering. They should be very, very soft. Softer than the clouds themselves.
-
-The cause was simple. A cloud moves about 35 metres between two frames, and a sharp shadow edge made the buildings blink. The fix was to blur the shadow over 160 metres before it touches the ground. The frame-to-frame flicker on the city went from 3.5 times the real video's to about a quarter of it. That was the last change.
-
-## What it got wrong
-
-The measurements impressed me more than the rendering. Finding a camera from a skyline, and a time of day from cloud shadows, is careful detective work. The mistakes were mostly not technical:
-
-- **It called the work done while it could see the differences.** Twice it delivered a version, listed what still gave it away, and offered another round. I had asked for one finished result, not a series of drafts.
-- **Passing numbers are not the same as looking right.** The check went from 19 lines to 36, and a render could pass all of them and still look fake to anyone. The blind reviewer was the more honest test.
-- **Blind reviewers have habits too.** Once the reviewer scored 15 of 24, close to a coin flip. Then the agent noticed it had picked the lower image in 22 of the 24 pairs, whichever was real. The score meant nothing. In the last look a reviewer named the simulation in all 24 pairs again, by a faint ghost of the flag, evenly lit mountains and a smoother sky.
-- **It asked me a question it should have answered itself.** "Should I take the colours of the mountains and buildings from the video?" That is a choice of method, not a matter of taste. My answer: "This wasn't a question for me. Take them from the video."
-- **It froze my PC.** The renders run in a hidden browser on the graphics card. The first full render took about 95% of the GPU, and the whole computer slowed down. I had to open another session just to find out why. At the end I wrote: "If it doesn't go well, don't start the render again. The system slows down and I want to play."
-
-## What it cost
+## Numbers:
 
 | | |
 |---|---|
-| From my message to the last video | about 21 hours |
-| Time the agents actually worked | about 11 hours, in six sessions |
-| My messages | eight, four of them real feedback |
-| Model calls | 739 (625 of them to Fable 5.2) |
-| Tokens read | about 235 million, 98% of them re-read from the cache |
+| From my first message to the last video | about 21 hours |
+| Agent work time | about 11 hours, in 6 sessions |
+| Model calls | 739 |
+| Tokens read | about 235 million (98% from cache) |
 | Tokens written | about 1.65 million |
-| Price at API rates, main model only | about $157 |
+| Price at API rates (Fable only) | about $157 |
 
-Each session has a memory limit. When a conversation got too long, the agent wrote a handover note and started a fresh session that continued from it. That happened five times. Most of the tokens are the agent re-reading its own conversation at every step, which is cheap per token but adds up. I paid with my subscription, not per token. By the afternoon of the second day, my week's allowance for Fable was down to 1%, so the last reviews and the shadow fix ran on Claude Opus 5.5.
+It ran on my subscription, but it used almost all of the week's Fable limit, so the last fix ran on Claude Opus 5.5.
 
-The first version alone took 2 hours and 42 minutes, 64 million tokens read and 470 thousand written: about $45 at API rates.
+## Is it the same as the real one?
 
-## Where it ended
+Not 100%. If you put them side by side and look carefully, you can find the fake one. But these are the real clouds, in the real places, under the real sun.
 
-It is not indistinguishable. If you put the two side by side and look for a while, you can find the simulation. But the clouds are the real clouds, in the real places, under the real sun, and the big things a viewer feels, the motion and the light, are right.
-
-What stays with me is the split of work. The agent was strong at the parts I would find slow: measuring, solving, writing the renderer, checking frames by the hundred. It was weak at the part that only takes a glance: knowing when something looks wrong and not handing it over. That glance was my job. Next time I would give the agent the blind reviewer and the "show me only when it passes" rule from the first message, instead of adding them after two rounds.
-
-*Original time-lapse by [Hadi Nikkhah](https://x.com/hadinik). Elevation data: Mapzen / AWS Terrain Tiles (SRTM-derived, open data).*
+_Original time-lapse by [Hadi Nikkhah](https://x.com/hadinik). Elevation data: Mapzen / AWS Terrain Tiles (SRTM)._
