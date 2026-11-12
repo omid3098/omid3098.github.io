@@ -26,3 +26,5 @@ pnpm-debug.log*
 nul
 
 astro*.log
+
+.agent-work/
