@@ -43,7 +43,7 @@ public/sw.js       → Kill-switch that unregisters the old Jekyll service worke
 - **Sidebar.astro** — Fixed 260px left sidebar: profile photo, name, "Creative Technologist" title, location (with Farsi), vertical nav links (Now, Showreel, Writing, About, Career), search button (⌘K / Ctrl+K), footer links (GitHub, LinkedIn, Email).
 - **ShaderBg.svelte** — Subtle interactive WebGL dot-grid background that reacts to the mouse and hovered items. Keep it quiet.
 - **Search.svelte** — Pagefind search modal, opened by the sidebar button or ⌘K / Ctrl+K.
-- **Post.astro** — Blog post layout wrapping Base.astro. Handles mermaid diagrams, RTL, embedded X posts (runs X's script again after in-site navigation) and click-to-zoom for post pictures.
+- **Post.astro** — Blog post layout wrapping Base.astro. Handles mermaid diagrams, RTL, embedded X posts (runs X's script again after in-site navigation), click-to-zoom for post pictures and the before/after bar (`<div class="compare" data-video data-poster data-left data-right>`: one video with the two pictures side by side, drawn on a canvas with a bar to drag).
 - No separate Nav, Footer, or decorative components. Footer is inline in Base.astro.
 
 ## Showreel and Career

@@ -79,6 +79,62 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
     });
   </script>
 
+  <script>
+    // <div class="compare" data-video data-poster data-left data-right>: one video with two pictures side by side
+    // (left half, right half), drawn on a canvas with a bar you drag to see one or the other.
+    function initCompare(box: HTMLElement) {
+      box.classList.add('ready');
+      const W = 960, H = 540;
+      const canvas = document.createElement('canvas');
+      canvas.width = W; canvas.height = H;
+      const ctx = canvas.getContext('2d')!;
+      const video = document.createElement('video');
+      Object.assign(video, { muted: true, loop: true, playsInline: true, preload: 'auto', src: box.dataset.video || '' });
+      const line = document.createElement('div'); line.className = 'compare-line';
+      const knob = document.createElement('div'); knob.className = 'compare-knob';
+      knob.tabIndex = 0; knob.setAttribute('role', 'slider'); knob.setAttribute('aria-label', 'Compare');
+      knob.textContent = '‹ ›';
+      const left = document.createElement('span'); left.className = 'compare-label left'; left.textContent = box.dataset.left || '';
+      const right = document.createElement('span'); right.className = 'compare-label right'; right.textContent = box.dataset.right || '';
+      if (box.dataset.poster) box.style.backgroundImage = `url(${box.dataset.poster})`;
+      video.className = 'compare-src';
+      box.append(video, canvas, line, knob, left, right);
+
+      let split = 0.5;
+      const draw = () => {
+        if (video.readyState < 2) return;
+        ctx.drawImage(video, 0, 0, W, H, 0, 0, W, H);
+        ctx.save(); ctx.beginPath(); ctx.rect(split * W, 0, W - split * W, H); ctx.clip();
+        ctx.drawImage(video, W, 0, W, H, 0, 0, W, H);
+        ctx.restore();
+      };
+      const place = () => {
+        line.style.left = knob.style.left = `${split * 100}%`;
+        knob.setAttribute('aria-valuenow', String(Math.round(split * 100)));
+        draw();
+      };
+      const fromX = (x: number) => { const r = box.getBoundingClientRect(); split = Math.min(1, Math.max(0, (x - r.left) / r.width)); place(); };
+      let dragging = false;
+      box.addEventListener('pointerdown', (e) => { dragging = true; box.setPointerCapture(e.pointerId); fromX(e.clientX); });
+      box.addEventListener('pointermove', (e) => { if (dragging) fromX(e.clientX); });
+      box.addEventListener('pointerup', () => { dragging = false; });
+      box.addEventListener('pointercancel', () => { dragging = false; });
+      knob.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { split = Math.min(1, Math.max(0, split + (e.key === 'ArrowLeft' ? -0.05 : 0.05))); place(); e.preventDefault(); }
+      });
+
+      const loop = () => { if (!box.isConnected) { video.pause(); video.removeAttribute('src'); video.load(); return; } draw(); requestAnimationFrame(loop); };
+      video.addEventListener('loadeddata', () => { box.style.backgroundImage = ''; draw(); }, { once: true });
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      new IntersectionObserver(([en]) => { if (en.isIntersecting && !still) video.play().catch(() => {}); else video.pause(); }).observe(box);
+      place();
+      requestAnimationFrame(loop);
+    }
+    document.addEventListener('astro:page-load', () => {
+      document.querySelectorAll<HTMLElement>('.prose .compare:not(.ready)').forEach(initCompare);
+    });
+  </script>
+
   {frontmatter.mermaid && (
     <script is:inline type="module" data-astro-rerun>
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';

@@ -4,12 +4,14 @@ date: 2026-11-12
 tags: [ai, agents, simulation, clouds, webgl, rendering, technical-artist]
 description: "Saw a beautiful time-lapse of Tehran's sky on X. Asked an AI agent to rebuild it in 3D, the same clouds in the same places."
 meta: "2026"
-image: "/assets/img/blog/tehran-clouds/sky-poster.jpg"
+image: "/assets/img/blog/tehran-clouds/compare-poster.jpg"
 ---
 
 ## Idea:
 
-<video src="/assets/video/blog/tehran-clouds-sky.mp4" poster="/assets/img/blog/tehran-clouds/sky-poster.jpg" autoplay muted loop playsinline></video>
+<div class="compare" data-video="/assets/video/blog/tehran-clouds-compare.mp4" data-poster="/assets/img/blog/tehran-clouds/compare-poster.jpg" data-left="Real video" data-right="Simulation"></div>
+
+_Drag the line. Left is Hadi's video, right is the simulation._
 
 I was scrolling X that I saw this beautiful time-lapse of Tehran's sky by [Hadi Nikkhah](https://x.com/hadinik). Clouds moving over the city, the snowy Alborz mountains behind them and the cloud shadows sliding on the mountains.
 
