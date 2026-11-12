@@ -45,6 +45,40 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
     </div>
   </article>
 
+  <script is:inline data-astro-rerun>
+    // An embedded X post (<blockquote class="twitter-tweet">) is drawn by X's script. Run it on every page
+    // load, also after in-site navigation, when the script is already there and would not scan the new page.
+    if (document.querySelector('.prose blockquote.twitter-tweet')) {
+      if (window.twttr && window.twttr.widgets) window.twttr.widgets.load(document.querySelector('.prose'));
+      else if (!document.querySelector('script[src*="platform.twitter.com/widgets.js"]')) {
+        const s = document.createElement('script');
+        s.src = 'https://platform.twitter.com/widgets.js';
+        s.async = true;
+        document.head.appendChild(s);
+      }
+    }
+  </script>
+
+  <script>
+    // Click a post picture to see it large; click again or press Esc to close.
+    document.addEventListener('click', (e) => {
+      const img = e.target instanceof HTMLImageElement ? e.target : null;
+      if (!img || !img.closest('.prose') || img.closest('a')) return;
+      let dlg = document.querySelector<HTMLDialogElement>('dialog.img-zoom');
+      if (!dlg) {
+        dlg = document.createElement('dialog');
+        dlg.className = 'img-zoom';
+        dlg.append(document.createElement('img'));
+        dlg.addEventListener('click', () => dlg!.close());
+        document.body.append(dlg);
+      }
+      const big = dlg.querySelector('img')!;
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      dlg.showModal();
+    });
+  </script>
+
   {frontmatter.mermaid && (
     <script is:inline type="module" data-astro-rerun>
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';

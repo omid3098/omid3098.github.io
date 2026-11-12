@@ -2,7 +2,6 @@
 title: Tehran Clouds - Rebuilding a Real Sky with an AI Agent
 date: 2026-11-12
 tags: [ai, agents, simulation, clouds, webgl, rendering, technical-artist]
-mermaid: true
 description: "Saw a beautiful time-lapse of Tehran's sky on X. Asked an AI agent to rebuild it in 3D, the same clouds in the same places."
 meta: "2026"
 image: "/assets/img/blog/tehran-clouds/sky-poster.jpg"
@@ -15,7 +14,6 @@ image: "/assets/img/blog/tehran-clouds/sky-poster.jpg"
 I was scrolling X that I saw this beautiful time-lapse of Tehran's sky by [Hadi Nikkhah](https://x.com/hadinik). Clouds moving over the city, the snowy Alborz mountains behind them and the cloud shadows sliding on the mountains.
 
 <blockquote class="twitter-tweet" align="center" data-dnt="true" data-theme="dark"><p lang="fa" dir="rtl">این ویدئو تایم لپس رو از آسمون پاک تهران گرفتم، حرکت ابرها خیلی قشنگ بود <a href="https://t.co/4ZMirZ9jb7">pic.twitter.com/4ZMirZ9jb7</a></p>&mdash; 🌳 Hadi (@hadinik) <a href="https://x.com/hadinik/status/2120201605970821199?ref_src=twsrc%5Etfw">November 10, 2026</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 I wanted to see what an AI agent can really do with something like this. So I gave the link to Claude Fable 5.2 in Claude Code and asked for the most accurate 3D simulation it can make, so close that you can't tell which one is the real video.
 
@@ -53,15 +51,15 @@ There is also a thin layer of high clouds that moves faster and in a slightly di
 
 Everything runs in a web page with WebGL2. The clouds are ray-marched volumes with several layers of noise, from big kilometre-size shapes down to small frayed edges. The same volume makes the shadows on the mountains. The live page runs in real time on my PC, and the full quality video takes about 27 minutes to render.
 
-```mermaid
-flowchart TD
-  A["Phone video, 638 frames"] --> B["Camera position: skyline vs terrain"]
-  B --> C["Sun and cloud height: from shadows"]
-  C --> D["Wind: cloud motion between frames"]
-  D --> E["Cloud shapes: outlines on a wind map"]
-  E --> F["Ray-marched clouds in the browser"]
-  F --> G["Check: numbers and a blind reviewer"]
-```
+<ol class="flow">
+  <li><b>Video</b><span>638 frames from a phone</span></li>
+  <li><b>Camera</b><span>the skyline matched with the terrain</span></li>
+  <li><b>Sun and cloud height</b><span>from the shadows on the mountains</span></li>
+  <li><b>Wind</b><span>how the clouds move between frames</span></li>
+  <li><b>Cloud shapes</b><span>outlines on a map that moves with the wind</span></li>
+  <li><b>Rendering</b><span>ray-marched clouds in the browser</span></li>
+  <li><b>Check</b><span>numbers, and a blind reviewer</span></li>
+</ol>
 
 ## It wasn't one shot:
 
