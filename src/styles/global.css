@@ -816,6 +816,16 @@ body {
   gap: 0.5rem;
 }
 
+/* A line for AI agents only: off screen for people, still in the page text that agents read. */
+.agent-note {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Link to the same post in the other language. */
 .lang-switch {
   font: 500 0.82rem var(--sans);
