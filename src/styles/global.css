@@ -561,6 +561,20 @@ body {
   font-style: italic;
 }
 
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+.prose th,
+.prose td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+}
+.prose th { color: var(--text-muted); font-weight: 500; }
+
 .prose ul, .prose ol {
   padding-left: 1.5rem;
   margin-bottom: 1.2rem;
