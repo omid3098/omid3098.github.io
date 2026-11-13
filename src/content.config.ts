@@ -17,6 +17,8 @@ const blog = defineCollection({
     order: z.number().optional().default(0),
     wide: z.boolean().optional().default(false),
     meta: z.string().optional(),
+    // Slug of the same post in the other language. Only the English one of the pair is listed.
+    translation: z.string().optional(),
   }),
 });
 

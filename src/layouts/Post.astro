@@ -11,6 +11,7 @@ interface Props {
     lang?: string;
     dir?: string;
     mermaid?: boolean;
+    translation?: string;
   };
   slug?: string;
 }
@@ -30,6 +31,11 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
     <header class="page-header">
       <h1 class="page-title" transition:name={slug ? `title-${slug}` : undefined}>{frontmatter.title}</h1>
       <div class="post-meta">
+        {frontmatter.translation && (
+          lang === 'fa'
+            ? <a class="lang-switch" href={`/writing/${frontmatter.translation}/`} hreflang="en" lang="en" dir="ltr">English</a>
+            : <a class="lang-switch" href={`/writing/${frontmatter.translation}/`} hreflang="fa" lang="fa" dir="rtl">فارسی</a>
+        )}
         <time>{dateStr}</time>
         {frontmatter.tags && frontmatter.tags.length > 0 && (
           <span class="post-tags">

@@ -763,6 +763,13 @@ body {
   font-family: var(--farsi);
 }
 
+/* Literata has no Persian letters, so Persian titles and headings use Vazirmatn. */
+.rtl .page-title,
+.rtl .prose h2,
+.rtl .prose h3 {
+  font-family: var(--farsi);
+}
+
 /* ===== POST LIST (writing page) ===== */
 .post-list {
   display: flex;
@@ -808,6 +815,19 @@ body {
   display: flex;
   gap: 0.5rem;
 }
+
+/* Link to the same post in the other language. */
+.lang-switch {
+  font: 500 0.82rem var(--sans);
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.2em 0.75em;
+  transition: background 0.3s, color 0.3s;
+}
+.lang-switch:lang(fa) { font-family: var(--farsi); }
+.lang-switch:hover { background: var(--accent); color: var(--bg); }
 
 .tag {
   font-size: 0.7rem;

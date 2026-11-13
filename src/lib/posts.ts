@@ -28,7 +28,7 @@ export async function resolveImage(imagePath: string, width = 800) {
 }
 
 export async function getSortedPosts(): Promise<ContentItem[]> {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const posts = await getCollection('blog', ({ data }) => !data.draft && !(data.translation && data.lang !== 'en'));
 
   const sortedItems = posts
     .map((post) => ({

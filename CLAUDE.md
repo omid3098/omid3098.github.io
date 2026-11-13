@@ -54,7 +54,9 @@ public/sw.js       → Kill-switch that unregisters the old Jekyll service worke
 ## Content Collections
 
 Defined in `src/content.config.ts`:
-- **blog**: title, date, tags, description, image, lang (en|fa), dir (ltr|rtl), mermaid, draft, order, wide, meta
+- **blog**: title, date, tags, description, image, lang (en|fa), dir (ltr|rtl), mermaid, draft, order, wide, meta, translation
+
+`translation` is the slug of the same post in the other language. Both posts name each other; Post.astro shows a link to the other one beside the date, and only the English post appears in lists and the RSS feed.
 
 The `image` field is used for background images on homepage content list items. Set to an absolute path like `/assets/img/blog/openshadergraph/OSG_01.png`.
 
