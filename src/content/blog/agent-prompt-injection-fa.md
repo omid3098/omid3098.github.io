@@ -6,7 +6,7 @@ description: "یه جملهٔ عجیب توی جواب یه ایجنت، یه ت
 lang: fa
 dir: rtl
 translation: agent-prompt-injection
-image: "/assets/img/blog/agent-prompt-injection/gate-fa.png"
+image: "/assets/img/blog/agent-prompt-injection/cover-fa.png"
 ---
 
 ## ماجرا:

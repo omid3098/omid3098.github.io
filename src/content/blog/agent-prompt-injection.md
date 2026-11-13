@@ -4,7 +4,7 @@ date: 2026-11-13
 tags: [ai, agents, security]
 description: "A strange line in an AI agent's answer, a small test on five coding agents, and a simple security point."
 translation: agent-prompt-injection-fa
-image: "/assets/img/blog/agent-prompt-injection/gate-en.png"
+image: "/assets/img/blog/agent-prompt-injection/cover-en.png"
 ---
 
 ## What happened:
