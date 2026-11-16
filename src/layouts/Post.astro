@@ -87,14 +87,45 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
     </div>
     {frontmatter.hero?.prompt && (
     <section id="install" class="product-install">
-      <h2>Install it <em>with your agent</em>.</h2>
-      <p>Paste this into Claude Code, Codex or another coding agent on Windows. It takes under a minute. Tested on Windows 11, not yet on Windows 10.</p>
-      <div class="product-prompt">
-        <button type="button" class="product-btn primary" data-copy={frontmatter.hero.prompt.trim()}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          <span class="copy-label">Copy the prompt</span>
-        </button>
-        <pre>{frontmatter.hero.prompt.trim()}</pre>
+      <h2>Install it <em>{frontmatter.hero.download ? 'your way' : 'with your agent'}</em>.</h2>
+      {frontmatter.hero.note && <p>{frontmatter.hero.note}</p>}
+      <div class="install-ways">
+        {frontmatter.hero.download && (
+          <Fragment>
+            <input class="sr-only" type="radio" name="install-way" id="way-agent" checked />
+            <input class="sr-only" type="radio" name="install-way" id="way-hand" />
+            <div class="ways-switch">
+              <label for="way-agent">With your agent</label>
+              <label for="way-hand">By hand</label>
+            </div>
+          </Fragment>
+        )}
+        <div class="way way-agent">
+          <p>Paste this into Claude Code, Codex or another coding agent. It takes under a minute.</p>
+          <div class="product-prompt">
+            <button type="button" class="product-btn primary" data-copy={frontmatter.hero.prompt.trim()}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="copy-label">Copy the prompt</span>
+            </button>
+            <pre>{frontmatter.hero.prompt.trim()}</pre>
+          </div>
+        </div>
+        {frontmatter.hero.download && (
+        <div class="way way-hand">
+          <p>One file. Download it and set it up yourself.</p>
+          <div class="product-prompt">
+            <a class="product-btn primary" href={frontmatter.hero.download}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+              <span>Download the app</span>
+            </a>
+            {frontmatter.hero.steps.length > 0 && (
+            <ol class="product-steps">
+              {frontmatter.hero.steps.map(step => <li><b>{step.title}</b><span>{step.text}</span></li>)}
+            </ol>
+            )}
+          </div>
+        </div>
+        )}
       </div>
     </section>
     )}

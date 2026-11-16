@@ -20,7 +20,8 @@ const blog = defineCollection({
     // Slug of the same post in the other language. Only the English one of the pair is listed.
     translation: z.string().optional(),
     // A project post opens like the project's own home page: icon, tagline, links and its main clip.
-    // `prompt` adds a closing section with an install prompt to copy into a coding agent.
+    // `prompt` adds a closing install section with a prompt to copy into a coding agent; `download` and `steps`
+    // add a second way, by hand, behind a two-way switch; `note` is one line under the section's heading.
     hero: z.object({
       tagline: z.string(),
       sub: z.string().optional(),
@@ -30,6 +31,9 @@ const blog = defineCollection({
       clipWidth: z.number().optional(),
       clipHeight: z.number().optional(),
       prompt: z.string().optional(),
+      note: z.string().optional(),
+      download: z.string().optional(),
+      steps: z.array(z.object({ title: z.string(), text: z.string() })).optional().default([]),
       links: z.array(z.object({ label: z.string(), href: z.string(), primary: z.boolean().optional() })).optional().default([]),
     }).optional(),
   }),

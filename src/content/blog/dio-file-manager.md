@@ -25,6 +25,15 @@ hero:
     irm https://github.com/omid3098/dio-file-manager/releases/latest/download/install.ps1 | iex
 
     Then tell me to press Win+E.
+  note: "Tested on Windows 11, not yet on Windows 10."
+  download: "https://github.com/omid3098/dio-file-manager/releases/latest/download/dio-file-manager.exe"
+  steps:
+    - title: "Open it"
+      text: "Put the file in a folder of your own and open it. It is not signed, so Windows may warn you the first time: choose More info, then Run anyway."
+    - title: "Make it the default"
+      text: "Open the main menu, the three lines at the top, and turn on Use as Default File Manager. Win+E follows after you sign out and back in."
+    - title: "Pin it"
+      text: "Right-click the file and choose Pin to Start."
 ---
 
 <section id="features" class="product-section">
