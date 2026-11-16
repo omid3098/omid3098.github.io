@@ -9,10 +9,9 @@ hero:
   tagline: "A fast, light and <em>smooth</em> file manager."
   sub: "For Windows, written in C. One file under 800 KB."
   icon: "/assets/img/blog/dio-file-manager/icon.svg"
-  clip: "/assets/img/blog/dio-file-manager/zoom.webp"
-  clipAlt: "Dragging the zoom slider from large icons to the list and back"
-  clipWidth: 1084
-  clipHeight: 692
+  film: "/assets/video/blog/dio-file-manager.mp4"
+  filmPoster: "/assets/img/blog/dio-file-manager/film-poster.webp"
+  filmAlt: "Dio File Manager: dragging the zoom slider to change the size of the icons"
   links:
     - label: "Install with your agent"
       href: "#install"

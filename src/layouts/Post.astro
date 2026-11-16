@@ -16,10 +16,9 @@ interface Props {
       tagline: string;
       sub?: string;
       icon?: string;
-      clip?: string;
-      clipAlt?: string;
-      clipWidth?: number;
-      clipHeight?: number;
+      film?: string;
+      filmPoster?: string;
+      filmAlt?: string;
       prompt?: string;
       links?: { label: string; href: string; primary?: boolean }[];
     };
@@ -56,9 +55,9 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
           ))}
         </div>
       </div>
-      {frontmatter.hero.clip && (
+      {frontmatter.hero.film && (
         <div class="product-frame product-clip">
-          <img src={frontmatter.hero.clip} alt={frontmatter.hero.clipAlt || ''} width={frontmatter.hero.clipWidth} height={frontmatter.hero.clipHeight} />
+          <video class="product-film" src={frontmatter.hero.film} poster={frontmatter.hero.filmPoster} width="1920" height="1080" autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-label={frontmatter.hero.filmAlt || undefined}></video>
         </div>
       )}
     </header>
@@ -143,6 +142,17 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
         document.head.appendChild(s);
       }
     }
+  </script>
+
+  <script>
+    // The opening film plays like a GIF. With reduced motion it stays paused on its poster, with controls.
+    document.addEventListener('astro:page-load', () => {
+      const film = document.querySelector<HTMLVideoElement>('video.product-film');
+      if (!film || !matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      film.removeAttribute('autoplay');
+      film.pause();
+      film.controls = true;
+    });
   </script>
 
   <script>

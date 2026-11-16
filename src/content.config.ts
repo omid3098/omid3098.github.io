@@ -19,17 +19,16 @@ const blog = defineCollection({
     meta: z.string().optional(),
     // Slug of the same post in the other language. Only the English one of the pair is listed.
     translation: z.string().optional(),
-    // A project post opens like the project's own home page: icon, tagline, links and its main clip.
+    // A project post opens like the project's own home page: icon, tagline, links and its opening film.
     // `prompt` adds a closing install section with a prompt to copy into a coding agent; `download` and `steps`
     // add a second way, by hand, behind a two-way switch; `note` is one line under the section's heading.
     hero: z.object({
       tagline: z.string(),
       sub: z.string().optional(),
       icon: z.string().optional(),
-      clip: z.string().optional(),
-      clipAlt: z.string().optional(),
-      clipWidth: z.number().optional(),
-      clipHeight: z.number().optional(),
+      film: z.string().optional(),
+      filmPoster: z.string().optional(),
+      filmAlt: z.string().optional(),
       prompt: z.string().optional(),
       note: z.string().optional(),
       download: z.string().optional(),

@@ -1226,7 +1226,8 @@ a.showreel-tile:focus-visible .showreel-tag { color: var(--accent); background: 
 .product-btn.primary { background: var(--accent); color: #0f1a24; box-shadow: none; }
 .product-btn.primary:hover { background: var(--accent); filter: brightness(1.08); }
 .product-frame { padding: 8px; border-radius: 16px; background: var(--bg-card); box-shadow: 0 0 0 1px var(--border); }
-.product-frame img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.product-frame img, .product-film { display: block; width: 100%; height: auto; border-radius: 8px; }
+.product-film { aspect-ratio: 16 / 9; background: #e2e0dc; }
 .product-clip { margin-top: 32px; }
 .product-section { margin-top: 96px; }
 .product h2 { margin: 0 0 32px; text-align: center; font-family: var(--serif); font-weight: 300; font-size: 32px; line-height: 1.25; color: var(--text); }
