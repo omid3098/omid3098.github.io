@@ -14,10 +14,13 @@ interface Props {
     translation?: string;
     hero?: {
       tagline: string;
+      sub?: string;
       icon?: string;
       clip?: string;
       clipAlt?: string;
-      command?: string;
+      clipWidth?: number;
+      clipHeight?: number;
+      prompt?: string;
       links?: { label: string; href: string; primary?: boolean }[];
     };
   };
@@ -35,33 +38,27 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
 ---
 
 <Base title={frontmatter.title} description={frontmatter.description} image={frontmatter.image} publishedDate={frontmatter.date} tags={frontmatter.tags} lang={lang} dir={dir} activePage="writing" type="article">
-  <article class={dir === 'rtl' ? 'rtl' : ''}>
+  <article class={[dir === 'rtl' ? 'rtl' : '', frontmatter.hero ? 'product' : ''].join(' ').trim() || undefined}>
     {frontmatter.hero ? (
-    <header class="project-hero">
-      <div class="project-hero-text">
-        <div class="project-hero-name fade-in">
-          {frontmatter.hero.icon && <img src={frontmatter.hero.icon} alt="" width="48" height="48" />}
-          <h1 class="page-title" transition:name={slug ? `title-${slug}` : undefined}>{frontmatter.title}</h1>
+    <header class="product-hero fade-in">
+      <div class="product-hero-top">
+        <div>
+          <p class="product-name">
+            {frontmatter.hero.icon && <img src={frontmatter.hero.icon} alt="" width="40" height="40" />}
+            <span transition:name={slug ? `title-${slug}` : undefined}>{frontmatter.title}</span>
+          </p>
+          <h1 class="product-tagline" set:html={frontmatter.hero.tagline} />
+          {frontmatter.hero.sub && <p class="product-sub">{frontmatter.hero.sub}</p>}
         </div>
-        <p class="project-hero-tagline fade-in" style="animation-delay: 80ms" set:html={frontmatter.hero.tagline} />
-        <div class="project-hero-links fade-in" style="animation-delay: 160ms">
+        <div class="product-links">
           {frontmatter.hero.links?.map(link => (
-            <a class={link.primary ? 'project-btn primary' : 'project-btn'} href={link.href}>{link.label}</a>
+            <a class={link.primary ? 'product-btn primary' : 'product-btn'} href={link.href}>{link.label}</a>
           ))}
-          {frontmatter.hero.command && (
-            <span class="project-cmd">
-              <code>{frontmatter.hero.command}</code>
-              <button type="button" class="project-copy" aria-label="Copy the command" data-copy={frontmatter.hero.command}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-            </span>
-          )}
         </div>
-        <div class="post-meta fade-in" style="animation-delay: 220ms"><time>{dateStr}</time></div>
       </div>
       {frontmatter.hero.clip && (
-        <div class="project-hero-clip fade-in" style="animation-delay: 300ms">
-          <img src={frontmatter.hero.clip} alt={frontmatter.hero.clipAlt || ''} />
+        <div class="product-frame product-clip">
+          <img src={frontmatter.hero.clip} alt={frontmatter.hero.clipAlt || ''} width={frontmatter.hero.clipWidth} height={frontmatter.hero.clipHeight} />
         </div>
       )}
     </header>
@@ -85,9 +82,22 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
       </div>
     </header>
     )}
-    <div class="prose">
+    <div class={frontmatter.hero ? 'product-body' : 'prose'}>
       <slot />
     </div>
+    {frontmatter.hero?.prompt && (
+    <section id="install" class="product-install">
+      <h2>Install it <em>with your agent</em>.</h2>
+      <p>Paste this into Claude Code, Codex or another coding agent on Windows 11. It takes under two minutes.</p>
+      <div class="product-prompt">
+        <button type="button" class="product-btn primary" data-copy={frontmatter.hero.prompt.trim()}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span class="copy-label">Copy the prompt</span>
+        </button>
+        <pre>{frontmatter.hero.prompt.trim()}</pre>
+      </div>
+    </section>
+    )}
   </article>
 
   <script is:inline data-astro-rerun>
@@ -105,14 +115,16 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
   </script>
 
   <script>
-    // A project post's copy button puts its command on the clipboard and says so for a moment.
+    // A project post's copy button puts its text on the clipboard and says so for a moment.
     document.addEventListener('click', async (e) => {
-      const btn = e.target instanceof Element ? e.target.closest<HTMLButtonElement>('.project-copy') : null;
+      const btn = e.target instanceof Element ? e.target.closest<HTMLButtonElement>('button[data-copy]') : null;
       if (!btn) return;
       try { await navigator.clipboard.writeText(btn.dataset.copy || ''); } catch { return; }
+      const label = btn.querySelector('.copy-label');
+      const before = label?.textContent;
       btn.classList.add('copied');
-      btn.setAttribute('aria-label', 'Copied');
-      setTimeout(() => { btn.classList.remove('copied'); btn.setAttribute('aria-label', 'Copy the command'); }, 1500);
+      if (label) label.textContent = 'Copied';
+      setTimeout(() => { btn.classList.remove('copied'); if (label) label.textContent = before ?? ''; }, 1500);
     });
   </script>
 
@@ -120,7 +132,7 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
     // Click a post picture to see it large; click again or press Esc to close.
     document.addEventListener('click', (e) => {
       const img = e.target instanceof HTMLImageElement ? e.target : null;
-      if (!img || !img.closest('.prose') || img.closest('a')) return;
+      if (!img || !img.closest('.prose, .product-body') || img.closest('a')) return;
       let dlg = document.querySelector<HTMLDialogElement>('dialog.img-zoom');
       if (!dlg) {
         dlg = document.createElement('dialog');
