@@ -20,7 +20,7 @@ hero:
     - label: "View on GitHub"
       href: "https://github.com/omid3098/dio-file-manager"
   prompt: |
-    Install Dio File Manager on this Windows 11 PC and make it my default file manager. In PowerShell, run:
+    Install Dio File Manager on this Windows PC and make it my default file manager. In PowerShell, run:
 
     irm https://github.com/omid3098/dio-file-manager/releases/latest/download/install.ps1 | iex
 
