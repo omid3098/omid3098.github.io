@@ -24,7 +24,9 @@ hero:
 
     1. Download https://github.com/omid3098/dio-file-manager/releases/latest/download/dio-file-manager.exe to %LOCALAPPDATA%\Programs\Dio File Manager\dio-file-manager.exe. If a copy there is running, rename it to dio-file-manager.old.exe first.
     2. Add a Start menu shortcut named Dio File Manager that points to it.
-    3. Run it with --default-fm on, then with --default-fm status. It is a window app, so use Start-Process -Wait -PassThru and read ExitCode: 0 means folders and Win+E now open it.
+    3. Run it with --default-fm on, then with --default-fm status, each like this:
+       $p = Start-Process $exe '--default-fm on' -PassThru; $p.WaitForExit(); $p.ExitCode
+       Not with -Wait: "on" leaves a small Win+E helper running, and -Wait would wait for it. Exit code 0 means folders and Win+E now open it.
 
     Do not start the app itself. When you are done, tell me to press Win+E. To give everything back to Explorer later, run it with --default-fm off.
 ---
