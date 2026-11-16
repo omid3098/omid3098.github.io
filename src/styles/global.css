@@ -1206,6 +1206,36 @@ a.showreel-tile:focus-visible .showreel-tag { color: var(--accent); background: 
 .showreel-earlier-grid .showreel-caption { font-size: 0.78rem; line-height: 1.5; }
 .showreel-earlier-grid .showreel-tag { margin-top: 0.15rem; }
 
+/* ===== PROJECT HERO (a post that opens like the project's home page) ===== */
+.project-hero { padding: 1rem 0 1rem; }
+.project-hero-name { display: flex; align-items: center; gap: 16px; }
+.project-hero-name img { width: 48px; height: 48px; flex: none; }
+.project-hero .page-title { font-size: 2.6rem; margin: 0; }
+.project-hero-tagline { margin-top: 16px; max-width: 620px; font-family: var(--serif); font-size: 1.35rem; line-height: 1.5; color: var(--text); }
+.project-hero-tagline em { color: var(--accent); }
+.project-hero-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px; }
+.project-btn {
+  display: inline-flex; align-items: center; height: 40px; padding: 0 20px; border-radius: 8px;
+  font-size: 15px; color: var(--text); text-decoration: none; box-shadow: 0 0 0 1px var(--border);
+  transition: background 0.3s ease, filter 0.3s ease;
+}
+.project-btn:hover { background: var(--bg-card); }
+.project-btn.primary { background: var(--accent); color: #0f1a24; box-shadow: none; }
+.project-btn.primary:hover { background: var(--accent); filter: brightness(1.08); }
+.project-cmd { display: inline-flex; align-items: center; gap: 4px; height: 40px; padding: 0 4px 0 16px; border-radius: 8px; box-shadow: 0 0 0 1px var(--border); }
+.project-cmd code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; color: var(--text-muted); white-space: nowrap; }
+.project-copy {
+  display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 6px;
+  background: none; color: var(--text-muted); cursor: pointer; transition: background 0.3s ease, color 0.3s ease;
+}
+.project-copy:hover { background: var(--bg-card); color: var(--text); }
+.project-copy.copied { color: var(--accent); }
+.project-hero .post-meta { margin-top: 16px; }
+.project-hero-clip { margin-top: 40px; padding: 8px; border-radius: 16px; background: var(--bg-card); box-shadow: 0 0 0 1px var(--border); }
+.project-hero-clip img { display: block; width: 100%; height: auto; border-radius: 10px; }
+.prose .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 1.5rem 0; }
+.prose .gallery img { margin: 0; }
+
 /* ===== ANIMATIONS ===== */
 .fade-in {
   opacity: 0; transform: translateY(10px);
@@ -1367,6 +1397,12 @@ a.showreel-tile:focus-visible .showreel-tag { color: var(--accent); background: 
   .career-chapters { margin-top: 3rem; }
   .career-entry { grid-template-columns: 1fr; row-gap: 0.1rem; padding: 0.7rem 0; }
   .career-entry-years { text-align: left; }
+  .project-hero .page-title { font-size: 2rem; }
+  .project-hero-tagline { font-size: 1.15rem; }
+  .project-cmd { display: none; }
+  .project-hero-clip { margin-top: 32px; padding: 4px; border-radius: 12px; }
+  .project-hero-clip img { border-radius: 8px; }
+  .prose .gallery { grid-template-columns: 1fr; }
 }
 
 /* Five nav links don't fit beside the name on narrow phones: give them their own row */

@@ -5,22 +5,25 @@ tags: [tool, project, windows, c, github, file manager, gnome, cui]
 description: "GNOME Files, the Linux file manager, made again for Windows in C. One file of under 800 KB."
 meta: "Open source · 2026"
 image: "/assets/img/blog/dio-file-manager/grid-dark.png"
+hero:
+  tagline: "GNOME Files for Windows, <em>in one file under 800 KB</em>."
+  icon: "/assets/img/blog/dio-file-manager/icon.svg"
+  clip: "/assets/img/blog/dio-file-manager/zoom.webp"
+  clipAlt: "Dragging the zoom slider from large icons to the list and back"
+  command: "git clone https://github.com/omid3098/dio-file-manager"
+  links:
+    - label: "View on GitHub"
+      href: "https://github.com/omid3098/dio-file-manager"
+      primary: true
+    - label: "Build it"
+      href: "https://github.com/omid3098/dio-file-manager#install-and-start"
 ---
 
 ## Idea:
 
-![The file manager in the dark theme, in grid view](/assets/img/blog/dio-file-manager/grid-dark.png)
-
 GNOME Files (or Nautilus) is the file manager of the GNOME desktop on Linux.
 I asked my coding agents to build an exact copy of it for Windows, with [CUI](https://github.com/yappologistic/CUI), a C library for native app windows.
-
-The result is one `.exe` of under 800 KB.
-
-## Zoom:
-
-![Dragging the zoom slider from large icons to the list and back](/assets/img/blog/dio-file-manager/zoom.webp)
-
-One slider goes from large icons to the list view and back, in one drag.
+It is written in C, open source under the MIT licence.
 
 ## Resize:
 
@@ -48,7 +51,11 @@ The list view shows the real size of every folder. It measures them in the backg
 
 ## Light or dark:
 
-![The same window in the light theme](/assets/img/blog/dio-file-manager/grid-light.png)
+<div class="gallery">
+  <img src="/assets/img/blog/dio-file-manager/grid-light.png" alt="Grid view in the light theme" />
+  <img src="/assets/img/blog/dio-file-manager/list-sizes-light.png" alt="List view with folder sizes in the light theme" />
+  <img src="/assets/img/blog/dio-file-manager/photos-light.png" alt="Picture thumbnails in the light theme" />
+</div>
 
 It follows the Windows setting.
 
@@ -58,4 +65,4 @@ There is a switch to make it the program Windows opens folders with, Win+E too. 
 
 ## Try it:
 
-There is no download yet; you build it from source. The code is on GitHub under the MIT licence: [omid3098/dio-file-manager](https://github.com/omid3098/dio-file-manager)
+There is no download yet; you build it from source. The steps are in the [README](https://github.com/omid3098/dio-file-manager#install-and-start).

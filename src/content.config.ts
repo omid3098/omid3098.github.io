@@ -19,6 +19,15 @@ const blog = defineCollection({
     meta: z.string().optional(),
     // Slug of the same post in the other language. Only the English one of the pair is listed.
     translation: z.string().optional(),
+    // A project post opens like the project's own home page: icon, tagline, links and its main clip.
+    hero: z.object({
+      tagline: z.string(),
+      icon: z.string().optional(),
+      clip: z.string().optional(),
+      clipAlt: z.string().optional(),
+      command: z.string().optional(),
+      links: z.array(z.object({ label: z.string(), href: z.string(), primary: z.boolean().optional() })).optional().default([]),
+    }).optional(),
   }),
 });
 

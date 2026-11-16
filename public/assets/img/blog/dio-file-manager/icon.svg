@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <radialGradient id="tile" gradientUnits="objectBoundingBox" cx="0.28" cy="0.18" r="1"
+                    gradientTransform="translate(0.28 0.18) scale(1.2 1) translate(-0.28 -0.18)">
+      <stop offset="0" stop-color="#1B2344"/>
+      <stop offset="0.7" stop-color="#070A14"/>
+    </radialGradient>
+    <linearGradient id="dio" gradientUnits="userSpaceOnUse" x1="50" y1="83" x2="206" y2="173">
+      <stop offset="0" stop-color="#67E8F9"/>
+      <stop offset="0.5" stop-color="#8B9CFF"/>
+      <stop offset="1" stop-color="#D8A6FF"/>
+    </linearGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4"/></filter>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="55" fill="url(#tile)"/>
+  <!--edge--><rect x="8.5" y="8.5" width="239" height="239" rx="54.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1"/><!--/edge-->
+  <g transform="translate(128 128) scale(1.1) translate(-128 -128)">
+  <path d="M62 76 H100 Q108 76 113 83 L118 90 H194 Q202 90 202 98 V172 Q202 180 194 180 H62 Q54 180 54 172 V84 Q54 76 62 76 Z" fill="url(#dio)"/>
+  <path d="M62 76 H100 Q108 76 113 83 L118 90 H194 Q202 90 202 98 V172 Q202 180 194 180 H62 Q54 180 54 172 V84 Q54 76 62 76 Z" fill="#0A0D1A" fill-opacity="0.16"/>
+  <rect x="54" y="104" width="148" height="76" rx="9" fill="url(#dio)"/>
+  <rect x="54" y="104" width="148" height="76" rx="9" fill="#FFFFFF" fill-opacity="0.14"/>
+  </g>
+  <!--spark--><g transform="translate(112.6 73)">
+    <circle r="11" fill="#FFFFFF" opacity="0.55" filter="url(#glow)"/>
+    <path d="M0-19L2-2L19 0L2 2L0 19L-2 2L-19 0L-2-2Z" fill="#FFFFFF"/>
+    <path d="M0-19L2-2L19 0L2 2L0 19L-2 2L-19 0L-2-2Z" transform="rotate(45) scale(.45)" fill="#FFFFFF" opacity="0.8"/>
+    <circle r="4" fill="#FFFFFF"/>
+  </g><!--/spark-->
+</svg>

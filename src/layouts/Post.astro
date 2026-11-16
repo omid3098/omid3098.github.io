@@ -12,6 +12,14 @@ interface Props {
     dir?: string;
     mermaid?: boolean;
     translation?: string;
+    hero?: {
+      tagline: string;
+      icon?: string;
+      clip?: string;
+      clipAlt?: string;
+      command?: string;
+      links?: { label: string; href: string; primary?: boolean }[];
+    };
   };
   slug?: string;
 }
@@ -28,6 +36,36 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
 
 <Base title={frontmatter.title} description={frontmatter.description} image={frontmatter.image} publishedDate={frontmatter.date} tags={frontmatter.tags} lang={lang} dir={dir} activePage="writing" type="article">
   <article class={dir === 'rtl' ? 'rtl' : ''}>
+    {frontmatter.hero ? (
+    <header class="project-hero">
+      <div class="project-hero-text">
+        <div class="project-hero-name fade-in">
+          {frontmatter.hero.icon && <img src={frontmatter.hero.icon} alt="" width="48" height="48" />}
+          <h1 class="page-title" transition:name={slug ? `title-${slug}` : undefined}>{frontmatter.title}</h1>
+        </div>
+        <p class="project-hero-tagline fade-in" style="animation-delay: 80ms" set:html={frontmatter.hero.tagline} />
+        <div class="project-hero-links fade-in" style="animation-delay: 160ms">
+          {frontmatter.hero.links?.map(link => (
+            <a class={link.primary ? 'project-btn primary' : 'project-btn'} href={link.href}>{link.label}</a>
+          ))}
+          {frontmatter.hero.command && (
+            <span class="project-cmd">
+              <code>{frontmatter.hero.command}</code>
+              <button type="button" class="project-copy" aria-label="Copy the command" data-copy={frontmatter.hero.command}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </span>
+          )}
+        </div>
+        <div class="post-meta fade-in" style="animation-delay: 220ms"><time>{dateStr}</time></div>
+      </div>
+      {frontmatter.hero.clip && (
+        <div class="project-hero-clip fade-in" style="animation-delay: 300ms">
+          <img src={frontmatter.hero.clip} alt={frontmatter.hero.clipAlt || ''} />
+        </div>
+      )}
+    </header>
+    ) : (
     <header class="page-header">
       <h1 class="page-title" transition:name={slug ? `title-${slug}` : undefined}>{frontmatter.title}</h1>
       <div class="post-meta">
@@ -46,6 +84,7 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
         )}
       </div>
     </header>
+    )}
     <div class="prose">
       <slot />
     </div>
@@ -63,6 +102,18 @@ const dateStr = frontmatter.date.toLocaleDateString('en-US', {
         document.head.appendChild(s);
       }
     }
+  </script>
+
+  <script>
+    // A project post's copy button puts its command on the clipboard and says so for a moment.
+    document.addEventListener('click', async (e) => {
+      const btn = e.target instanceof Element ? e.target.closest<HTMLButtonElement>('.project-copy') : null;
+      if (!btn) return;
+      try { await navigator.clipboard.writeText(btn.dataset.copy || ''); } catch { return; }
+      btn.classList.add('copied');
+      btn.setAttribute('aria-label', 'Copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.setAttribute('aria-label', 'Copy the command'); }, 1500);
+    });
   </script>
 
   <script>
