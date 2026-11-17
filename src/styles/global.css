@@ -625,7 +625,7 @@ body {
 .prose .flow li::after {
   content: '';
   position: absolute;
-  left: calc(1rem - 0.5px);
+  inset-inline-start: calc(1rem - 0.5px);
   top: 2rem;
   bottom: 0;
   width: 1px;

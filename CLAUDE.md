@@ -19,7 +19,7 @@ Live domain: www.omid-saadat.com (public/CNAME)
 - **Deployment:** GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys to GitHub Pages on every push to `main`
 - **CMS:** Sveltia CMS at /admin (`public/admin/config.yml`) edits blog posts via GitHub, auth through a Cloudflare worker
 
-`npm run build` runs both steps (astro build → pagefind).
+`npm run build` runs the post picture check (`scripts/check-posts.mjs`), then astro build, then pagefind.
 
 ## Directory Structure
 
@@ -64,8 +64,10 @@ The `image` field is used for background images on homepage content list items. 
 
 Posts go out in Omid's name, so they are written in his voice. Read `src/content/blog/open-flowmap.md` before you write one; it is the reference.
 
-- First person, plain and casual, as he tells a friend what he made: short sections with headings such as "Idea:" or "Where is the camera?", short paragraphs, simple words.
-- A picture after every few paragraphs: a GIF, screenshot, frame or simple drawing of what the text explains, with a short italic caption when needed. Make them from the project's own material.
+- A post about something he made: first person, plain and casual, as he tells a friend what he made: short sections with headings such as "Idea:" or "Where is the camera?", short paragraphs, simple words.
+- A post that argues for something (his view, not a thing he made) opens with his claim in his own firm words, close to how he said it: no "Idea:" heading, no "I think" or other hedge, no definitions or repeats the reader does not need. Firm, principled, to the point. Its pictures show the idea, such as a mock of the proposed screen.
+  Wrong (Omid, 2026-11-17): a post saying companies should give each team a shell over Claude Code opens with "## Idea:" and "I think", explains what a harness is, and has two step diagrams and no picture. His reply: «ایده از اول مقاله حذف بشه. و قاطع تر شروع بشه ... نوشته به زبان من نیست. قاطع، اصولی، to the point و بدون گزافه گویی. نوشته هیچ عکسی نداره.»
+- A picture after every few paragraphs: a GIF, screenshot, frame or simple drawing of what the text explains, with a short italic caption when needed. Make them from the project's own material. `npm run build` runs `scripts/check-posts.mjs`, which fails a post dated 2026-11-12 or later with fewer than one picture per 200 words; a step diagram, table or code block is not a picture.
 - Only what happened and what he said: no feelings, opinions or lessons he did not state.
 - Before a post goes live, run `npm run build`, serve it with `npx astro preview --port 4399 --host 127.0.0.1`, and open the post in Omid's own Chrome for him to read. Merge to `main` and push only after his word, because a push to `main` publishes the site (Omid, 2026-11-13: «اول لوکال سرو کن و توی مرورگرم باز کن تا خودم ببینم. از این به بعد هم پست های جدید سایتم رو اول اینجوری بررسی کنیم.»).
 - A step diagram is plain HTML, `<ol class="flow">` with `<li><b>Step</b><span>detail</span></li>` (styled in global.css), not mermaid: Omid found the mermaid graph plain (2026-11-12). An X post is its `<blockquote class="twitter-tweet">` alone; Post.astro loads X's script.
