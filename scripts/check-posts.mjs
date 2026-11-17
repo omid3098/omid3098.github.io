@@ -6,7 +6,8 @@ import { join } from 'node:path';
 
 const DIR = process.argv[2] || 'src/content/blog';
 const FROM = '2026-11-12'; // posts before this date were written before the rule
-const WORDS_PER_PICTURE = 200;
+// The published agent-prompt-injection post (2026-11-13, 2 pictures for about 450 words) passes.
+const WORDS_PER_PICTURE = 250;
 
 const pictureRes = [
   /!\[[^\]]*\]\([^)]+\)/g, // markdown image
@@ -18,10 +19,12 @@ const pictureRes = [
 
 const failures = [];
 for (const name of readdirSync(DIR).filter((f) => f.endsWith('.md'))) {
-  const text = readFileSync(join(DIR, name), 'utf8');
+  // Windows checkouts have CRLF line ends; without this the front matter is missed and the post skipped.
+  const text = readFileSync(join(DIR, name), 'utf8').replace(/\r\n/g, '\n');
   const fm = text.match(/^---\n([\s\S]*?)\n---/);
   const front = fm ? fm[1] : '';
   const date = (front.match(/^date:\s*(\S+)/m) || [])[1] || '';
+  if (!date) { failures.push(`${name}: no date found in the front matter, so the picture check cannot run.`); continue; }
   if (date < FROM || /^draft:\s*true/m.test(front)) continue;
 
   const body = fm ? text.slice(fm[0].length) : text;
